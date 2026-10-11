@@ -1924,6 +1924,7 @@
   <section class="form-lembur reveal">
     <p class="petunjuk">Membuat PDF Form Tunjangan Kerja sesuai template dari data periode di atas, disusul satu Surat Perintah Lembur per hari lembur lengkap dengan fotonya. PDF juga disimpan ke folder "Form Lembur" di Drive.</p>
     <button type="button" class="simpan" id="tombolForm">Buat PDF form lembur</button>
+        <button type="button" class="mini" id="tautanTemplateOc" title="Buka template resmi OC di Drive">📄 Template resmi OC</button>
     <p class="status" id="statusForm" role="status" aria-live="polite"></p>
     <div class="hasil-form" id="hasilForm"></div>
   </section>
@@ -2349,6 +2350,12 @@
 
 <script>
   // Bisa diisi langsung di sini, atau lewat panel "Pengaturan koneksi" di halaman.
+  const TEMPLATE_URL_OC = {
+    S3: "https://drive.google.com/file/d/1h9N03fZ0UVc9Ad8S-Am698RACqotIRZR/view?usp=drivesdk",
+    DGM: "https://drive.google.com/file/d/1VJnhfkjYL48nA8b6VRWmAAL1XI1LNcDM/view?usp=drivesdk",
+    MKU: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing",
+    MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
+  };
   const CONFIG = {
     SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwvx7hC6Y1bTc7SSVDxkl2kkGKQ2uWnSwhAOZwaoH7oUtUxrfUo57xyDAq2m4VHR9VJ/exec"
   };
@@ -2364,7 +2371,7 @@
   let urlPratinjau = null;
   let sedangKirim = false;
 
-  const VERSI_SERVER = "2026.10.11.3";   // harus sama dengan VERSI_ di Code.gs
+  const VERSI_SERVER = "2026.10.11.5";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
     { v: "2026.09.28.9", t: "Manajemen versi app (cek client/server, riwayat)" },
@@ -2406,6 +2413,30 @@
 
   function ambilProfilCache() { try { return JSON.parse(ambil("profil") || "null"); } catch (e) { return null; } }
   function simpanProfilCache(p) { simpan("profil", JSON.stringify(p)); }
+
+  
+  function urlTemplateOc(oc) {
+    const k = String(oc || (profilAktif && profilAktif.oc) || "S3").toUpperCase();
+    if (profilAktif && profilAktif.templateUrl) return profilAktif.templateUrl;
+    return TEMPLATE_URL_OC[k] || TEMPLATE_URL_OC.S3 || "";
+  }
+
+  function bukaTemplateOcResmi() {
+    let u = urlTemplateOc();
+    if (!u) { alert("Link template belum tersedia untuk OC ini."); return; }
+    // Rapikan parameter pribadi Google (ouid dll.) agar lebih stabil
+    try {
+      const idDoc = u.match(/\/document\/d\/([a-zA-Z0-9_-]+)/);
+      const idFile = u.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (idDoc) u = "https://docs.google.com/document/d/" + idDoc[1] + "/edit?usp=sharing";
+      else if (idFile) u = "https://drive.google.com/file/d/" + idFile[1] + "/view?usp=sharing";
+    } catch (e) { /* biarkan u asli */ }
+    const w = window.open(u, "_blank", "noopener,noreferrer");
+    if (!w) {
+      // popup diblokir — buka di tab yang sama
+      window.location.href = u;
+    }
+  }
 
   function labelOc(oc) {
     const o = String(oc || "S3").toUpperCase();
@@ -6084,6 +6115,7 @@
   window.addEventListener("pagehide", () => { tutupKamera(); tutupKameraScan(); });
   $("tesKoneksi").addEventListener("click", tesKoneksi);
   $("tombolForm").addEventListener("click", () => buatForm());
+  if ($("tautanTemplateOc")) $("tautanTemplateOc").addEventListener("click", bukaTemplateOcResmi);
   $("autoPdf").checked = ambil("autoPdf") !== "0";
   $("autoPdf").addEventListener("change", () => simpan("autoPdf", $("autoPdf").checked ? "1" : "0"));
   $("emailPdf").checked = ambil("emailPdf") !== "0";
