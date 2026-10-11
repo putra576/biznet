@@ -2464,8 +2464,8 @@
     const o = String(oc || "S3").toUpperCase();
     let b64 = null;
     try {
-      if (o === "DGM" && ASET_LOGO.dgmLeft) b64 = ASET_LOGO.dgmLeft;
-      else if ((o === "MKU" || o === "MK") && ASET_LOGO.mkLeft) b64 = ASET_LOGO.mkLeft;
+      if (o === "DGM" && ASET_LOGO.dgmRight) b64 = ASET_LOGO.dgmRight;
+      else if ((o === "MKU" || o === "MK") && ASET_LOGO.mkRight) b64 = ASET_LOGO.mkRight;
       else if (ASET_LOGO.s3) b64 = ASET_LOGO.s3;
     } catch (e) { b64 = null; }
     if (!b64) { wrap.hidden = true; return; }
@@ -6634,29 +6634,31 @@ async function buatPdfLembur(PDFLib, d, aset) {
           yb += hasil.size * 1.12;
         });
       },
-      logo(kananX) {
-        // Susunan: KANAN ATAS · LOGO OC dulu (kiri), lalu LOGO BIZNET (kanan)
-        // kananX = tepi kanan area logo (sejajar tepi kanan tabel/kotak halaman)
-        const oc = ocKode === "DGM" ? (logoDgmL || logo3s)
-          : ocKode === "MKU" ? (logoMkL || logo3s)
-          : logo3s;
-        const rx = kananX || 540, cy = 58, gap = 9;
-        const ukur = (img, bw, bh) => {
-          const ar = (img.width && img.height) ? (img.width / img.height) : (bw / bh);
-          let dw = bw, dh = bh;
-          if (ar > bw / bh) { dh = bw / ar; } else { dw = bh * ar; }
-          return { w: dw, h: dh };
-        };
-        const taruh = (img, u, x) => p.drawImage(img, { x: x, y: Y(cy + u.h / 2), width: u.w, height: u.h });
-        const uB = logoBiznet ? ukur(logoBiznet, 72, 22) : null;
-        const uO = oc ? ukur(oc, 60, 26) : null;
-        let x = rx;
-        if (uB) { x -= uB.w; taruh(logoBiznet, uB, x); }
-        if (uO) {
-          if (uB) { x -= gap; api.garis(x, cy - 11, x, cy + 11, 0.5); x -= gap; }
-          x -= uO.w;
-          taruh(oc, uO, x);
+      logo() {
+        // Posisi logo mengikuti template resmi tiap OC (kanan atas: LOGO OC dulu, lalu LOGO BIZNET).
+        // Catatan aset: "...Left" = logo Biznet versi OC itu, "...Right" = logo OC-nya.
+        // Koordinat (x, y dari atas, lebar, tinggi) diukur dari template; tepi kanan tabel = 540.
+        let oc, biz, boxOc, boxBiz;
+        if (ocKode === "DGM" && logoDgmR) {
+          oc = logoDgmR; biz = logoDgmL || logoBiznet;
+          boxOc = [378.3, 64.8, 70.9, 33.1]; boxBiz = [459.2, 65.7, 75.9, 24.4];
+        } else if (ocKode === "MKU" && logoMkR) {
+          oc = logoMkR; biz = logoMkL || logoBiznet;
+          boxOc = [363.6, 65.2, 85.5, 25.5]; boxBiz = [459.2, 65.7, 75.9, 24.4];
+        } else {
+          oc = logo3s; biz = logoBiznet;
+          boxOc = [425.3, 68.5, 35.5, 31.8]; boxBiz = [471.1, 76.2, 65.2, 19.0];
         }
+        const taruh = (img, bx) => {
+          if (!img) return;
+          const ar = (img.width && img.height) ? (img.width / img.height) : (bx[2] / bx[3]);
+          let dw = bx[2], dh = bx[3];
+          if (ar > bx[2] / bx[3]) { dh = bx[2] / ar; } else { dw = bx[3] * ar; }
+          const x = bx[0] + (bx[2] - dw) / 2, y = bx[1] + (bx[3] - dh) / 2;
+          p.drawImage(img, { x: x, y: Y(y + dh), width: dw, height: dh });
+        };
+        taruh(oc, boxOc);
+        taruh(biz, boxBiz);
       }
     };
     return api;
@@ -6672,7 +6674,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
 
   /* ================= Halaman 1: Form Tunjangan Kerja ================= */
   const g = halaman();
-  g.logo(540.0);
+  g.logo();
   g.teks('FORM TUNJANGAN KERJA', 296.2, 72.4, 7.5, F, 'c');
 
   // Identitas
@@ -6766,7 +6768,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
     const r = d.baris[i];
     if (!r) continue;
     const s = halaman();
-    s.logo(527.7);
+    // template resmi halaman SPL tidak memakai logo
 
     const bx0 = 31.4, bx1 = 527.7, by0 = 188.8;
     const S = 7; // ukuran huruf isi
