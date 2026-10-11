@@ -6634,27 +6634,28 @@ async function buatPdfLembur(PDFLib, d, aset) {
           yb += hasil.size * 1.12;
         });
       },
-      logo() {
-        // Susunan: LOGO BIZNET di KIRI ATAS · LOGO OC tepat di sebelah kanannya
-        // (posisi dikunci di area kosong atas form, di atas tabel identitas)
+      logo(kananX) {
+        // Susunan: KANAN ATAS · LOGO OC dulu (kiri), lalu LOGO BIZNET (kanan)
+        // kananX = tepi kanan area logo (sejajar tepi kanan tabel/kotak halaman)
         const oc = ocKode === "DGM" ? (logoDgmL || logo3s)
           : ocKode === "MKU" ? (logoMkL || logo3s)
           : logo3s;
-        const lx = 51.3, cy = 58, gap = 9;
-        const taruh = (img, bw, bh, x) => {
+        const rx = kananX || 540, cy = 58, gap = 9;
+        const ukur = (img, bw, bh) => {
           const ar = (img.width && img.height) ? (img.width / img.height) : (bw / bh);
           let dw = bw, dh = bh;
           if (ar > bw / bh) { dh = bw / ar; } else { dw = bh * ar; }
-          p.drawImage(img, { x: x, y: Y(cy + dh / 2), width: dw, height: dh });
-          return dw;
+          return { w: dw, h: dh };
         };
-        let x = lx;
-        if (logoBiznet) x += taruh(logoBiznet, 72, 22, x);
-        if (oc) {
-          x += gap;
-          api.garis(x, cy - 11, x, cy + 11, 0.5);
-          x += gap;
-          taruh(oc, 60, 26, x);
+        const taruh = (img, u, x) => p.drawImage(img, { x: x, y: Y(cy + u.h / 2), width: u.w, height: u.h });
+        const uB = logoBiznet ? ukur(logoBiznet, 72, 22) : null;
+        const uO = oc ? ukur(oc, 60, 26) : null;
+        let x = rx;
+        if (uB) { x -= uB.w; taruh(logoBiznet, uB, x); }
+        if (uO) {
+          if (uB) { x -= gap; api.garis(x, cy - 11, x, cy + 11, 0.5); x -= gap; }
+          x -= uO.w;
+          taruh(oc, uO, x);
         }
       }
     };
@@ -6671,7 +6672,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
 
   /* ================= Halaman 1: Form Tunjangan Kerja ================= */
   const g = halaman();
-  g.logo(425.3, 72.2, 471.1, 78.4);
+  g.logo(540.0);
   g.teks('FORM TUNJANGAN KERJA', 296.2, 72.4, 7.5, F, 'c');
 
   // Identitas
@@ -6765,7 +6766,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
     const r = d.baris[i];
     if (!r) continue;
     const s = halaman();
-    s.logo(428.2, 71.0, 473.7, 77.5);
+    s.logo(527.7);
 
     const bx0 = 31.4, bx1 = 527.7, by0 = 188.8;
     const S = 7; // ukuran huruf isi
