@@ -6634,31 +6634,27 @@ async function buatPdfLembur(PDFLib, d, aset) {
           yb += hasil.size * 1.12;
         });
       },
-      logo(x1, y1, x2, y2) {
-        // Susunan resmi: LOGO OC di KIRI · LOGO BIZNET di KANAN
-        // (x1/y1 & x2/y2 dari pemanggil = acuan vertikal header; posisi X dikunci)
-        const kiri = ocKode === "DGM" ? (logoDgmL || logo3s)
-          : ocKode === "MK" ? (logoMkL || logo3s)
+      logo() {
+        // Susunan: LOGO BIZNET di KIRI ATAS · LOGO OC tepat di sebelah kanannya
+        // (posisi dikunci di area kosong atas form, di atas tabel identitas)
+        const oc = ocKode === "DGM" ? (logoDgmL || logo3s)
+          : ocKode === "MKU" ? (logoMkL || logo3s)
           : logo3s;
-        const kanan = logoBiznet; // selalu Biznet di kanan
-        // Kiri — logo OC (sejajar area identitas)
-        const lx = 51.3, kw = 48, kh = 28;
-        // Kanan — logo Biznet (pojok kanan header)
-        const rx = 480.0, rw = 72, rh = 22;
-        const yKiri = (y1 != null ? y1 : 48);
-        const yKanan = (y2 != null ? y2 : 50);
-        if (kiri) {
-          // jaga proporsi logo sumber
-          const ar = (kiri.width && kiri.height) ? (kiri.width / kiri.height) : (kw / kh);
-          let dw = kw, dh = kh;
-          if (ar > kw / kh) { dh = kw / ar; } else { dw = kh * ar; }
-          p.drawImage(kiri, { x: lx, y: Y(yKiri + dh), width: dw, height: dh });
-        }
-        if (kanan) {
-          const ar = (kanan.width && kanan.height) ? (kanan.width / kanan.height) : (rw / rh);
-          let dw = rw, dh = rh;
-          if (ar > rw / rh) { dh = rw / ar; } else { dw = rh * ar; }
-          p.drawImage(kanan, { x: rx + (rw - dw), y: Y(yKanan + dh), width: dw, height: dh });
+        const lx = 51.3, cy = 58, gap = 9;
+        const taruh = (img, bw, bh, x) => {
+          const ar = (img.width && img.height) ? (img.width / img.height) : (bw / bh);
+          let dw = bw, dh = bh;
+          if (ar > bw / bh) { dh = bw / ar; } else { dw = bh * ar; }
+          p.drawImage(img, { x: x, y: Y(cy + dh / 2), width: dw, height: dh });
+          return dw;
+        };
+        let x = lx;
+        if (logoBiznet) x += taruh(logoBiznet, 72, 22, x);
+        if (oc) {
+          x += gap;
+          api.garis(x, cy - 11, x, cy + 11, 0.5);
+          x += gap;
+          taruh(oc, 60, 26, x);
         }
       }
     };
