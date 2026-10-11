@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-container": "#f59e0b", "on-background": "#dfe2ed", "surface-container-low": "#181c23", "tertiary-fixed-dim": "#ffb95f", "surface-container": "#1c2027", "error": "#ffb4ab", "background": "#0f131b", "surface-dim": "#0f131b", "surface-variant": "#31353d", "on-surface-variant": "#bdc8d1", "surface-container-highest": "#31353d", "surface": "#0f131b", "secondary": "#4edea3", "on-surface": "#dfe2ed", "primary-container": "#38bdf8", "primary-fixed": "#c4e7ff", "on-primary": "#00354a", "on-secondary-container": "#00311f", "on-secondary": "#003824", "on-primary-container": "#004965", "primary": "#8ed5ff", "inverse-primary": "#00668a", "primary-fixed-dim": "#7bd0ff", "on-tertiary": "#472a00", "on-tertiary-fixed": "#2a1700", "on-error": "#690005", "inverse-on-surface": "#2d3038", "on-error-container": "#ffdad6", "on-tertiary-fixed-variant": "#653e00", "on-secondary-fixed-variant": "#005236", "surface-tint": "#7bd0ff", "surface-bright": "#353941", "surface-container-lowest": "#0a0e15", "on-primary-fixed-variant": "#004c69", "secondary-fixed": "#6ffbbe", "on-secondary-fixed": "#002113", "secondary-fixed-dim": "#4edea3", "surface-container-high": "#262a32", "secondary-container": "#00a572", "on-tertiary-container": "#613b00", "error-container": "#93000a", "outline": "#87929a", "tertiary-fixed": "#ffddb8", "outline-variant": "#3e484f", "inverse-surface": "#dfe2ed", "on-primary-fixed": "#001e2c", "tertiary": "#ffc174" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter-desktop": "1.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "margin-desktop": "2rem", "space-sm": "0.5rem", "margin-tablet": "1.5rem", "space-md": "0.75rem", "gutter-tablet": "1.25rem", "space-lg": "1.25rem", "margin": "1rem" }, "fontFamily": { "label-caps": [ "JetBrains Mono" ], "headline-lg": [ "Space Grotesk" ], "body-sm": [ "Work Sans" ], "telemetry-lg": [ "JetBrains Mono" ], "telemetry-sm": [ "JetBrains Mono" ], "headline-xl-mobile": [ "Space Grotesk" ], "body-md": [ "Work Sans" ], "body-lg": [ "Work Sans" ], "telemetry-md": [ "JetBrains Mono" ], "headline-md": [ "Space Grotesk" ], "headline-xl": [ "Space Grotesk" ] }, "fontSize": { "label-caps": [ "10px", { "lineHeight": "12px", "fontWeight": "700" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "telemetry-lg": [ "18px", { "lineHeight": "24px", "fontWeight": "700" } ], "telemetry-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "500" } ], "headline-xl-mobile": [ "28px", { "lineHeight": "34px", "fontWeight": "700" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "telemetry-md": [ "13px", { "lineHeight": "18px", "fontWeight": "500" } ], "headline-md": [ "20px", { "lineHeight": "28px", "fontWeight": "600" } ], "headline-xl": [ "36px", { "lineHeight": "44px", "fontWeight": "700" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 bg-primary-container rounded flex items-center justify-center"><span class="material-symbols-outlined text-on-primary-container text-[20px]">radar</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight uppercase text-on-surface leading-none">BIZNET <span class="text-primary">OPS</span></span><span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Lemburan Precision Control</span></div></div><div class="hidden xl:flex items-center gap-space-md px-space-md py-space-xs bg-surface-container-low rounded"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-caps text-label-caps uppercase text-secondary">RTK FIXED [0.02m]</span></div><span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">LAT -6.2088 // LON 106.8456</span><span class="font-label-caps text-label-caps text-primary bg-surface-container px-space-xs py-[2px] rounded">SATS: 14/16</span></div></div><nav class="hidden md:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-primary font-bold rounded"><a class="px-space-md py-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:bg-surface-container hover:text-on-surface transition-colors rounded" data-path="foto-kerja" href="#">Foto Kerja</a><a class="px-space-md py-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:bg-surface-container hover:text-on-surface transition-colors rounded" data-path="scan-dokumen" href="#">Scan Dokumen</a><a class="px-space-md py-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:bg-surface-container hover:text-on-surface transition-colors rounded" data-path="data-form" href="#">Data Form</a><a class="px-space-md py-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:bg-surface-container hover:text-on-surface transition-colors rounded" data-path="admin-control-center" href="#">Admin</a></nav><div class="flex items-center gap-space-md shrink-0"><div class="hidden sm:flex flex-col text-right"><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">BZ-9041</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">FIELD-ENG // SQUAD-04</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Activation of Shell Nav Link -->
+<script>
+    (function() {
+      const targetNav = document.querySelector('nav a[data-path="data-form"]');
+      if (targetNav) {
+        targetNav.className = "px-space-md py-space-xs text-primary bg-surface-container-high font-bold font-label-caps text-label-caps uppercase tracking-wider rounded shadow-sm";
+      }
+    })();
+  </script>
+<!-- Sub-Header Command Bar -->
+<section class="w-full bg-surface-container-lowest/80 backdrop-blur-md px-gutter-desktop py-space-md">
+<div class="max-w-[1680px] mx-auto flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
+<div class="flex flex-wrap items-center gap-space-md">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded transition-all group" href="#">
+<span class="material-symbols-outlined text-[16px] text-primary group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider">KEMBALI KE FORMULIR LEMBUR</span>
+</a>
+<div class="h-4 w-px bg-surface-variant hidden sm:block"></div>
+<div class="flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-low rounded">
+<span class="material-symbols-outlined text-primary text-[15px]">date_range</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">PERIODE AKTIF:</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">16 SEP 2026 - 15 OKT 2026</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-low rounded">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">SYNC:</span>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary">LIVE GOOGLE SHEETS &amp; DRIVE LEDGER</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end xl:self-auto">
+<span class="font-label-caps text-label-caps px-space-md py-space-xs bg-surface-container-high text-primary-fixed-dim rounded font-semibold tracking-wider">
+          KODE PERIODE: #PRD-2026-10
+        </span>
+<div class="flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-low rounded text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary">cloud_done</span>
+<span class="font-telemetry-sm text-telemetry-sm">NTP LOCK ±0.001s</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Viewport Content Area -->
+<div class="max-w-[1680px] w-full mx-auto px-gutter-desktop py-space-xl space-y-space-xl">
+<!-- TOP KPI SUMMARY STRIP (4 Tactical Metric Tiles) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- KPI 1: Total Overtime Hours -->
+<div class="bg-surface-container-low p-space-lg rounded-xl flex flex-col justify-between relative overflow-hidden shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">TOTAL JAM LEMBUR PERIODE</span>
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">38.5</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">JAM</span>
+</div>
+<div class="flex items-center gap-space-xs mt-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">trending_up</span>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary">+4.5 jam vs bulan lalu</span>
+<span class="text-on-surface-variant text-telemetry-sm font-telemetry-sm">(Target: &lt;40j)</span>
+</div>
+</div>
+<!-- Micro sparkline HUD track -->
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 77%;"></div>
+</div>
+</div>
+<!-- KPI 2: Verified Overtime Days -->
+<div class="bg-surface-container-low p-space-lg rounded-xl flex flex-col justify-between relative overflow-hidden shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">HARI LEMBUR TERVERIFIKASI</span>
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-secondary font-bold tracking-tight">9</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">/ 14 TIKET TERDATA</span>
+</div>
+<div class="flex items-center gap-space-xs mt-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">64.3% Konfirmasi RTK Sub-meter</span>
+</div>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 64.3%;"></div>
+</div>
+</div>
+<!-- KPI 3: Allowance Estimations -->
+<div class="bg-surface-container-low p-space-lg rounded-xl flex flex-col justify-between relative overflow-hidden shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">ESTIMASI TUNJANGAN LEMBUR</span>
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Rp 1.425.000</span>
+</div>
+<div class="flex items-center gap-space-xs mt-space-xs">
+<span class="font-label-caps text-label-caps text-tertiary bg-tertiary/10 px-space-xs py-[2px] rounded font-semibold uppercase">
+              STATUS: SIAP OTORISASI SPV
+            </span>
+</div>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 90%;"></div>
+</div>
+</div>
+<!-- KPI 4: Google Drive Ledger Quota -->
+<div class="bg-surface-container-low p-space-lg rounded-xl flex flex-col justify-between relative overflow-hidden shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">KUOTA PDF DRIVE TERSIMPAN</span>
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">folder_zip</span>
+</div>
+</div>
+<div class="mt-space-md">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">8 Berkas</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">(14.2 MB)</span>
+</div>
+<div class="flex items-center gap-space-xs mt-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">sync_saved_locally</span>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary font-medium">STATUS SINKRON OK (SHA-256)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-md overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 28%;"></div>
+</div>
+</div>
+</section>
+<!-- MAIN TWO-COLUMN DASHBOARD GRID -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-xl items-start">
+<!-- LEFT COLUMN: Overtime Ledger & History Table (Span 8) -->
+<section class="xl:col-span-8 flex flex-col gap-space-md">
+<!-- Controls & Filtering Filter-Deck -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md space-y-space-md">
+<div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<!-- Month & Period Selector -->
+<div class="flex items-center gap-space-xs">
+<div class="flex items-center bg-surface-container px-space-md py-space-xs rounded">
+<span class="material-symbols-outlined text-primary text-[18px] mr-space-xs">calendar_month</span>
+<select class="bg-transparent text-on-surface font-telemetry-md text-telemetry-md focus:outline-none cursor-pointer">
+<option class="bg-surface-container text-on-surface">Oktober 2026 (Aktif)</option>
+<option class="bg-surface-container text-on-surface">September 2026</option>
+<option class="bg-surface-container text-on-surface">Agustus 2026</option>
+</select>
+</div>
+<!-- OC / Operation Center Filter -->
+<div class="flex items-center bg-surface-container px-space-md py-space-xs rounded">
+<span class="font-label-caps text-label-caps text-on-surface-variant mr-space-xs">OC:</span>
+<select class="bg-transparent text-primary font-label-caps text-label-caps focus:outline-none cursor-pointer uppercase font-bold">
+<option class="bg-surface-container text-on-surface">Semua OC</option>
+<option class="bg-surface-container text-on-surface" selected="">S3 (Bali &amp; Nusa Tenggara)</option>
+<option class="bg-surface-container text-on-surface">DGM (Jabodetabek)</option>
+<option class="bg-surface-container text-on-surface">MK (Jawa Tengah)</option>
+</select>
+</div>
+</div>
+<!-- Search Field -->
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
+<input class="w-full bg-surface-container text-on-surface font-telemetry-sm text-telemetry-sm pl-9 pr-space-md py-space-xs rounded focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant" placeholder="Cari ID Tiket, Deskripsi, atau ODP..." type="text"/>
+</div>
+</div>
+<!-- Quick Filter Status Pills -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="px-space-md py-[4px] rounded bg-primary text-on-primary font-label-caps text-label-caps uppercase font-bold transition-all">
+                Semua (9)
+              </button>
+<button class="px-space-md py-[4px] rounded bg-surface-container hover:bg-surface-container-high text-secondary font-label-caps text-label-caps uppercase transition-all flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Terverifikasi GPS (8)
+              </button>
+<button class="px-space-md py-[4px] rounded bg-surface-container hover:bg-surface-container-high text-tertiary font-label-caps text-label-caps uppercase transition-all flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                Menunggu Validasi (1)
+              </button>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[15px]">sort</span>
+<span>URUTAN: TERBARU</span>
+</div>
+</div>
+</div>
+<!-- Overtime Entries Master Table / High-Density List Cards -->
+<div class="space-y-space-md">
+<!-- ENTRY 1 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-all rounded-xl p-space-lg shadow-md relative overflow-hidden group">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Left Data Stack -->
+<div class="space-y-space-xs min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">Minggu, 11 Okt 2026</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container-high text-primary font-telemetry-sm text-telemetry-sm font-bold">18:00 - 21:26</span>
+<span class="px-space-xs py-[2px] rounded bg-primary-container/20 text-primary-fixed-dim font-label-caps text-label-caps font-semibold uppercase">3j 26m</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container text-on-surface-variant font-label-caps text-label-caps uppercase">Shift Pagi</span>
+</div>
+<div class="flex items-center gap-space-xs text-primary font-telemetry-md text-telemetry-md font-bold mt-space-xs">
+<span class="font-label-caps text-label-caps bg-primary/10 text-primary px-space-xs py-[1px] rounded">TIKET #18182637</span>
+<span class="text-on-surface truncate">TROUBLESHOOT FTTH VILLA TIBUBENENG OASIS</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm pt-space-xs">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                    Jl. Pantai Berawa No. 88, Canggu, Badung
+                  </span>
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">route</span>
+                    ODP-TBG-012/Core 4
+                  </span>
+</div>
+</div>
+<!-- Center Indicators (RTK GPS & SPL Status) -->
+<div class="flex flex-row lg:flex-col items-start lg:items-end gap-space-xs shrink-0">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-secondary font-bold uppercase">GPS: LOCKED (0.02m)</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">description</span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-semibold">SPL READY #SPL-9041-01</span>
+</div>
+</div>
+<!-- Action Trigger Cluster -->
+<div class="flex items-center gap-space-xs shrink-0 self-end lg:self-center">
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[15px] text-primary">visibility</span>
+                  Lihat SPL &amp; Foto
+                </button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded transition-colors" title="Edit Catatan">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded transition-colors" title="Unduh Lembar PDF">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ENTRY 2 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-all rounded-xl p-space-lg shadow-md relative overflow-hidden group">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="space-y-space-xs min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">Kamis, 08 Okt 2026</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container-high text-primary font-telemetry-sm text-telemetry-sm font-bold">18:00 - 22:15</span>
+<span class="px-space-xs py-[2px] rounded bg-primary-container/20 text-primary-fixed-dim font-label-caps text-label-caps font-semibold uppercase">4j 15m</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container text-on-surface-variant font-label-caps text-label-caps uppercase">Shift Pagi</span>
+</div>
+<div class="flex items-center gap-space-xs text-primary font-telemetry-md text-telemetry-md font-bold mt-space-xs">
+<span class="font-label-caps text-label-caps bg-primary/10 text-primary px-space-xs py-[1px] rounded">TIKET #18179920</span>
+<span class="text-on-surface truncate">SPLICING CUT FIBER FO DISTRIBUTION</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm pt-space-xs">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                    ODP-TBB-042, Jl. Raya Semer, Kerobokan
+                  </span>
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">hub</span>
+                    OTDR Loss: 0.04 dB
+                  </span>
+</div>
+</div>
+<div class="flex flex-row lg:flex-col items-start lg:items-end gap-space-xs shrink-0">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-secondary font-bold uppercase">GPS: LOCKED (0.01m)</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">description</span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-semibold">SPL READY #SPL-9041-02</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end lg:self-center">
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[15px] text-primary">visibility</span>
+                  Lihat SPL
+                </button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded transition-colors" title="Edit Catatan">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded transition-colors" title="Unduh Lembar PDF">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ENTRY 3 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-all rounded-xl p-space-lg shadow-md relative overflow-hidden group">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="space-y-space-xs min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">Selasa, 06 Okt 2026</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container-high text-primary font-telemetry-sm text-telemetry-sm font-bold">18:00 - 21:00</span>
+<span class="px-space-xs py-[2px] rounded bg-primary-container/20 text-primary-fixed-dim font-label-caps text-label-caps font-semibold uppercase">3j 00m</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container text-on-surface-variant font-label-caps text-label-caps uppercase">Shift Pagi</span>
+</div>
+<div class="flex items-center gap-space-xs text-primary font-telemetry-md text-telemetry-md font-bold mt-space-xs">
+<span class="font-label-caps text-label-caps bg-primary/10 text-primary px-space-xs py-[1px] rounded">TIKET #18175401</span>
+<span class="text-on-surface truncate">MAINTENANCE BTS KEBON JERUK SUB-BRANCH</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm pt-space-xs">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                    Tibubeneng Central Hub Tower 03
+                  </span>
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">bolt</span>
+                    Rectifier Backup Sync
+                  </span>
+</div>
+</div>
+<div class="flex flex-row lg:flex-col items-start lg:items-end gap-space-xs shrink-0">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-secondary font-bold uppercase">GPS: LOCKED (0.02m)</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">description</span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-semibold">SPL READY #SPL-9041-03</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end lg:self-center">
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[15px] text-primary">visibility</span>
+                  Lihat SPL
+                </button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded transition-colors" title="Edit Catatan">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded transition-colors" title="Unduh Lembar PDF">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ENTRY 4 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-all rounded-xl p-space-lg shadow-md relative overflow-hidden group">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="space-y-space-xs min-w-0 flex-1">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">Jumat, 02 Okt 2026</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container-high text-primary font-telemetry-sm text-telemetry-sm font-bold">18:00 - 22:45</span>
+<span class="px-space-xs py-[2px] rounded bg-primary-container/20 text-primary-fixed-dim font-label-caps text-label-caps font-semibold uppercase">4j 45m</span>
+<span class="px-space-xs py-[2px] rounded bg-surface-container text-tertiary font-label-caps text-label-caps uppercase font-bold">Shift Malam</span>
+</div>
+<div class="flex items-center gap-space-xs text-primary font-telemetry-md text-telemetry-md font-bold mt-space-xs">
+<span class="font-label-caps text-label-caps bg-primary/10 text-primary px-space-xs py-[1px] rounded">TIKET #18171190</span>
+<span class="text-on-surface truncate">EMERGENCY RESTORATION BACKBONE</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm pt-space-xs">
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                    Sanur Coastal Hub Subsea Termination
+                  </span>
+<span class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[15px] text-outline">warning</span>
+                    Prorated Severe Weather Overtime
+                  </span>
+</div>
+</div>
+<div class="flex flex-row lg:flex-col items-start lg:items-end gap-space-xs shrink-0">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-secondary font-bold uppercase">GPS: LOCKED (0.03m)</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">description</span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-semibold">SPL READY #SPL-9041-04</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end lg:self-center">
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[15px] text-primary">visibility</span>
+                  Lihat SPL
+                </button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded transition-colors" title="Edit Catatan">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded transition-colors" title="Unduh Lembar PDF">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar at Table Bottom -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-telemetry-sm text-telemetry-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">database</span>
+<span>Menampilkan 4 dari 9 catatan lembur periode ini</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">table_view</span>
+              Unduh Rekap CSV
+            </button>
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">glyphs</span>
+              Export Excel
+            </button>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-bright text-primary rounded font-label-caps text-label-caps uppercase flex items-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+              Muat Ulang Data Sheet
+            </button>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Automated Batch PDF Generator & Digital Sign Approval (Span 4) -->
+<section class="xl:col-span-4 flex flex-col gap-space-md">
+<!-- CARD 1: Kompilasi Formulir Resmi & SPL -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-md space-y-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">picture_as_pdf</span>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight uppercase">Kompilasi Formulir &amp; SPL</h2>
+</div>
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container px-space-xs py-[2px] rounded">READY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Pusat pembuatan dokumen resmi klaim lembur Biznet. Menggabungkan form tunjangan dengan lampiran SPL per tiket dan bukti visual.
+          </p>
+<!-- Document Toggle Tabs -->
+<div class="grid grid-cols-2 gap-space-xs p-1 bg-surface-container rounded-lg">
+<button class="py-space-xs px-space-xs text-center rounded bg-surface-container-high text-primary font-label-caps text-label-caps uppercase font-bold transition-all shadow-sm" id="tab-rekap">
+              Rekap Tabular
+            </button>
+<button class="py-space-xs px-space-xs text-center rounded text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase font-bold transition-all" id="tab-spl">
+              Kompilasi SPL
+            </button>
+</div>
+<!-- Mini Live PDF Page Preview Thumbnail -->
+<div class="relative bg-surface-container rounded-lg p-space-md overflow-hidden group">
+<div class="w-full aspect-[4/3] bg-surface-container-lowest rounded p-space-md flex flex-col justify-between shadow-inner relative overflow-hidden">
+<!-- PDF Header Simulation -->
+<div class="flex items-start justify-between">
+<div class="space-y-[2px]">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 bg-primary rounded-sm inline-block"></span>
+<span class="font-headline-md text-[11px] leading-tight text-on-surface font-bold">BIZNET NETWORKS</span>
+</div>
+<span class="font-label-caps text-[8px] leading-tight text-on-surface-variant block">DIVISI OPERATION CENTER S3 BALI</span>
+</div>
+<div class="text-right">
+<span class="font-telemetry-sm text-[8px] leading-tight text-primary font-bold block">FORM: BZ-HR-OT-2026</span>
+<span class="font-label-caps text-[7px] leading-tight text-on-surface-variant block">HALAMAN 1 DARI 10</span>
+</div>
+</div>
+<!-- Miniature Table Layout Lines -->
+<div class="space-y-1 my-2">
+<div class="h-1.5 w-full bg-surface-container-high rounded"></div>
+<div class="h-1 w-5/6 bg-surface-container rounded"></div>
+<div class="h-1 w-4/6 bg-surface-container rounded"></div>
+<div class="h-1 w-full bg-surface-container rounded"></div>
+<div class="h-1 w-3/4 bg-surface-container rounded"></div>
+</div>
+<!-- Miniature Signature Box Preview -->
+<div class="flex items-end justify-between pt-1">
+<div class="border-t border-surface-variant pt-1">
+<span class="font-label-caps text-[7px] leading-none text-on-surface-variant block">PEMOHON</span>
+<span class="font-telemetry-sm text-[8px] leading-none text-secondary font-bold">AHMAD FAUZI</span>
+</div>
+<div class="border-t border-surface-variant pt-1 text-right">
+<span class="font-label-caps text-[7px] leading-none text-on-surface-variant block">SPV APPROVAL</span>
+<span class="font-telemetry-sm text-[8px] leading-none text-primary font-bold">PUTU RIZKY A.</span>
+</div>
+</div>
+<!-- Preview Hover Overlay -->
+<div class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="font-label-caps text-label-caps text-primary uppercase bg-surface-container px-space-md py-space-xs rounded shadow-md">
+                  Perbesar Pratinjau
+                </span>
+</div>
+</div>
+<!-- PDF Metadata Badge -->
+<div class="flex items-center justify-between mt-space-sm text-on-surface-variant font-telemetry-sm text-telemetry-sm">
+<span>Resolusi: 300 DPI (Cetak ISO A4)</span>
+<span class="text-secondary font-medium">9 Berkas Terkait</span>
+</div>
+</div>
+<!-- Configuration Checkbox Group -->
+<div class="space-y-space-sm bg-surface-container p-space-md rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider block">PARAMETER KOMPILASI</span>
+<label class="flex items-center gap-space-sm cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-lowest border-0 text-primary accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Sertakan Stempel Kriptografis GPS &amp; Hash</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-lowest border-0 text-primary accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Lampirkan Foto Berstempel Waktu Kamera</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-lowest border-0 text-primary accent-primary cursor-pointer" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Kirim Salinan Email ke Supervisor (Putu Rizky Anggriawan)</span>
+</label>
+</div>
+<!-- Big Primary CTA: Batch Generate PDF -->
+<button class="w-full py-space-md px-space-lg bg-primary-container hover:bg-primary text-on-primary-container font-headline-md text-headline-md font-bold uppercase rounded-xl flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(56,189,248,0.35)] hover:shadow-[0_0_32px_rgba(56,189,248,0.5)] transition-all">
+<span class="material-symbols-outlined text-[24px]">bolt</span>
+<span>BUAT &amp; GABUNGKAN PDF RESMI LEMBUR (9 HARI)</span>
+</button>
+<!-- Secondary Actions -->
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-space-xs px-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps uppercase rounded flex items-center justify-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">print</span>
+              Kirim ke Printer Cloud
+            </button>
+<button class="py-space-xs px-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps uppercase rounded flex items-center justify-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">archive</span>
+              Unduh Master ZIP
+            </button>
+</div>
+</div>
+<!-- CARD 2: Status Verifikasi Paraf & Otorisasi -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-md space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">verified_user</span>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight uppercase">Paraf &amp; Otorisasi Digital</h3>
+</div>
+<span class="font-label-caps text-label-caps text-secondary bg-secondary/10 px-space-xs py-[2px] rounded font-bold">SECURED</span>
+</div>
+<!-- Signatory Status 1: Field Tech -->
+<div class="bg-surface-container p-space-md rounded-lg space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">PARAF TEKNISI PELAPOR</span>
+<span class="font-label-caps text-label-caps text-secondary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                TERVERIFIKASI
+              </span>
+</div>
+<div class="font-telemetry-md text-telemetry-md text-on-surface font-bold">
+              Ahmad Fauzi
+            </div>
+<div class="font-telemetry-sm text-telemetry-sm text-outline flex items-center gap-space-xs">
+<span>HSM UID: #BZ-9041</span>
+<span>// Token Valid: RSA-4096</span>
+</div>
+</div>
+<!-- Signatory Status 2: Supervisor -->
+<div class="bg-surface-container p-space-md rounded-lg space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">TANDA TANGAN SPV LAPANGAN</span>
+<span class="font-label-caps text-label-caps text-secondary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                AUTO-APPROVED
+              </span>
+</div>
+<div class="font-telemetry-md text-telemetry-md text-on-surface font-bold">
+              I Putu Rizky Anggriawan
+            </div>
+<div class="font-telemetry-sm text-telemetry-sm text-outline flex items-center gap-space-xs">
+<span>Auto-Verified via Webhook Slack Biznet #Ops-S3</span>
+</div>
+</div>
+<!-- Audit Ledger Hash Preview -->
+<div class="bg-surface-container-lowest p-space-md rounded space-y-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline-variant tracking-wider block">CRYPTO AUDIT LOG HASH (SHA-256)</span>
+<div class="font-telemetry-sm text-telemetry-sm text-primary break-all select-all font-mono">
+              7f89b4a11c8d0e729a0f443b23618df287ea6538c2901a88bb3e54f9a0c12e9b
+            </div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-caps text-label-caps">
+<span class="text-secondary">● TAMPER-PROOF IMMUTABLE RECORD</span>
+<span>BLOK #149204</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Interactive Client-side Script for Tab Switcher -->
+<script>
+    (function() {
+      const tabRekap = document.getElementById('tab-rekap');
+      const tabSpl = document.getElementById('tab-spl');
+
+      if (tabRekap && tabSpl) {
+        tabRekap.addEventListener('click', function() {
+          tabRekap.className = 'py-space-xs px-space-xs text-center rounded bg-surface-container-high text-primary font-label-caps text-label-caps uppercase font-bold transition-all shadow-sm';
+          tabSpl.className = 'py-space-xs px-space-xs text-center rounded text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase font-bold transition-all';
+        });
+
+        tabSpl.addEventListener('click', function() {
+          tabSpl.className = 'py-space-xs px-space-xs text-center rounded bg-surface-container-high text-primary font-label-caps text-label-caps uppercase font-bold transition-all shadow-sm';
+          tabRekap.className = 'py-space-xs px-space-xs text-center rounded text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps uppercase font-bold transition-all';
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest py-space-md shadow-[0_-1px_8px_rgba(0,0,0,0.5)]"><div class="w-full px-gutter-desktop flex flex-col md:flex-row items-center justify-between gap-space-sm"><div class="flex items-center gap-space-md flex-wrap"><span class="font-label-caps text-label-caps uppercase text-secondary flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>CRYPTO-HASH SHA-256 SYNCED</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">SERVER-CLOCK: UTC+7 23:41:09</span><span class="font-telemetry-sm text-telemetry-sm text-outline">SYS-ID: BZ-JKT-HQ-01</span></div><div class="font-label-caps text-label-caps uppercase text-on-surface-variant">© BIZNET NETWORKS // EVIDENTIARY FIELD OVERTIME LEDGER</div></div></footer></body></html>

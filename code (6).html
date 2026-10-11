@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary": "#003824", "surface-container-lowest": "#0a0e15", "secondary-container": "#00a572", "inverse-surface": "#dfe2ed", "surface": "#0f131b", "surface-container-high": "#262a32", "secondary-fixed": "#6ffbbe", "surface-container-highest": "#31353d", "surface-container-low": "#181c23", "on-tertiary": "#472a00", "on-tertiary-fixed": "#2a1700", "on-error-container": "#ffdad6", "outline": "#87929a", "primary-container": "#38bdf8", "primary-fixed": "#c4e7ff", "inverse-on-surface": "#2d3038", "on-secondary-fixed": "#002113", "surface-dim": "#0f131b", "surface-container": "#1c2027", "outline-variant": "#3e484f", "tertiary": "#ffc174", "on-primary-container": "#004965", "tertiary-fixed": "#ffddb8", "primary-fixed-dim": "#7bd0ff", "on-primary-fixed": "#001e2c", "secondary": "#4edea3", "surface-bright": "#353941", "on-background": "#dfe2ed", "surface-variant": "#31353d", "on-secondary-container": "#00311f", "primary": "#8ed5ff", "on-tertiary-container": "#613b00", "secondary-fixed-dim": "#4edea3", "on-surface-variant": "#bdc8d1", "tertiary-container": "#f59e0b", "on-primary": "#00354a", "on-error": "#690005", "error": "#ffb4ab", "on-primary-fixed-variant": "#004c69", "error-container": "#93000a", "on-secondary-fixed-variant": "#005236", "surface-tint": "#7bd0ff", "on-surface": "#dfe2ed", "on-tertiary-fixed-variant": "#653e00", "background": "#0f131b", "inverse-primary": "#00668a", "tertiary-fixed-dim": "#ffb95f" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xs": "0.25rem", "gutter": "1rem", "margin": "1rem", "margin-desktop": "2rem", "gutter-desktop": "1.5rem", "gutter-tablet": "1.25rem", "space-sm": "0.5rem", "space-md": "0.75rem", "space-lg": "1.25rem", "space-xl": "2rem", "margin-tablet": "1.5rem" }, "fontFamily": { "telemetry-lg": [ "JetBrains Mono" ], "headline-xl-mobile": [ "Space Grotesk" ], "telemetry-sm": [ "JetBrains Mono" ], "headline-lg": [ "Space Grotesk" ], "telemetry-md": [ "JetBrains Mono" ], "body-lg": [ "Work Sans" ], "body-md": [ "Work Sans" ], "label-caps": [ "JetBrains Mono" ], "headline-xl": [ "Space Grotesk" ], "headline-md": [ "Space Grotesk" ], "body-sm": [ "Work Sans" ] }, "fontSize": { "telemetry-lg": [ "18px", { "lineHeight": "24px", "fontWeight": "700" } ], "headline-xl-mobile": [ "28px", { "lineHeight": "34px", "fontWeight": "700" } ], "telemetry-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "500" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "fontWeight": "600" } ], "telemetry-md": [ "13px", { "lineHeight": "18px", "fontWeight": "500" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "label-caps": [ "10px", { "lineHeight": "12px", "fontWeight": "700" } ], "headline-xl": [ "36px", { "lineHeight": "44px", "fontWeight": "700" } ], "headline-md": [ "20px", { "lineHeight": "28px", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]"><div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm" data-path="foto-kerja" href="#"><div class="h-8 w-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-on-primary-container text-[20px]">cell_tower</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight uppercase text-on-surface">Biznet</span><span class="font-label-caps text-label-caps tracking-widest uppercase text-primary">Ops Lemburan</span></div></a><div class="hidden xl:flex items-center gap-space-md pl-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-telemetry-sm text-telemetry-sm uppercase text-secondary">GPS FIXED [RTK 0.02M]</span></div><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low"><span class="material-symbols-outlined text-primary text-[14px]">sync</span><span class="font-telemetry-sm text-telemetry-sm uppercase text-on-surface-variant">SYNCED: LIVE NTP</span></div></div></div><nav class="hidden md:flex items-center gap-space-xs bg-surface-container-lowest p-1 rounded-lg" data-active-classes="bg-primary-container text-on-primary-container font-headline-md"><a aria-current="page" class="px-space-md py-space-xs rounded transition-colors bg-primary-container text-on-primary-container font-headline-md" data-path="foto-kerja" href="#">Foto Kerja</a><a class="px-space-md py-space-xs rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="scan-dokumen" href="#">Scan Dokumen</a><a class="px-space-md py-space-xs rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="data-form" href="#">Data Form</a><a class="px-space-md py-space-xs rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin" href="#">Admin</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex flex-col text-right"><span class="font-telemetry-sm text-telemetry-sm text-on-surface">TECH-ID // BZ-9041</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">AREA 3 • OVERTIME VALID</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-4rem)]"><div class="flex flex-col w-full">
+<!-- Top Tactical Context Banner -->
+<div class="w-full bg-surface-container-lowest px-gutter-desktop py-space-sm flex flex-wrap items-center justify-between gap-space-sm shadow-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-surface-container-high">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary uppercase">SENSOR ACTIVE // OPTICAL SENSOR 01</span>
+</div>
+<div class="h-3 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span>TICKET:</span>
+<span class="text-primary font-bold">#18182637</span>
+<span class="text-outline">/</span>
+<span class="text-tertiary">LEMBUR S3-MALAM</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-secondary">satellite_alt</span>
+<span>GALILEO+GPS [9 SATS LOCKED]</span>
+</div>
+<div class="hidden sm:flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-primary">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+<span>SHA-256 LEDGER READY</span>
+</div>
+<a class="px-space-md py-1 rounded bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface text-body-sm font-body-sm flex items-center gap-space-xs" data-path="data-form" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Kembali ke Form</span>
+</a>
+</div>
+</div>
+<!-- Primary Interactive Canvas: Split Viewfinder & Inspector Deck -->
+<div class="w-full px-gutter-desktop py-space-md">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Viewfinder Section (8 cols on XL) -->
+<div class="xl:col-span-8 flex flex-col gap-space-md">
+<!-- Viewfinder Window / Optical Frame -->
+<div class="relative w-full aspect-[4/3] sm:aspect-[16/9] bg-surface-container-lowest rounded-xl overflow-hidden shadow-2xl group select-none" id="viewfinderContainer">
+<!-- Background Hardware Feed Simulation (Live Image) -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 transform scale-100" data-alt="First person point of view looking through a digital camera viewfinder showing a telecommunications technician troubleshooting fiber optic distribution box on a utility pole at twilight in Bali with green cable trunking, optical power meter readings, and subtle city lights in background." id="cameraFeedLayer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFhplaQQLWUWimcR9R9MSzaLyqkp1gf7D5U2ka6u5eNGYwQgZBzz_OC6xMmgtfOn8o-gzgm-C8GoIW8VThSmqaBzNddTgSEzYW5kIbGGAOPLFsjcLs-JAeou3n9tY9sLul7_UkjYkHkAN3MbfO077AaJe53KT32xSXPz6p7EhrLIKQqw0IwcK32vpc_DFA-E1MPL3hm_fZGyj46j_-xhu7D47viUd0OLIdCRD0z5h1yk73dsy2C1wW')">
+<!-- Dynamic optical scanline & vignette -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-transparent to-surface-container-lowest/70 pointer-events-none"></div>
+<div class="absolute inset-0 bg-radial from-transparent via-black/20 to-black/80 pointer-events-none"></div>
+</div>
+<!-- Flash Screen Simulator -->
+<div class="absolute inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-150 z-40" id="flashOverlay"></div>
+<!-- HUD TOP STRIP: GNSS & Gyro Horizon -->
+<div class="absolute top-0 inset-x-0 p-space-md flex items-center justify-between z-20 pointer-events-none bg-gradient-to-b from-surface-container-lowest/80 to-transparent">
+<!-- Left: RTK & Satellites Status -->
+<div class="flex items-center gap-space-sm backdrop-blur-md bg-surface-container-lowest/70 px-space-sm py-1 rounded-lg">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">GNSS RTK FIX (±2.4M)</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface">9 SATS • L1/L5 DUAL BAND</span>
+</div>
+</div>
+<!-- Center: Azimuth Compass Tape -->
+<div class="hidden sm:flex flex-col items-center backdrop-blur-md bg-surface-container-lowest/70 px-space-md py-1 rounded-lg">
+<div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-primary">
+<span class="material-symbols-outlined text-[14px]">explore</span>
+<span id="headingDigits">118° ESE</span>
+<span class="text-outline-variant">•</span>
+<span class="text-on-surface-variant font-telemetry-sm text-telemetry-sm">P: -2.1° R: +0.4°</span>
+</div>
+<!-- Mini Compass Ruler -->
+<div class="w-32 h-1.5 flex items-center justify-between text-outline-variant text-[8px] font-telemetry-sm mt-0.5">
+<span>E</span>
+<span>•</span>
+<span class="text-primary font-bold">▲</span>
+<span>•</span>
+<span>SE</span>
+</div>
+</div>
+<!-- Right: Laser Rangefinder & Battery / Memory -->
+<div class="flex items-center gap-space-sm backdrop-blur-md bg-surface-container-lowest/70 px-space-sm py-1 rounded-lg">
+<div class="text-right flex flex-col">
+<span class="font-label-caps text-label-caps text-primary uppercase">TOF LASER DIST</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface" id="tofDistance">1.85 m LOCK</span>
+</div>
+<div class="w-px h-6 bg-outline-variant"></div>
+<div class="flex items-center text-on-surface gap-0.5 font-telemetry-sm text-telemetry-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">battery_charging_90</span>
+<span>94%</span>
+</div>
+</div>
+</div>
+<!-- HUD VIEWING GRIDS (Toggable) -->
+<div class="absolute inset-0 z-10 pointer-events-none opacity-40" id="gridOverlay">
+<!-- Rule of Thirds -->
+<div class="w-full h-full grid grid-cols-3 grid-rows-3">
+<div class="bg-primary/5"></div>
+<div class="bg-transparent"></div>
+<div class="bg-primary/5"></div>
+<div class="bg-transparent"></div>
+<div class="bg-transparent"></div>
+<div class="bg-transparent"></div>
+<div class="bg-primary/5"></div>
+<div class="bg-transparent"></div>
+<div class="bg-primary/5"></div>
+</div>
+</div>
+<!-- Document / Box A4 Alignment Target Guide (Subtle Outline) -->
+<div class="hidden absolute inset-0 z-10 pointer-events-none flex items-center justify-center p-8" id="docGuideOverlay">
+<div class="w-3/4 h-5/6 bg-primary/5 rounded-lg flex items-start justify-between p-3">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">DOC_FRAME: ODP/JB SPLICE BOX TARGET</span>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">ISO 216 // A4 RATIO</span>
+</div>
+</div>
+<!-- Center Crosshair Reticle & Leveler -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-15">
+<div class="relative w-28 h-28 flex items-center justify-center">
+<!-- Corner Ticks -->
+<div class="absolute top-0 left-0 w-3 h-3 bg-primary/40"></div>
+<div class="absolute top-0 right-0 w-3 h-3 bg-primary/40"></div>
+<div class="absolute bottom-0 left-0 w-3 h-3 bg-primary/40"></div>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-primary/40"></div>
+<!-- Gyro Horizon Crosshair Bubble -->
+<div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center transition-transform duration-100" id="gyroBubble">
+<div class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></div>
+</div>
+<!-- Reticle Hairlines -->
+<div class="absolute w-8 h-px bg-primary/70"></div>
+<div class="absolute h-8 w-px bg-primary/70"></div>
+</div>
+</div>
+<!-- WATERMARK STAMP LIVE OVERLAY (Real evidentiary Biznet stamp) -->
+<div class="absolute bottom-3 left-3 right-3 sm:right-auto sm:max-w-xl z-20 pointer-events-none" id="watermarkPreview">
+<div class="bg-surface-container-lowest/85 backdrop-blur-md p-space-sm sm:p-space-md rounded-lg shadow-xl text-on-surface">
+<!-- Brand & Hash Bar -->
+<div class="flex items-center justify-between pb-1.5 mb-1.5">
+<div class="flex items-center gap-space-xs">
+<div class="h-4 w-4 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-[12px]">cell_tower</span>
+</div>
+<span class="font-headline-md text-[13px] tracking-tight uppercase font-bold text-primary">BIZNET NETWORKS FIELD OPS</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps px-1 py-0.5 rounded bg-secondary/20 text-secondary uppercase">GEO-BZ-948271</span>
+<span class="material-symbols-outlined text-[13px] text-secondary">verified</span>
+</div>
+</div>
+<!-- Field Metadata Stream -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-space-md gap-y-0.5">
+<div>
+<span class="font-label-caps text-[9px] text-outline uppercase block">WAKTU (LIVE NTP SERVER):</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold block" id="liveTimestamp">Senin, 28 Sep 2026 - 18:24:15 WIB</span>
+</div>
+<div>
+<span class="font-label-caps text-[9px] text-outline uppercase block">KOORDINAT &amp; ELEVASI:</span>
+<span class="font-telemetry-sm text-telemetry-sm text-primary font-semibold block">-8.653912, 115.138472 (18.4 m dpl)</span>
+</div>
+<div class="sm:col-span-2 mt-0.5">
+<span class="font-label-caps text-[9px] text-outline uppercase block">LOKASI FISIK (GEOFENCE VERIFIED):</span>
+<span class="font-body-sm text-[11px] leading-tight text-on-surface block truncate">Jl. Pantai Berawa No. 88, Tibubeneng, Kuta Utara, Badung, Bali 80361</span>
+</div>
+<div class="sm:col-span-2 flex items-center justify-between pt-1 mt-0.5">
+<div class="truncate mr-2">
+<span class="font-label-caps text-[9px] text-tertiary uppercase">AKTIVITAS: </span>
+<span class="font-telemetry-sm text-[10px] text-on-surface">TROUBLESHOOT FTTH #18182637 - VILLA OASIS</span>
+</div>
+<div class="shrink-0 text-right">
+<span class="font-label-caps text-[9px] text-outline uppercase">TEKNISI: </span>
+<span class="font-telemetry-sm text-[10px] text-secondary">A. FAUZI (88291024)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Corner Optical Markers -->
+<div class="absolute top-3 left-3 w-4 h-4 bg-primary/40 pointer-events-none"></div>
+<div class="absolute top-3 right-3 w-4 h-4 bg-primary/40 pointer-events-none"></div>
+<div class="absolute bottom-3 right-3 w-4 h-4 bg-primary/40 pointer-events-none"></div>
+<!-- Live Capture Flash Feedback Toast -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 opacity-0 transition-opacity duration-200" id="captureToast">
+<div class="px-space-lg py-space-md bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl shadow-2xl flex items-center gap-space-md">
+<span class="material-symbols-outlined text-[32px] text-secondary animate-bounce">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">FOTO &amp; GPS TERSIMPAN!</span>
+<span class="font-telemetry-sm text-telemetry-sm text-primary">SHA-256: d84e2a...c089fa Diverifikasi</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CAMERA CONTROL DECK / SHUTTER HUD -->
+<div class="w-full bg-surface-container p-space-md sm:p-space-lg rounded-xl shadow-lg flex flex-col gap-space-md">
+<!-- Secondary Adjustment Toggles (Focal Length & Optics) -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm">
+<!-- Lens Switcher (0.5x, 1x, 2x) -->
+<div class="flex items-center bg-surface-container-lowest p-1 rounded-lg">
+<button class="px-space-md py-1 rounded text-body-sm font-telemetry-sm text-on-surface-variant hover:text-on-surface transition-all" id="lensBtnWide" onclick="setLens('0.5x', 0.85)">0.5x ULTRA</button>
+<button class="px-space-md py-1 rounded text-body-sm font-telemetry-sm bg-primary-container text-on-primary-container font-bold shadow-sm transition-all" id="lensBtnStandard" onclick="setLens('1x', 1.0)">1.0x MAIN</button>
+<button class="px-space-md py-1 rounded text-body-sm font-telemetry-sm text-on-surface-variant hover:text-on-surface transition-all" id="lensBtnTele" onclick="setLens('2x', 1.35)">2.0x TELE</button>
+</div>
+<!-- Optical Filters & HUD Switches -->
+<div class="flex items-center gap-space-xs">
+<!-- Torch / Flashlight Toggle -->
+<button class="h-9 w-9 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface flex items-center justify-center transition-colors" id="torchBtn" onclick="toggleTorch()" title="Lampu Sorot Senter">
+<span class="material-symbols-outlined text-[19px]" id="torchIcon">flash_off</span>
+</button>
+<!-- Grid Toggle -->
+<button class="h-9 w-9 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary flex items-center justify-center transition-colors" id="gridBtn" onclick="toggleGrid()" title="Toggle Grid Komposisi">
+<span class="material-symbols-outlined text-[19px]">grid_goldenratio</span>
+</button>
+<!-- Document Frame Target -->
+<button class="h-9 w-9 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface flex items-center justify-center transition-colors" id="docGuideBtn" onclick="toggleDocGuide()" title="Target A4 / Modul Splice">
+<span class="material-symbols-outlined text-[19px]">crop_free</span>
+</button>
+<!-- HDR Auto Switch -->
+<button class="px-space-sm h-9 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface flex items-center gap-1 font-telemetry-sm text-telemetry-sm" id="hdrBtn" onclick="toggleHDR()" title="High Dynamic Range">
+<span class="material-symbols-outlined text-[16px] text-tertiary">hdr_on</span>
+<span>HDR AUTO</span>
+</button>
+</div>
+</div>
+<!-- Main Ergonomic Shutter Row -->
+<div class="flex items-center justify-between gap-space-md pt-space-xs">
+<!-- Quick Gallery Picker Button -->
+<div class="w-24 sm:w-32 flex justify-start">
+<button class="group flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors" onclick="simulateGalleryPick()">
+<div class="h-12 w-12 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">photo_library</span>
+</div>
+<span class="font-telemetry-sm text-[10px] uppercase">Galeri HP</span>
+</button>
+</div>
+<!-- Central Tactical Shutter Mechanism -->
+<div class="flex flex-col items-center">
+<button class="relative group outline-none focus:outline-none cursor-pointer" id="shutterButton" onclick="triggerShutterCapture()">
+<!-- Outer Bezel Ring (Pulsing Emerald when GPS Locked) -->
+<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-surface-container-lowest p-1.5 flex items-center justify-center shadow-[0_0_24px_rgba(78,222,163,0.35)] transition-all transform group-active:scale-95">
+<div class="w-full h-full rounded-full bg-secondary/20 flex items-center justify-center">
+<!-- Inner Actuator Button -->
+<div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-on-background shadow-md group-hover:bg-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-background text-[26px]">photo_camera</span>
+</div>
+</div>
+</div>
+<!-- Shutter Audio Indicator Wave -->
+<div class="absolute -bottom-5 inset-x-0 text-center">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">TAP SHUTTER</span>
+</div>
+</button>
+</div>
+<!-- Mode Selector / Cancel Action -->
+<div class="w-24 sm:w-32 flex justify-end">
+<button class="group flex flex-col items-center gap-1 text-on-surface-variant hover:text-error transition-colors" onclick="resetSensor()">
+<div class="h-12 w-12 rounded-xl bg-surface-container-lowest flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">restart_alt</span>
+</div>
+<span class="font-telemetry-sm text-[10px] uppercase">Reset Sinyal</span>
+</button>
+</div>
+</div>
+<!-- Quick Watermark Config Picker -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-md bg-surface-container-lowest/60 p-space-sm rounded-lg">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-telemetry-sm text-telemetry-sm">
+<span class="material-symbols-outlined text-primary text-[16px]">fingerprint</span>
+<span>FORMAT STEMPEL WATERMARK:</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-high text-primary font-telemetry-sm text-telemetry-sm">RESMI (BIZNET COMPLETE)</button>
+<button class="px-space-sm py-0.5 rounded text-on-surface-variant hover:bg-surface-container font-telemetry-sm text-telemetry-sm">MINIMALIST GEO</button>
+<button class="px-space-sm py-0.5 rounded text-on-surface-variant hover:bg-surface-container font-telemetry-sm text-telemetry-sm">AUDIT EVIDENCE</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Inspector Sidebar & Captured Evidence Deck (4 cols on XL) -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg">
+<!-- Live Stamped Preview & Form Action Card -->
+<div class="w-full bg-surface-container p-space-lg rounded-xl shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment_turned_in</span>
+<span class="font-headline-md text-headline-md text-on-surface">Hasil Snapshot</span>
+</div>
+<span class="px-space-sm py-0.5 rounded bg-primary-container text-on-primary-container font-telemetry-sm text-telemetry-sm font-bold" id="captureCountBadge">1 FOTO SIAP</span>
+</div>
+<!-- Stamped Output Card Visualizer -->
+<div class="relative w-full aspect-[4/3] bg-surface-container-lowest rounded-lg overflow-hidden group shadow-md">
+<img class="w-full h-full object-cover" data-alt="Clear high quality photo of Biznet technician terminating optical fiber drop cable inside a gray ODP pole box with precision cleaver, including embedded GPS stamp and timestamp." id="reviewSnapshotImg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX-66cdApPi3Sc4KZlkh709koUfQ7rQW0KbqS0XS0LslKReoX0_4wXcaeK8pNQC-mTKOA9icg30L8eyNp-8RSWK52m-bypl4OF-rwkNC6cfF3_AtLrKDAurP9KuwztT3-f_avoiA5NCbPrl-8BncyviIADPiuzzpfKQc-UEP6xNkdVh3iPITSvKW1qy3hA47DFOCMde9KNoZN837_oF_cFMTGIaHcc_rUrfeV1mRCob594reu5P-FK"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-space-sm flex flex-col justify-end">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-secondary uppercase">HASH VERIFIED #GEO-BZ-948271</span>
+</div>
+<span class="font-telemetry-sm text-[10px] text-on-surface truncate">Lat: -8.653912 Long: 115.138472</span>
+</div>
+<!-- Zoom & Inspect Overlay Trigger -->
+<button class="absolute top-2 right-2 p-1.5 rounded-lg bg-surface-container-lowest/80 backdrop-blur-md text-on-surface hover:text-primary transition-colors" onclick="openFullInspector()">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+</div>
+<!-- Metadata Telemetry Digest -->
+<div class="flex flex-col gap-space-xs bg-surface-container-lowest p-space-md rounded-lg">
+<div class="flex items-center justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-outline">Waktu Stempel:</span>
+<span class="text-on-surface" id="metaTimestamp">28/09/2026 18:24:15 WIB</span>
+</div>
+<div class="flex items-center justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-outline">Akurasi GPS (RTK):</span>
+<span class="text-secondary font-bold">0.024 m (High Precision)</span>
+</div>
+<div class="flex items-center justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-outline">Geotag Cluster:</span>
+<span class="text-on-surface truncate max-w-[160px]">Badung / Canggu South</span>
+</div>
+<div class="flex items-center justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-outline">Kamera / FOV:</span>
+<span class="text-primary" id="metaFov">1.0x (24mm Eqv)</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full py-space-md px-space-lg rounded-lg bg-primary-container hover:opacity-90 transition-opacity text-on-primary-container font-telemetry-lg text-telemetry-md uppercase tracking-wider flex items-center justify-center gap-space-sm shadow-md" onclick="commitPhotoToForm()">
+<span class="material-symbols-outlined text-[20px]">send_and_archive</span>
+<span>Gunakan Foto &amp; Sematkan ke Form</span>
+</button>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="py-space-sm px-space-md rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md text-body-sm flex items-center justify-center gap-space-xs transition-colors" onclick="retakePhoto()">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+<span>Ambil Ulang</span>
+</button>
+<button class="py-space-sm px-space-md rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md text-body-sm flex items-center justify-center gap-space-xs transition-colors" onclick="downloadOriginal()">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Unduh File</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Geographic Location Context Card -->
+<div class="w-full bg-surface-container p-space-md rounded-xl shadow-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
+<span class="font-headline-md text-body-md font-bold text-on-surface">Validasi Geofence Kerja</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary">DALAM RADIUS 50M</span>
+</div>
+<!-- Embedded Dynamic Map Container -->
+<div class="w-full h-36 bg-cover bg-center rounded-lg relative overflow-hidden shadow-inner" data-location="Pantai Berawa, Canggu, Bali" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBiM5nqCRdbUIX48CE7-fQFtU8ppCeRJ6pFmW_0g2QqlsxXShAqWvTqYwn6K_0BlPLZOzlAIhJkDYaQd9mF_6SopcY1SehE64XIEDkm70vjSnB1jdshLhPTxTdd7BVjAe4gDlQy_MEXsbhukwlMD0R5VxEbFqE8wBNJAeYKW6cztwJ02KK3eBti0aIAth4Rtf4d3Bn1x3ZGBzpC_94vRaR7Zr8louSFzwXf2ZC11H9nurgODCUDhAJc')">
+<div class="absolute inset-0 bg-surface/30"></div>
+<!-- Geofence Target Reticle Indicator -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center animate-ping"></div>
+<div class="absolute w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary text-[14px]">cell_tower</span>
+</div>
+</div>
+<div class="absolute bottom-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 font-telemetry-sm text-[10px] text-on-surface">
+              ODP-TBB-042 // DISPATCH #8942
+            </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Lokasi teknisi terverifikasi sesuai koordinat Surat Tugas Lembur No. <span class="text-primary font-mono font-bold">WO-BALI-90142</span>. Stempel kriptografis tidak dapat diubah (anti mock-location).
+          </p>
+</div>
+<!-- Evidentiary Verification Checklist -->
+<div class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-md flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">CHECKLIST INTEGRITAS DATA LEMBUR</span>
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Hardware NTP Synchronization</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary">0.001s</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Anti-Spoofing GNSS Firmware Check</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary">PASS</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+<span>Watermark EXIF Burn-in Pipeline</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary">ACTIVE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Fullscreen Inspector Modal (Initially Hidden) -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/95 backdrop-blur-2xl hidden flex items-center justify-center p-gutter-desktop" id="inspectorModal">
+<div class="relative w-full max-w-4xl bg-surface-container rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[921px]">
+<!-- Modal Header -->
+<div class="px-space-lg py-space-md bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">find_in_page</span>
+<span class="font-headline-md text-headline-md text-on-surface">Verifikasi Telemetri &amp; Bukti Fisik</span>
+</div>
+<button class="p-1 rounded-lg hover:bg-surface text-on-surface-variant hover:text-on-surface transition-colors" onclick="closeFullInspector()">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<!-- Modal Content Body -->
+<div class="p-space-lg overflow-y-auto flex flex-col gap-space-lg">
+<div class="relative w-full aspect-video rounded-xl overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="High resolution inspect view of fiber optic joint box with visible serial numbers, tamper tape, and yellow Biznet optic patch cord connectors under stadium floodlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPFXmtwaRHffqGVoDRoVNzBUHLV8XsqGFPo-SxFlGfCMB4lr1Rkzr-LTLQz7ZquSDcspjJIwBZ9z-GswQ61hKw9aclAy3h09MtqoU9T1fDv5xpZvU3YwWVutpPjkDc5m2yVsTCQWpOISLnWO3PW58GP2ccN_J7MDQSqpyrhH9zwK1_Tqgv9QKNEIaeum1JkXL0vfHLHTBZXZlD7FFPvtrChiTTDfcrlPo2BJ9r0Nu3zvaTgSCr0vhQ"/>
+<div class="absolute bottom-4 left-4 p-space-md bg-surface-container-lowest/90 backdrop-blur-md rounded-lg max-w-lg">
+<div class="font-telemetry-sm text-telemetry-sm text-secondary">EVIDENCE LOG // SHA-256 HASH:</div>
+<div class="font-telemetry-sm text-[10px] text-outline break-all font-mono">3b94f08a54162e0882d96677f5255476a5b6d9e03d42b918a29b31172ebff110</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-lg bg-surface-container-lowest">
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">DATA TIKET CRM</span>
+<span class="font-headline-md text-body-md text-on-surface font-bold block">#18182637</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Villa Tibubeneng Oasis - S3</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest">
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">JARINGAN / OLT</span>
+<span class="font-headline-md text-body-md text-on-surface font-bold block">OLT-DPS-CANGGU-02</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">PON 04 / ODP-TBB-042/12</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest">
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">STATUS VALIDASI</span>
+<span class="font-headline-md text-body-md text-secondary font-bold block flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">verified</span> SIAP SUBMIT
+            </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Auto-Sync ke Formulir Lembur</span>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-space-lg py-space-md bg-surface-container-high flex items-center justify-end gap-space-md">
+<button class="px-space-lg py-space-sm rounded-lg bg-surface text-on-surface font-body-md text-body-md hover:bg-surface-container-highest transition-colors" onclick="closeFullInspector()">Tutup Pratinjau</button>
+<button class="px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary-container font-telemetry-md text-telemetry-md uppercase tracking-wider shadow-md hover:opacity-90 transition-opacity" onclick="commitPhotoToForm()">Sematkan ke Form Lembur</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Telemetry Simulator Engine -->
+<script>
+  (function initCameraViewfinder() {
+    let isTorchOn = false;
+    let isGridOn = true;
+    let isDocGuideOn = false;
+    let isHDROn = true;
+    let currentZoom = 1.0;
+    let photoCounter = 1;
+
+    // Real-time Clock Simulator for Evidentiary Watermark
+    function updateClock() {
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      
+      const dayName = days[now.getDay()];
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = months[now.getMonth()];
+      const year = now.getFullYear();
+      
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      const timeStr = `${dayName}, ${day} ${month} ${year} - ${hours}:${minutes}:${seconds} WIB`;
+      
+      const tsEl = document.getElementById('liveTimestamp');
+      const metaTsEl = document.getElementById('metaTimestamp');
+      if (tsEl) tsEl.textContent = timeStr;
+      if (metaTsEl) metaTsEl.textContent = `${day}/${String(now.getMonth()+1).padStart(2,'0')}/${year} ${hours}:${minutes}:${seconds} WIB`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Micro Simulated Gyro Compass Wobble
+    let headingBase = 118;
+    setInterval(() => {
+      const wobble = (Math.random() * 2 - 1).toFixed(1);
+      const heading = (headingBase + parseFloat(wobble)).toFixed(0);
+      const pitch = (-2.1 + (Math.random() * 0.4 - 0.2)).toFixed(1);
+      const roll = (0.4 + (Math.random() * 0.4 - 0.2)).toFixed(1);
+
+      const headingEl = document.getElementById('headingDigits');
+      if (headingEl) {
+        headingEl.innerHTML = `${heading}° ESE`;
+      }
+
+      const bubbleEl = document.getElementById('gyroBubble');
+      if (bubbleEl) {
+        const transX = (parseFloat(roll) * 4);
+        const transY = (parseFloat(pitch) * 4);
+        bubbleEl.style.transform = `translate(${transX}px, ${transY}px)`;
+      }
+
+      // TOF Laser tiny distance oscillation
+      const distEl = document.getElementById('tofDistance');
+      if (distEl && Math.random() > 0.7) {
+        const d = (1.85 + (Math.random() * 0.04 - 0.02)).toFixed(2);
+        distEl.textContent = `${d} m LOCK`;
+      }
+    }, 400);
+
+    // Zoom Lens Switcher
+    window.setLens = function(lensLabel, scale) {
+      currentZoom = scale;
+      const feed = document.getElementById('cameraFeedLayer');
+      if (feed) {
+        feed.style.transform = `scale(${scale})`;
+      }
+
+      const btnWide = document.getElementById('lensBtnWide');
+      const btnStd = document.getElementById('lensBtnStandard');
+      const btnTele = document.getElementById('lensBtnTele');
+      const metaFov = document.getElementById('metaFov');
+
+      [btnWide, btnStd, btnTele].forEach(b => {
+        b.className = "px-space-md py-1 rounded text-body-sm font-telemetry-sm text-on-surface-variant hover:text-on-surface transition-all";
+      });
+
+      const activeClass = "px-space-md py-1 rounded text-body-sm font-telemetry-sm bg-primary-container text-on-primary-container font-bold shadow-sm transition-all";
+
+      if (lensLabel === '0.5x') {
+        btnWide.className = activeClass;
+        if (metaFov) metaFov.textContent = "0.5x (13mm Ultra-Wide)";
+      } else if (lensLabel === '1x') {
+        btnStd.className = activeClass;
+        if (metaFov) metaFov.textContent = "1.0x (24mm Standard)";
+      } else if (lensLabel === '2x') {
+        btnTele.className = activeClass;
+        if (metaFov) metaFov.textContent = "2.0x (48mm Telephoto)";
+      }
+    };
+
+    // Torch / Flashlight Toggle
+    window.toggleTorch = function() {
+      isTorchOn = !isTorchOn;
+      const torchBtn = document.getElementById('torchBtn');
+      const torchIcon = document.getElementById('torchIcon');
+      if (isTorchOn) {
+        torchIcon.textContent = 'flash_on';
+        torchBtn.classList.remove('bg-surface-container-high', 'text-on-surface');
+        torchBtn.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
+      } else {
+        torchIcon.textContent = 'flash_off';
+        torchBtn.classList.remove('bg-tertiary-container', 'text-on-tertiary-container');
+        torchBtn.classList.add('bg-surface-container-high', 'text-on-surface');
+      }
+    };
+
+    // Framing Grid Toggle
+    window.toggleGrid = function() {
+      isGridOn = !isGridOn;
+      const grid = document.getElementById('gridOverlay');
+      const btn = document.getElementById('gridBtn');
+      if (isGridOn) {
+        grid.classList.remove('hidden');
+        btn.classList.add('text-primary');
+        btn.classList.remove('text-on-surface-variant');
+      } else {
+        grid.classList.add('hidden');
+        btn.classList.remove('text-primary');
+        btn.classList.add('text-on-surface-variant');
+      }
+    };
+
+    // Document / Splice Box Guide Overlay Toggle
+    window.toggleDocGuide = function() {
+      isDocGuideOn = !isDocGuideOn;
+      const guide = document.getElementById('docGuideOverlay');
+      const btn = document.getElementById('docGuideBtn');
+      if (isDocGuideOn) {
+        guide.classList.remove('hidden');
+        btn.classList.add('text-primary');
+      } else {
+        guide.classList.add('hidden');
+        btn.classList.remove('text-primary');
+      }
+    };
+
+    // HDR Toggle
+    window.toggleHDR = function() {
+      isHDROn = !isHDROn;
+      const btn = document.getElementById('hdrBtn');
+      if (isHDROn) {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-tertiary">hdr_on</span><span>HDR AUTO</span>`;
+      } else {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-outline">hdr_off</span><span class="text-outline">HDR OFF</span>`;
+      }
+    };
+
+    // Shutter Trigger Capture Simulation
+    window.triggerShutterCapture = function() {
+      const flash = document.getElementById('flashOverlay');
+      const toast = document.getElementById('captureToast');
+      const badge = document.getElementById('captureCountBadge');
+
+      // Visual flash animation
+      if (flash) {
+        flash.style.opacity = '1';
+        setTimeout(() => {
+          flash.style.opacity = '0';
+        }, 120);
+      }
+
+      // Display capture confirmation HUD toast
+      if (toast) {
+        toast.style.opacity = '1';
+        setTimeout(() => {
+          toast.style.opacity = '0';
+        }, 1400);
+      }
+
+      photoCounter++;
+      if (badge) {
+        badge.textContent = `${photoCounter} FOTO SIAP`;
+      }
+
+      // Haptic vibration if supported on mobile devices
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate([40, 20, 60]);
+      }
+    };
+
+    // Pick from Gallery Simulation
+    window.simulateGalleryPick = function() {
+      triggerShutterCapture();
+    };
+
+    // Reset Hardware Sensor Lock
+    window.resetSensor = function() {
+      const btn = document.getElementById('shutterButton');
+      if (btn) {
+        btn.classList.add('rotate-180');
+        setTimeout(() => btn.classList.remove('rotate-180'), 400);
+      }
+    };
+
+    // Full Inspector Modal
+    window.openFullInspector = function() {
+      const modal = document.getElementById('inspectorModal');
+      if (modal) modal.classList.remove('hidden');
+    };
+
+    window.closeFullInspector = function() {
+      const modal = document.getElementById('inspectorModal');
+      if (modal) modal.classList.add('hidden');
+    };
+
+    // Retake Photo
+    window.retakePhoto = function() {
+      const badge = document.getElementById('captureCountBadge');
+      photoCounter = Math.max(1, photoCounter - 1);
+      if (badge) badge.textContent = `${photoCounter} FOTO SIAP`;
+    };
+
+    // Download Original File
+    window.downloadOriginal = function() {
+      alert("Mengunduh berkas gambar berstempel resolusi penuh (4032x3024) dengan metadata EXIF SHA-256...");
+    };
+
+    // Commit Photo to Form (Navigates to data-form)
+    window.commitPhotoToForm = function() {
+      const targetNav = document.querySelector('nav a[data-path="data-form"]');
+      if (targetNav) {
+        targetNav.click();
+      } else {
+        alert("Foto berstempel GPS berhasil disematkan ke formulir lembur!");
+      }
+    };
+
+  })();
+</script></main><footer class="w-full bg-surface-container-lowest py-space-lg"><div class="w-full px-gutter-desktop flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant uppercase">BIZNET FIELD OPS TELEMETRY ENGINE v4.8.2</span><span class="font-telemetry-sm text-telemetry-sm text-secondary uppercase hidden sm:inline">• TAMPER-PROOF SHA-256 LEDGER READY</span></div><div class="font-body-sm text-body-sm text-on-surface-variant">© 2024 PT Supra Primatama Nusantara (Biznet). Seluruh Hak Cipta Dilindungi.</div></div></footer></body></html>
