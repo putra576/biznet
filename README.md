@@ -2071,6 +2071,182 @@
     header.hud-top .sekarang { display: none; }
   }
 
+  /* =====================  PART 2 — PANEL FOTO KERJA  ===================== */
+  /* viewfinder: siku bidik di empat sudut */
+  .foto::before {
+    content: ""; position: absolute; inset: 12px; z-index: 3; pointer-events: none;
+    background:
+      linear-gradient(var(--accent), var(--accent)) top left / 22px 2px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) top left / 2px 22px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) top right / 22px 2px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) top right / 2px 22px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) bottom left / 22px 2px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) bottom left / 2px 22px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) bottom right / 22px 2px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) bottom right / 2px 22px no-repeat;
+    opacity: 0.85;
+  }
+  .foto .kosong strong { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.08em; font-size: 1.05rem; }
+  .foto .kosong > span { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .foto.terisi { box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5), 0 0 22px rgba(56, 189, 248, 0.18) !important; }
+
+  /* catatan & bilah kontrol di bawah viewfinder */
+  .panel-alat[data-panel-id="foto"] .catatan {
+    margin: 12px 0 0; padding: 6px 0 6px 12px; border-left: 2px solid var(--accent-2);
+    font-size: 0.8rem; line-height: 1.5; color: var(--muted);
+  }
+  .aksi-foto {
+    padding: 10px; gap: 10px; background: rgba(12, 19, 29, 0.88); border: 1px solid var(--line); border-radius: 4px;
+  }
+  .aksi-foto label, .aksi-foto button {
+    background: var(--panel-hi) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; border-radius: 4px !important;
+    font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .aksi-foto label:hover, .aksi-foto button:hover { border-color: var(--accent) !important; color: var(--accent) !important; background: rgba(56, 189, 248, 0.08) !important; }
+
+  /* form data foto = panel telemetri */
+  .panel-alat[data-panel-id="foto"] #form {
+    position: relative; display: grid; gap: 14px; margin-top: 16px; padding: 22px 18px 18px;
+    background: rgba(12, 19, 29, 0.88); border: 1px solid var(--line); border-radius: 4px; box-shadow: var(--shadow);
+  }
+  .panel-alat[data-panel-id="foto"] #form::before {
+    content: "FORM LEMBUR // DATA FOTO"; position: absolute; top: 8px; left: 18px;
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; color: var(--accent);
+  }
+  .panel-alat[data-panel-id="foto"] #form::after {
+    content: ""; position: absolute; top: -1px; right: -1px; width: 16px; height: 16px;
+    border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); border-top-right-radius: 4px; pointer-events: none;
+  }
+  #form .kolom .judul { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  #form .hari { font-family: var(--font-heading); font-size: 1.5rem; letter-spacing: 0; color: var(--ink); }
+  #form .hari small { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
+  #form .tautan { align-self: flex-start; background: none; border: 0; padding: 2px 0; color: var(--accent); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
+  #form .tautan:hover { text-decoration: underline; }
+  #form .ket { margin: 0; padding: 9px 12px; border-left: 2px solid var(--accent); background: rgba(56, 189, 248, 0.07); font-size: 0.82rem; color: var(--ink); }
+  #form .ket:empty { display: none; }
+  #form details.detail-lembur { border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; background: rgba(5, 8, 12, 0.5); }
+  #form details.detail-lembur summary { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+  #form label.cek { display: flex; align-items: flex-start; gap: 4px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--ink); cursor: pointer; }
+  #form .simpan { width: 100%; min-height: 54px; font-size: 0.9rem; }
+  #form .status { font-family: var(--font-mono); font-size: 0.76rem; }
+
+  /* riwayat tersimpan */
+  .panel-alat[data-panel-id="foto"] h2.reveal { display: block !important; margin: 26px 0 8px; }
+  .panel-alat[data-panel-id="foto"] .daftar-data { display: grid; gap: 10px; }
+  .kosong-riwayat { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+
+  /* tata letak dua kolom (tablet lebar & desktop) */
+  @media (min-width: 960px) {
+    .panel-alat[data-panel-id="foto"] {
+      display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(360px, 1fr);
+      column-gap: 22px; row-gap: 0; align-items: start;
+    }
+    .panel-alat[data-panel-id="foto"] > .judul-halaman-alat { grid-column: 1 / -1; grid-row: 1; }
+    .panel-alat[data-panel-id="foto"] > .foto { grid-column: 1; grid-row: 2; }
+    .panel-alat[data-panel-id="foto"] > .catatan { grid-column: 1; grid-row: 3; }
+    .panel-alat[data-panel-id="foto"] > .aksi-foto { grid-column: 1; grid-row: 4; margin-top: 12px; }
+    .panel-alat[data-panel-id="foto"] > #form { grid-column: 2; grid-row: 2 / span 4; margin-top: 0; }
+    .panel-alat[data-panel-id="foto"] > h2.reveal,
+    .panel-alat[data-panel-id="foto"] > #statusTerakhir,
+    .panel-alat[data-panel-id="foto"] > #riwayat,
+    .panel-alat[data-panel-id="foto"] > #riwayatKosong,
+    .panel-alat[data-panel-id="foto"] > #muatTerakhir { grid-column: 1 / -1; }
+    .panel-alat[data-panel-id="foto"] > #muatTerakhir { justify-self: start; }
+    .panel-alat[data-panel-id="foto"] .daftar-data { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* =====================  PART 3 — PANEL SCAN DOKUMEN  ===================== */
+  #bagianScan { display: grid; gap: 14px; padding: 22px 18px 18px !important; }
+  .scan-kiri, .scan-kanan { position: relative; display: grid; gap: 14px; align-content: start; min-width: 0; padding: 30px 14px 14px; background: rgba(5, 8, 12, 0.45); border: 1px solid var(--line); border-radius: 4px; }
+  .scan-kiri::before, .scan-kanan::before {
+    position: absolute; top: 10px; left: 14px;
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; color: var(--accent);
+  }
+  .scan-kiri::before { content: "STUDIO SCAN // SENSOR OPTIK"; }
+  .scan-kanan::before { content: "HALAMAN TERPINDAI // PDF"; }
+
+  .target-scan { border-radius: 4px !important; background: rgba(245, 158, 11, 0.10) !important; border-left: 3px solid var(--accent-2) !important; color: #ffd9a0; font-size: 0.86rem; }
+  .scan-opsi { margin-top: 0; }
+  .scan-opsi label.cek { padding-bottom: 12px; font-size: 0.84rem; }
+  .aksi-scan { gap: 10px; }
+  .aksi-scan .mini { min-height: 64px; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; font-size: 0.78rem !important; line-height: 1.25; }
+  .aksi-scan .mini.utama { font-size: 0.86rem !important; }
+
+  .ket-tumpuk { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  #badgeHalaman { padding: 2px 10px; border-radius: 999px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.45); color: var(--accent) !important; font-size: 0.72rem; }
+  .tumpukan { padding: 6px 2px 10px; }
+  .tumpukan li { background: var(--bg-low) !important; border: 1px solid var(--line) !important; border-radius: 4px !important; }
+  .tumpukan img { border-radius: 2px !important; border-color: var(--line) !important; }
+  .tumpukan .no { font-family: var(--font-mono); font-size: 0.7rem !important; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent) !important; }
+  .tumpukan .aksi-hal .mini { min-height: 30px; font-size: 0.66rem !important; padding: 4px !important; }
+
+  #bagianScan .aksi-data { gap: 8px; }
+  #bagianScan .aksi-data .mini { flex: 1 1 28%; font-size: 0.7rem !important; }
+  #hasilCerdasScan { border-radius: 4px !important; }
+  #hasilCerdasScan summary { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  #teksOcrScan { font-family: var(--font-mono) !important; font-size: 0.78rem !important; background: #060a10 !important; border: 1px solid var(--line) !important; border-radius: 4px !important; color: var(--ink); }
+  .simpan[disabled], .mini.utama[disabled] { opacity: 0.38; box-shadow: none !important; cursor: not-allowed; }
+  #tombolSimpanScan { width: 100%; min-height: 54px; margin-top: 4px !important; }
+  #bagianScan .status { font-family: var(--font-mono); font-size: 0.76rem; }
+
+  /* "Dokumen tersimpan" */
+  .panel-alat[data-panel-id="scan"] h2.reveal:has(+ #bagianDaftarScan) { display: block !important; margin: 24px 0 8px; }
+  #bagianDaftarScan { padding: 18px !important; }
+  #daftarScan { display: grid; gap: 10px; }
+  #bagianDaftarScan #muatScan { margin-top: 12px; }
+
+  @media (min-width: 960px) {
+    #bagianScan { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 22px; align-items: start; }
+    .tumpukan { flex-wrap: wrap; overflow-x: visible; scroll-snap-type: none; }
+    .tumpukan li { width: 150px; }
+    #daftarScan { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* =====================  PART 4 — PANEL DATA & FORM  ===================== */
+  .panel-alat[data-panel-id="data"] h2.reveal { display: block !important; margin: 18px 0 8px; }
+
+  #bagianData, .panel-alat[data-panel-id="data"] > section:not(#bagianData) { position: relative; display: grid; gap: 14px; padding: 36px 18px 18px !important; }
+  #bagianData::before, .panel-alat[data-panel-id="data"] > section:not(#bagianData)::before {
+    position: absolute; top: 12px; left: 18px;
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; color: var(--accent);
+  }
+  #bagianData::before { content: "REKAP LEMBUR // PERIODE GAJI"; }
+  .panel-alat[data-panel-id="data"] > section:not(#bagianData)::before { content: "KOMPILASI FORMULIR & SPL // PDF"; }
+
+  #ketPeriode { margin: 0; padding: 8px 12px; border-left: 2px solid var(--accent); background: rgba(56, 189, 248, 0.07); font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); }
+  #ketPeriode:empty { display: none; }
+
+  /* kartu statistik */
+  #ringkasData { gap: 10px; }
+  #ringkasData div { padding: 14px 12px !important; }
+  #ringkasData strong { font-size: 1.9rem !important; line-height: 1.05; }
+  #ringkasData span { display: block; margin-top: 6px; }
+
+  #statusDaftar, #statusForm { font-family: var(--font-mono); font-size: 0.76rem; }
+  #daftarData { display: grid; gap: 10px; }
+  #muatData { justify-self: start; }
+
+  /* panel kompilasi form */
+  .panel-alat[data-panel-id="data"] > section:not(#bagianData) .petunjuk { margin: 0; font-size: 0.86rem; line-height: 1.55; }
+  #tombolForm { min-height: 64px; font-size: 0.92rem; }
+  #tautanTemplateOc { width: 100%; }
+  #hasilForm { display: grid; gap: 8px; }
+
+  @media (min-width: 960px) {
+    .panel-alat[data-panel-id="data"] {
+      display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(340px, 1fr);
+      column-gap: 22px; align-items: start;
+    }
+    .panel-alat[data-panel-id="data"] > .judul-halaman-alat { grid-column: 1 / -1; grid-row: 1; }
+    .panel-alat[data-panel-id="data"] > h2.reveal:first-of-type,
+    .panel-alat[data-panel-id="data"] > h2.reveal:has(+ #bagianData) { grid-column: 1; grid-row: 2; }
+    .panel-alat[data-panel-id="data"] > #bagianData { grid-column: 1; grid-row: 3; }
+    .panel-alat[data-panel-id="data"] > h2.reveal:not(:has(+ #bagianData)) { grid-column: 2; grid-row: 2; }
+    .panel-alat[data-panel-id="data"] > section:not(#bagianData) {
+      grid-column: 2; grid-row: 3; position: sticky; top: 96px;
+    }
+  }
+
 </style>
 
 <link rel="manifest" id="pwaManifest">
@@ -2322,6 +2498,7 @@
 
   <h2 class="reveal">Scan dokumen</h2>
   <section class="form-lembur reveal" id="bagianScan">
+    <div class="scan-kiri">
     <div class="target-scan" id="targetScan" hidden>
       <span id="teksTargetScan"></span>
       <button type="button" class="mini kecil" id="batalTargetScan">Batal</button>
@@ -2347,6 +2524,8 @@
       <button type="button" class="mini utama" id="mulaiScan">📷 Scan halaman</button>
       <label class="mini">📁 Dari galeri<input type="file" id="galeriScan" accept="image/*" multiple aria-label="Tambah halaman dari galeri"></label>
     </div>
+    </div>
+    <div class="scan-kanan">
     <div class="ket-tumpuk">
       <span id="ketTumpukan">Belum ada halaman</span>
       <strong id="badgeHalaman" hidden>0</strong>
@@ -2364,6 +2543,7 @@
     <button type="button" class="simpan" id="tombolSimpanScan" disabled style="margin-top:12px">Simpan sebagai PDF</button>
     <p class="status" id="statusScan" role="status" aria-live="polite"></p>
     <div class="hasil-form" id="hasilScan"></div>
+    </div>
   </section>
 
   <h2 class="reveal">Dokumen tersimpan</h2>
