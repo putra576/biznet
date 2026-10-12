@@ -1704,29 +1704,29 @@
     --font: "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-heading: "Space Grotesk", var(--font);
     --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-    --bg: #0f131b;
-    --bg-low: #0a0e15;
-    --panel: #181c23;
-    --panel-hi: #262a32;
-    --surface: #181c23;
-    --ink: #dfe2ed;
-    --muted: #8f9ba4;
-    --line: #2c333b;
-    --line-strong: #3e484f;
+    --bg: #090d14;          /* Tactical Obsidian */
+    --bg-low: #05080c;      /* Surface Void */
+    --panel: #0c131d;       /* Surface Layer 1 */
+    --panel-hi: #131e2e;    /* Surface Layer 2 */
+    --surface: #0c131d;
+    --ink: #f8fafc;
+    --muted: #7f8ea3;
+    --line: #1e3048;        /* Border Tactical */
+    --line-strong: #2a4466;
     --accent: #38bdf8;
-    --accent-deep: #1ba3dc;
+    --accent-deep: #0b7fa3;
     --accent-2: #f59e0b;
-    --accent-soft: rgba(56, 189, 248, 0.12);
-    --accent-ink: #00354a;
+    --accent-soft: rgba(56, 189, 248, 0.10);
+    --accent-ink: #05080c;
     --danger: #ff8a7e;
-    --ok: #4edea3;
+    --ok: #10b981;
     --glow: 56 189 248;
-    --glow-2: 78 222 163;
-    --radius: 8px;
-    --radius-sm: 6px;
-    --radius-xl: 10px;
-    --shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 6px 18px -8px rgba(0,0,0,0.6);
-    --shadow-lg: 0 14px 34px -12px rgba(0,0,0,0.7);
+    --glow-2: 16 185 129;
+    --radius: 4px;
+    --radius-sm: 4px;
+    --radius-xl: 4px;
+    --shadow: 0 0 12px rgba(56, 189, 248, 0.06), 0 8px 20px -10px rgba(0,0,0,0.7);
+    --shadow-lg: 0 0 20px rgba(56, 189, 248, 0.10), 0 16px 34px -12px rgba(0,0,0,0.8);
   }
   html { background: var(--bg); }
   body {
@@ -1930,6 +1930,86 @@
 
   /* scrollbar */
   * { scrollbar-width: thin; scrollbar-color: var(--line-strong) var(--bg-low); }
+
+  /* ---------- penyempurnaan mengikuti DESIGN.md (palet, bentuk 4px, komponen) ---------- */
+  header > div:first-child, header .judul-baris, .alat-cepat {
+    background: rgba(12, 19, 29, 0.92) !important;
+    border: 1px solid rgba(56, 189, 248, 0.28) !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.12) !important;
+    backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 4px !important;
+  }
+  .logo, .logo-biznet, .logo-oc-header img, .btn-profil-header, .alat-cepat button { border-radius: 4px !important; }
+
+  /* kartu: kaca gelap + tanda sudut kanan atas */
+  .kartu-profil, .form-lembur, .menu-profil-cepat, .kartu-auth, .panel-alat > section, section.form-lembur {
+    position: relative;
+    background: rgba(12, 19, 29, 0.88) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 4px !important;
+    box-shadow: var(--shadow) !important;
+  }
+  .kartu-profil::after, .form-lembur::after, .menu-profil-cepat::after, .kartu-auth::after, .panel-alat > section::after {
+    content: ""; position: absolute; top: -1px; right: -1px; width: 16px; height: 16px;
+    border-top: 2px solid var(--accent); border-right: 2px solid var(--accent);
+    border-top-right-radius: 4px; pointer-events: none;
+  }
+  .ringkas div, .daftar-data li, .riwayat li { border-radius: 4px !important; background: rgba(12, 19, 29, 0.88) !important; }
+
+  /* input: kokpit cekung, teks mono */
+  input, select, textarea {
+    background: #060a10 !important; border: 1px solid var(--line) !important; color: var(--ink) !important;
+    font-family: var(--font-mono); font-size: 0.9rem; border-radius: 4px !important; min-height: 46px;
+  }
+  textarea { min-height: 100px; }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent) !important; box-shadow: 0 0 0 1px var(--accent), 0 0 12px rgba(56, 189, 248, 0.25) !important;
+  }
+  input[type="file"] { min-height: 0; font-family: var(--font); }
+
+  /* checkbox taktis: kotak 18px, centang zamrud */
+  input[type="checkbox"] {
+    -webkit-appearance: none; appearance: none; flex: none;
+    width: 18px; height: 18px; min-height: 0; padding: 0; margin: 0 8px 0 0;
+    border: 2px solid var(--line-strong) !important; border-radius: 3px !important; background: #060a10 !important;
+    display: inline-grid; place-content: center; cursor: pointer; vertical-align: middle;
+  }
+  input[type="checkbox"]::after {
+    content: ""; width: 9px; height: 5px; margin-top: -2px;
+    border-left: 2px solid #05080c; border-bottom: 2px solid #05080c;
+    transform: rotate(-45deg) scale(0); transition: transform 0.12s ease-out;
+  }
+  input[type="checkbox"]:checked { background: var(--ok) !important; border-color: var(--ok) !important; }
+  input[type="checkbox"]:checked::after { transform: rotate(-45deg) scale(1); }
+  input[type="checkbox"]:focus-visible { box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35) !important; }
+
+  /* tombol utama (solid cyan, teks obsidian, mono kapital, glow) & ghost */
+  .simpan, button.tombol, .mini.utama, .aksi-cetak button.utama {
+    background: var(--accent) !important; color: #05080c !important; border: 0 !important;
+    border-radius: 4px !important; font-family: var(--font-mono) !important; font-weight: 700 !important;
+    letter-spacing: 0.06em; text-transform: uppercase; min-height: 48px;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4) !important;
+  }
+  .mini {
+    background: transparent !important; color: var(--accent) !important;
+    border: 1px solid var(--line) !important; border-radius: 4px !important; min-height: 44px;
+  }
+  .mini:hover { background: rgba(56, 189, 248, 0.08) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+  .mini.utama:hover { background: var(--accent) !important; color: #05080c !important; }
+  .mini.kecil { min-height: 36px; }
+  .mini.bahaya { background: transparent !important; color: var(--danger) !important; border-color: rgba(255, 138, 126, 0.45) !important; }
+  .mini.bahaya:hover { background: rgba(147, 0, 10, 0.3) !important; color: #ffdad6 !important; }
+  .tombol-menu-profil, .tab-auth, .tab-auth button { border-radius: 4px !important; }
+  .tombol-menu-profil { background: transparent !important; color: var(--accent) !important; border: 1px solid var(--line) !important; min-height: 44px; }
+
+  /* label telemetri, badge status ber-beacon */
+  .badge-tag, .status.ok { border: 1px solid rgba(16, 185, 129, 0.45); background: rgba(16, 185, 129, 0.08); padding: 1px 9px; border-radius: 999px; }
+  .badge-tag::before, .status.ok > span::before {
+    content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%;
+    background: var(--ok); box-shadow: 0 0 8px var(--ok); vertical-align: middle;
+  }
+  .foto { border-radius: 4px !important; border-color: rgba(56, 189, 248, 0.45) !important; }
+  .peringatan, .tour-kartu, .banner-upgrade, .balon-aktif .isi-aktif { border-radius: 4px !important; }
 
 </style>
 
