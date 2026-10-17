@@ -3190,7 +3190,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbwbZiVwbeIQD9oieeNre3eP51Gb7Kc4CEWL_O9f-Znf2-MuFNr_WZ0F2TE5lEeiTGWS/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbxfLrJECoB-Mv-alDE_PAOZHize6vcpMzAfx2aTITp9gUf0ly2B6XHAdYk9tCurtGl-/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3463,7 +3463,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwbZiVwbeIQD9oieeNre3eP51Gb7Kc4CEWL_O9f-Znf2-MuFNr_WZ0F2TE5lEeiTGWS/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxfLrJECoB-Mv-alDE_PAOZHize6vcpMzAfx2aTITp9gUf0ly2B6XHAdYk9tCurtGl-/exec"
   };
 
   /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
@@ -3556,7 +3556,7 @@
     });
   }
 
-  const VERSI_SERVER = "2026.10.11.13";   // harus sama dengan VERSI_ di Code.gs
+  const VERSI_SERVER = "2026.10.11.14";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
     { v: "2026.10.11.10", t: "Daftar cabang/branch + header dinamis" },
