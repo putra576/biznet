@@ -2209,13 +2209,14 @@
   /* =====================  PART 4 — PANEL DATA & FORM  ===================== */
   .panel-alat[data-panel-id="data"] h2.reveal { display: block !important; margin: 18px 0 8px; }
 
-  #bagianData, .panel-alat[data-panel-id="data"] > section:not(#bagianData) { position: relative; display: grid; gap: 14px; padding: 36px 18px 18px !important; }
-  #bagianData::before, .panel-alat[data-panel-id="data"] > section:not(#bagianData)::before {
+  #bagianData, #bagianForm, #bagianBarter { position: relative; display: grid; gap: 14px; padding: 36px 18px 18px !important; }
+  #bagianData::before, #bagianForm::before, #bagianBarter::before {
     position: absolute; top: 12px; left: 18px;
     font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; color: var(--accent);
   }
   #bagianData::before { content: "REKAP LEMBUR // PERIODE GAJI"; }
-  .panel-alat[data-panel-id="data"] > section:not(#bagianData)::before { content: "KOMPILASI FORMULIR & SPL // PDF"; }
+  #bagianForm::before { content: "KOMPILASI FORMULIR & SPL // PDF"; }
+  #bagianBarter::before { content: "BARTER FORM // KIRIM & TERIMA"; }
 
   #ketPeriode { margin: 0; padding: 8px 12px; border-left: 2px solid var(--accent); background: rgba(56, 189, 248, 0.07); font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink); }
   #ketPeriode:empty { display: none; }
@@ -2231,7 +2232,7 @@
   #muatData { justify-self: start; }
 
   /* panel kompilasi form */
-  .panel-alat[data-panel-id="data"] > section:not(#bagianData) .petunjuk { margin: 0; font-size: 0.86rem; line-height: 1.55; }
+  #bagianForm .petunjuk, #bagianBarter .petunjuk { margin: 0; font-size: 0.86rem; line-height: 1.55; }
   #tombolForm { min-height: 64px; font-size: 0.92rem; }
   #tautanTemplateOc { width: 100%; }
   #hasilForm { display: grid; gap: 8px; }
@@ -2242,13 +2243,12 @@
       column-gap: 22px; align-items: start;
     }
     .panel-alat[data-panel-id="data"] > .judul-halaman-alat { grid-column: 1 / -1; grid-row: 1; }
-    .panel-alat[data-panel-id="data"] > h2.reveal:first-of-type,
     .panel-alat[data-panel-id="data"] > h2.reveal:has(+ #bagianData) { grid-column: 1; grid-row: 2; }
     .panel-alat[data-panel-id="data"] > #bagianData { grid-column: 1; grid-row: 3; }
-    .panel-alat[data-panel-id="data"] > h2.reveal:not(:has(+ #bagianData)) { grid-column: 2; grid-row: 2; }
-    .panel-alat[data-panel-id="data"] > section:not(#bagianData) {
-      grid-column: 2; grid-row: 3; position: sticky; top: 96px;
-    }
+    .panel-alat[data-panel-id="data"] > h2.reveal:has(+ #bagianForm) { grid-column: 2; grid-row: 2; }
+    .panel-alat[data-panel-id="data"] > #bagianForm { grid-column: 2; grid-row: 3; }
+    .panel-alat[data-panel-id="data"] > h2.reveal:has(+ #bagianBarter) { grid-column: 1 / -1; grid-row: 4; }
+    .panel-alat[data-panel-id="data"] > #bagianBarter { grid-column: 1 / -1; grid-row: 5; }
   }
 
   /* =====================  PART 5 — PANEL ADMIN  ===================== */
@@ -2731,6 +2731,14 @@
     position: relative;
     z-index: 2;
   }
+  /* .baris sebelumnya tidak punya gaya dasar -> tombol "Cari" jatuh ke bawah input */
+  .baris { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  #bagianBarter .baris { flex-wrap: nowrap; align-items: stretch; }
+  #bagianBarter .baris input { flex: 1 1 0; min-width: 0; width: auto; }
+  #bagianBarter .baris button { flex: 0 0 auto; }
+  #hasilBarterCari:empty { display: none; }
+  /* daftar kosong tidak boleh memakan 240px (content-visibility + contain-intrinsic-size) */
+  .daftar-data:empty, .riwayat:empty, #hasilForm:empty, #hasilScan:empty { display: none !important; }
   /* Form PDF: tombol tidak saling tabrak */
   #tombolForm, #tautanTemplateOc {
     position: relative;
@@ -2766,7 +2774,7 @@
       margin-left: 0 !important;
       margin-right: 0 !important;
     }
-    #bagianBarter input,
+    #bagianBarter input:not(#barterCari),
     #bagianBarter select {
       width: 100%;
       box-sizing: border-box;
@@ -3022,7 +3030,7 @@
   </section>
 
   <h2 class="reveal">Form lembur</h2>
-  <section class="form-lembur reveal">
+  <section class="form-lembur reveal" id="bagianForm">
     <p class="petunjuk">Membuat PDF Form Tunjangan Kerja sesuai template dari data periode di atas, disusul satu Surat Perintah Lembur per hari lembur lengkap dengan fotonya. PDF juga disimpan ke folder "Form Lembur" di Drive.</p>
     <div class="aksi-form-pdf">
       <button type="button" class="simpan" id="tombolForm">Buat PDF form lembur</button>
@@ -3287,7 +3295,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbxfLrJECoB-Mv-alDE_PAOZHize6vcpMzAfx2aTITp9gUf0ly2B6XHAdYk9tCurtGl-/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbz-5NxVZqe1AnKZ38AgxS_njvt7dmc6zpbvJ_zoeg_PTHJKOovxdqGjFbVn7psty5b8/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3560,7 +3568,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxfLrJECoB-Mv-alDE_PAOZHize6vcpMzAfx2aTITp9gUf0ly2B6XHAdYk9tCurtGl-/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbz-5NxVZqe1AnKZ38AgxS_njvt7dmc6zpbvJ_zoeg_PTHJKOovxdqGjFbVn7psty5b8/exec"
   };
 
   /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
@@ -3653,7 +3661,7 @@
     });
   }
 
-  const VERSI_SERVER = "2026.10.11.15";   // harus sama dengan VERSI_ di Code.gs
+  const VERSI_SERVER = "2026.10.17.1";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
     { v: "2026.10.11.10", t: "Daftar cabang/branch + header dinamis" },
@@ -5218,7 +5226,12 @@
       } finally {
         if (timer) clearTimeout(timer);
       }
-      const h = await res.json();
+      let h;
+      try {
+        h = await res.json();
+      } catch (eJson) {
+        throw new Error("Server mengirim jawaban yang tidak terbaca (HTTP " + res.status + "). Pastikan deployment Apps Script berakses 'Anyone' dan sudah memakai Version: New version.");
+      }
       if (!h.ok) {
         if (muatan.aksi && h.error === "Foto kosong.") {
           throw new Error("Apps Script di server masih versi lama. Tempel Code.gs terbaru, lalu Deploy > Manage deployments > Edit (ikon pensil) > Version: New version > Deploy.");
@@ -8452,6 +8465,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
   async function barterCariUser() {
     const q = ($("barterCari") && $("barterCari").value.trim()) || "";
     const wadah = $("hasilBarterCari");
+    if (q.length < 2) { if (wadah) wadah.textContent = "Ketik minimal 2 huruf nama / username / cabang."; return; }
     if (wadah) wadah.textContent = "Mencari…";
     try {
       const h = await panggil({ aksi: "barterCariUser", q: q, _label: "Cari rekan…" });
@@ -8487,6 +8501,8 @@ async function buatPdfLembur(PDFLib, d, aset) {
     if (!periode) { statusBarter("Pilih periode.", "gagal"); return; }
     if (!confirm("Kirim data lembur periode " + periode + " ke @" + ke + "?\n\nPenerima akan mendapat salinan data. Identitas PDF tetap milik penerima.")) return;
     statusBarter("Mengirim…", "");
+    const tombolKirim = $("btnBarterKirim");
+    if (tombolKirim) tombolKirim.disabled = true;
     try {
       const h = await panggil({
         aksi: "barterKirim",
@@ -8499,14 +8515,23 @@ async function buatPdfLembur(PDFLib, d, aset) {
       try { await muatBarterKiriman(); } catch (e) {}
     } catch (e) {
       statusBarter(e.message || String(e), "gagal");
+    } finally {
+      if (tombolKirim) tombolKirim.disabled = false;
     }
   }
 
   function kartuBarterMasuk(item) {
     const li = document.createElement("li");
     const status = item.status || "-";
-    li.innerHTML = "<div class=\"lok\"><strong>Dari @" + (item.dari || "?") + "</strong> · " + (item.periode || "") +
-      " · " + (item.jumlahEntri || 0) + " data · <span>" + status + "</span></div>";
+    const info = document.createElement("div");
+    info.className = "lok";
+    const kuat = document.createElement("strong");
+    kuat.textContent = "Dari @" + (item.dari || "?");
+    const sisa = document.createElement("span");
+    sisa.textContent = " · " + (item.periode || "") + " · " + (item.jumlahEntri || 0) + " data · " + status;
+    info.appendChild(kuat);
+    info.appendChild(sisa);
+    li.appendChild(info);
     if (item.catatan) {
       const p = document.createElement("p");
       p.className = "isi";
@@ -8520,12 +8545,12 @@ async function buatPdfLembur(PDFLib, d, aset) {
       t.type = "button";
       t.className = "mini utama";
       t.textContent = "Terima & salin ke akun saya";
-      t.addEventListener("click", function () { barterTerima(item.id); });
+      t.addEventListener("click", function () { t.disabled = true; x.disabled = true; barterTerima(item.id).finally(function () { t.disabled = false; x.disabled = false; }); });
       const x = document.createElement("button");
       x.type = "button";
       x.className = "mini bahaya";
       x.textContent = "Tolak";
-      x.addEventListener("click", function () { barterTolak(item.id); });
+      x.addEventListener("click", function () { t.disabled = true; x.disabled = true; barterTolak(item.id).finally(function () { t.disabled = false; x.disabled = false; }); });
       aksi.appendChild(t);
       aksi.appendChild(x);
       li.appendChild(aksi);
@@ -8547,7 +8572,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
       }
       daftar.forEach(function (item) { ul.appendChild(kartuBarterMasuk(item)); });
     } catch (e) {
-      ul.innerHTML = "<li class=\"kosong-riwayat\">" + (e.message || e) + "</li>";
+      ul.textContent = ""; const liE = document.createElement("li"); liE.className = "kosong-riwayat"; liE.textContent = String(e.message || e); ul.appendChild(liE);
     }
   }
 
@@ -8565,12 +8590,19 @@ async function buatPdfLembur(PDFLib, d, aset) {
       }
       daftar.forEach(function (item) {
         const li = document.createElement("li");
-        li.innerHTML = "<div class=\"lok\"><strong>Ke @" + (item.ke || "?") + "</strong> · " + (item.periode || "") +
-          " · " + (item.jumlahEntri || 0) + " data · " + (item.status || "") + "</div>";
+        const info = document.createElement("div");
+        info.className = "lok";
+        const kuat = document.createElement("strong");
+        kuat.textContent = "Ke @" + (item.ke || "?");
+        const sisa = document.createElement("span");
+        sisa.textContent = " · " + (item.periode || "") + " · " + (item.jumlahEntri || 0) + " data · " + (item.status || "");
+        info.appendChild(kuat);
+        info.appendChild(sisa);
+        li.appendChild(info);
         ul.appendChild(li);
       });
     } catch (e) {
-      ul.innerHTML = "<li class=\"kosong-riwayat\">" + (e.message || e) + "</li>";
+      ul.textContent = ""; const liE = document.createElement("li"); liE.className = "kosong-riwayat"; liE.textContent = String(e.message || e); ul.appendChild(liE);
     }
   }
 
@@ -8713,6 +8745,14 @@ async function buatPdfLembur(PDFLib, d, aset) {
     if (el("btnMuatBarterKiriman")) el("btnMuatBarterKiriman").addEventListener("click", muatBarterKiriman);
     try {
       if ($("barterPeriode") && $("bulanForm") && $("bulanForm").value) $("barterPeriode").value = $("bulanForm").value;
+      if ($("bulanForm") && $("barterPeriode")) {
+        $("bulanForm").addEventListener("change", function () { $("barterPeriode").value = $("bulanForm").value; });
+      }
+      if ($("barterCari")) {
+        $("barterCari").addEventListener("keydown", function (ev) {
+          if (ev.key === "Enter") { ev.preventDefault(); barterCariUser(); }
+        });
+      }
     } catch (e) {}
 
     if (el("batalLupaSandi")) el("batalLupaSandi").addEventListener("click", function () {
