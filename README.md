@@ -2790,6 +2790,10 @@
   }
   /* ===== /FIX overlap ===== */
 
+  /* Loading hanya di layar masuk (logo Biznet). Loading lain disembunyikan. */
+  .balon-loading { display: none !important; }
+  .simpan.memuat::before { display: none !important; }
+  .splash-judul { display: none !important; }
 </style>
 
 <link rel="manifest" id="pwaManifest">
@@ -2870,7 +2874,7 @@
         </select>
         <p class="petunjuk" style="margin:6px 0 0;font-size:0.78rem">Pilih cabang tempat Anda bertugas. Akan tampil di header website.</p>
       </div>
-      <div class="kolom"><label for="dNik">NIK Biznet</label><input type="text" id="dNik" inputmode="numeric"></div>
+      <div class="kolom"><label for="dNik">NIK Biznet</label><input type="text" id="dNik" inputmode="numeric" required><p class="petunjuk" style="margin:6px 0 0;font-size:0.78rem">Wajib dan harus unik. NIK dipakai sebagai alamat untuk barter data.</p></div>
       <div class="kolom"><label for="dOc">OC</label>
         <select id="dOc">
           <option value="S3">Biznet S3</option>
@@ -2881,6 +2885,12 @@
       <div class="kolom"><label for="dAtasan">Nama atasan</label><input type="text" id="dAtasan" autocapitalize="characters" placeholder="Contoh: PUTU RIZKY ANGGRIAWAN" required></div>
       <div class="kolom"><label for="dKota">Kota (untuk Surat Perintah Lembur)</label><input type="text" id="dKota" placeholder="Contoh: Tibubeneng / Jakarta" required></div>
       <div class="kolom"><label for="dEmail">Email (opsional, untuk notifikasi status)</label><input type="email" id="dEmail" autocomplete="email"></div>
+      <div class="kolom">
+        <label>Tanda tangan</label>
+        <p class="petunjuk" style="margin:4px 0 8px;font-size:0.78rem">Gambar tanda tangan di kotak. Dipakai sebagai paraf karyawan di PDF form lembur.</p>
+        <canvas id="kanvasDaftar" width="320" height="120" style="width:100%;max-width:320px;height:120px;border:1px solid var(--line);border-radius:10px;background:#fff;touch-action:none;display:block"></canvas>
+        <button type="button" class="mini" id="hapusTtdDaftar" style="margin-top:6px">Hapus tanda tangan</button>
+      </div>
       <button type="submit" class="simpan">Daftar</button>
       <p class="status" id="statusDaftar" role="status" aria-live="polite"></p>
     </form>
@@ -3049,13 +3059,13 @@
       <strong>nama, NIK, cabang, OC, logo, atasan, dan paraf mengikuti profil penerima</strong>, bukan pengirim.
     </p>
     <div class="kolom">
-      <label for="barterKe">Kirim ke username</label>
-      <input type="text" id="barterKe" autocomplete="off" autocapitalize="none" placeholder="username rekan">
+      <label for="barterKe">Kirim ke NIK Biznet</label>
+      <input type="text" id="barterKe" autocomplete="off" autocapitalize="none" inputmode="numeric" placeholder="NIK Biznet rekan">
     </div>
     <div class="kolom">
       <label for="barterCari">Cari rekan (opsional)</label>
       <div class="baris" style="gap:8px;flex-wrap:wrap">
-        <input type="text" id="barterCari" placeholder="nama / username / cabang" style="flex:1;min-width:140px">
+        <input type="text" id="barterCari" placeholder="NIK / nama / cabang" style="flex:1;min-width:140px">
         <button type="button" class="mini" id="btnBarterCari">Cari</button>
       </div>
       <div id="hasilBarterCari" class="petunjuk" style="margin-top:8px"></div>
@@ -3295,7 +3305,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbwmQBVil11rWYsz1w7cONF2p7zLTHF1eewcuDhm9LOUfFNk9GxUa49pS_Zx7jg92Ch7/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbzfbv7AWdb9Aec6o_MgvcCuubx3d01hLYqOS5uQz4ZqP8BtS4RiOe8jTA38ff4mdjER/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3568,7 +3578,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwmQBVil11rWYsz1w7cONF2p7zLTHF1eewcuDhm9LOUfFNk9GxUa49pS_Zx7jg92Ch7/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzfbv7AWdb9Aec6o_MgvcCuubx3d01hLYqOS5uQz4ZqP8BtS4RiOe8jTA38ff4mdjER/exec"
   };
 
   /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
@@ -4412,17 +4422,22 @@
     const tombol = e.target.querySelector("button[type=submit]");
     const u = $("dUsername").value.trim(), s = $("dSandi").value, nama = $("dNama").value.trim();
     if (!u || !s || !nama) { status("Username, kata sandi, dan nama wajib diisi.", "gagal"); return; }
+    if (!$("dNik").value.trim()) { status("NIK Biznet wajib diisi.", "gagal"); return; }
+    const ttd = ambilTtdDaftar();
+    if (!ttd) { status("Tanda tangan wajib diisi. Gambar tanda tangan di kotak.", "gagal"); return; }
     tombol.disabled = true;
     status("Mengirim pendaftaran...");
     try {
       const h = await panggil({
-        aksi: "daftar", username: u, sandi: s, nama: nama,
+        aksi: "daftar", username: u, sandi: s, nama: nama, paraf: ttd,
         jabatan: $("dJabatan").value, kantor: $("dKantor").value.trim(),
         nik: $("dNik").value.trim(), oc: $("dOc").value,
         atasan: $("dAtasan").value.trim(), kota: $("dKota").value.trim(), email: $("dEmail").value.trim()
       });
       status(h.pesan || "Pendaftaran terkirim. Menunggu persetujuan admin.", "ok");
+      simpanParafDataUrl(ttd); // dipakai juga sebagai paraf di PDF pada perangkat ini
       e.target.reset();
+      bersihkanTtdDaftar();
     } catch (err) {
       const masalah = err instanceof SyntaxError || (err instanceof TypeError && /fetch|network|load failed/i.test(err.message));
       status(masalah ? PESAN_KONEKSI : err.message, "gagal");
@@ -7965,6 +7980,58 @@
   initKanvasParaf();
   if ($("hapusParaf")) $("hapusParaf").addEventListener("click", hapusParaf);
 
+  /* ---------- Tanda tangan saat pendaftaran ---------- */
+  let ttdDaftarAda = false;
+  function bersihkanTtdDaftar() {
+    const cv = $("kanvasDaftar");
+    if (!cv) return;
+    const g = cv.getContext("2d");
+    g.fillStyle = "#fff";
+    g.fillRect(0, 0, cv.width, cv.height);
+    ttdDaftarAda = false;
+  }
+  function ambilTtdDaftar() {
+    const cv = $("kanvasDaftar");
+    if (!cv || !ttdDaftarAda) return "";
+    return cv.toDataURL("image/png");
+  }
+  function initKanvasDaftar() {
+    const cv = $("kanvasDaftar");
+    if (!cv || cv._initDaftar) return;
+    cv._initDaftar = true;
+    bersihkanTtdDaftar();
+    const g = cv.getContext("2d");
+    g.strokeStyle = "#12252e";
+    g.lineWidth = 2.2;
+    g.lineCap = "round";
+    g.lineJoin = "round";
+    let gambar = false;
+    const pos = (e) => {
+      const r = cv.getBoundingClientRect();
+      const sx = cv.width / r.width, sy = cv.height / r.height;
+      const t = e.touches ? e.touches[0] : e;
+      return { x: (t.clientX - r.left) * sx, y: (t.clientY - r.top) * sy };
+    };
+    const mulai = (e) => { e.preventDefault(); gambar = true; const p = pos(e); g.beginPath(); g.moveTo(p.x, p.y); };
+    const gerak = (e) => {
+      if (!gambar) return;
+      e.preventDefault();
+      const p = pos(e);
+      g.lineTo(p.x, p.y);
+      g.stroke();
+      ttdDaftarAda = true;
+    };
+    const selesai = () => { gambar = false; };
+    cv.addEventListener("mousedown", mulai);
+    cv.addEventListener("mousemove", gerak);
+    window.addEventListener("mouseup", selesai);
+    cv.addEventListener("touchstart", mulai, { passive: false });
+    cv.addEventListener("touchmove", gerak, { passive: false });
+    cv.addEventListener("touchend", selesai);
+  }
+  initKanvasDaftar();
+  if ($("hapusTtdDaftar")) $("hapusTtdDaftar").addEventListener("click", bersihkanTtdDaftar);
+
   mulaiSplash();
 </script>
 <script>
@@ -8480,7 +8547,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
   async function barterCariUser() {
     const q = ($("barterCari") && $("barterCari").value.trim()) || "";
     const wadah = $("hasilBarterCari");
-    if (q.length < 2) { if (wadah) wadah.textContent = "Ketik minimal 2 huruf nama / username / cabang."; return; }
+    if (q.length < 2) { if (wadah) wadah.textContent = "Ketik minimal 2 karakter NIK / nama / cabang."; return; }
     if (wadah) wadah.textContent = "Mencari…";
     try {
       const h = await panggil({ aksi: "barterCariUser", q: q, _label: "Cari rekan…" });
@@ -8496,10 +8563,10 @@ async function buatPdfLembur(PDFLib, d, aset) {
         b.type = "button";
         b.className = "mini";
         b.style.margin = "4px 4px 0 0";
-        b.textContent = "@" + u.username + (u.nama ? " · " + u.nama : "") + (u.oc ? " · " + u.oc : "");
+        b.textContent = "NIK " + u.nik + (u.nama ? " · " + u.nama : "") + (u.oc ? " · " + u.oc : "");
         b.addEventListener("click", function () {
-          if ($("barterKe")) $("barterKe").value = u.username;
-          statusBarter("Penerima: @" + u.username + (u.kantor ? " (" + u.kantor + ")" : ""), "ok");
+          if ($("barterKe")) $("barterKe").value = u.nik;
+          statusBarter("Penerima: " + (u.nama || "-") + " (NIK " + u.nik + ")" + (u.kantor ? " · " + u.kantor : ""), "ok");
         });
         wadah.appendChild(b);
       });
@@ -8512,16 +8579,16 @@ async function buatPdfLembur(PDFLib, d, aset) {
     const ke = ($("barterKe") && $("barterKe").value.trim()) || "";
     const periode = ($("barterPeriode") && $("barterPeriode").value) || ($("bulanForm") && $("bulanForm").value) || "";
     const catatan = ($("barterCatatan") && $("barterCatatan").value.trim()) || "";
-    if (!ke) { statusBarter("Isi username penerima.", "gagal"); return; }
+    if (!ke) { statusBarter("Isi NIK Biznet penerima.", "gagal"); return; }
     if (!periode) { statusBarter("Pilih periode.", "gagal"); return; }
-    if (!confirm("Kirim data lembur periode " + periode + " ke @" + ke + "?\n\nPenerima akan mendapat salinan data. Identitas PDF tetap milik penerima.")) return;
+    if (!confirm("Kirim data lembur periode " + periode + " ke NIK " + ke + "?\n\nPenerima akan mendapat salinan data. Identitas PDF tetap milik penerima.")) return;
     statusBarter("Mengirim…", "");
     const tombolKirim = $("btnBarterKirim");
     if (tombolKirim) tombolKirim.disabled = true;
     try {
       const h = await panggil({
         aksi: "barterKirim",
-        ke: ke,
+        nik: ke,
         periode: periode,
         catatan: catatan,
         _label: "Kirim barter…"
@@ -8541,7 +8608,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
     const info = document.createElement("div");
     info.className = "lok";
     const kuat = document.createElement("strong");
-    kuat.textContent = "Dari @" + (item.dari || "?");
+    kuat.textContent = "Dari " + (item.dariNama || "?") + (item.dariNik ? " (NIK " + item.dariNik + ")" : "");
     const sisa = document.createElement("span");
     sisa.textContent = " · " + (item.periode || "") + " · " + (item.jumlahEntri || 0) + " data · " + status;
     info.appendChild(kuat);
@@ -8608,7 +8675,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
         const info = document.createElement("div");
         info.className = "lok";
         const kuat = document.createElement("strong");
-        kuat.textContent = "Ke @" + (item.ke || "?");
+        kuat.textContent = "Ke " + (item.keNama || "?") + (item.keNik ? " (NIK " + item.keNik + ")" : "");
         const sisa = document.createElement("span");
         sisa.textContent = " · " + (item.periode || "") + " · " + (item.jumlahEntri || 0) + " data · " + (item.status || "");
         info.appendChild(kuat);
