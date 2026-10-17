@@ -6,6 +6,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Website Lemburan</title>
+<meta name="application-name" content="Website Lemburan">
+<meta name="apple-mobile-web-app-title" content="Website Lemburan">
+<meta property="og:title" content="Website Lemburan">
+<meta name="description" content="Website Lemburan — Biznet Field Operations">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -2464,6 +2468,66 @@
     header.hud-top .alat-cepat button { flex: 1 1 0; justify-content: center; }
   }
 
+  /* ---------- kotak logo OC (kiri) & kotak ikon profil (kanan) di header ---------- */
+  /* kotak logo 3S/OC di kiri */
+  .logo-box {
+    background: #ffffff;              /* putih penuh biar logo jelas */
+    padding: 6px;
+    border-radius: 12px;
+    border: 2px solid #38bdf8;        /* garis biru cyan */
+    box-shadow: 0 0 12px rgba(56,189,248,.45);
+  }
+  /* kotak ikon profil di kanan */
+  .profile-box {
+    background: linear-gradient(145deg, #1e3a5f, #12294a); /* lebih terang dari bg utama */
+    border: 2px solid #38bdf8;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(56,189,248,.35);
+  }
+  .profile-box img,
+  .profile-box svg,
+  .profile-box .ikon-profil {
+    filter: brightness(1.8);          /* siluet jadi lebih kelihatan */
+  }
+
+  /* penyesuaian agar menang atas gaya header sebelumnya & tetap rapi */
+  header.hud-top .logo-box {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    height: auto !important; width: auto !important; margin: 0 !important;
+    padding: 6px !important; border: 2px solid #38bdf8 !important; border-radius: 12px !important;
+    background: #ffffff !important; box-shadow: 0 0 12px rgba(56,189,248,.45) !important;
+  }
+  header.hud-top .logo-box[hidden] { display: none !important; }
+  header.hud-top .logo-box img {
+    display: block; height: 32px !important; width: auto; max-width: 76px !important;
+    padding: 0 !important; background: none !important; border-radius: 4px !important; object-fit: contain;
+  }
+  header.hud-top .profile-box {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 48px; height: 48px; padding: 0 !important;
+    background: linear-gradient(145deg, #1e3a5f, #12294a) !important;
+    border: 2px solid #38bdf8 !important; border-radius: 12px !important;
+    box-shadow: 0 0 12px rgba(56,189,248,.35) !important;
+    color: #fff !important; font-size: 1.3rem; line-height: 1;
+  }
+  header.hud-top .profile-box:hover { box-shadow: 0 0 16px rgba(56,189,248,.6) !important; }
+  header.hud-top .profile-box.aktif {
+    background: linear-gradient(145deg, #38bdf8, #0b7fa3) !important; border-color: #8ed5ff !important;
+    box-shadow: 0 0 18px rgba(56,189,248,.7) !important;
+  }
+  @media (max-width: 420px) {
+    header.hud-top .logo-box { padding: 4px !important; border-radius: 10px !important; }
+    header.hud-top .logo-box img { height: 28px !important; max-width: 60px !important; }
+    header.hud-top .profile-box { width: 42px; height: 42px; border-radius: 10px !important; }
+  }
+
+  @media (max-width: 380px) {
+    header.hud-top .brand-title { font-size: 0.72rem !important; letter-spacing: 0 !important; }
+  }
+  @media (min-width: 1180px) {
+    header.hud-top .hud-user b, header.hud-top .hud-user span { max-width: 280px; }
+  }
+
 </style>
 
 <link rel="manifest" id="pwaManifest">
@@ -2565,7 +2629,7 @@
 <main id="app" hidden>
   <header class="hud-top">
     <div class="judul-baris">
-      <span class="logo-oc-header" id="logoOcHeader" hidden><img id="imgLogoOc" alt="Logo OC"></span>
+      <span class="logo-oc-header logo-box" id="logoOcHeader" hidden><img id="imgLogoOc" alt="Logo OC"></span>
       <div class="brand-group" style="display:flex;flex-direction:column;gap:2px;min-width:0">
         <h1 class="brand-title">Website Lemburan</h1>
         <div class="brand-sub">Biznet Field Operations</div>
@@ -2581,7 +2645,7 @@
         <button type="button" data-panel="admin" id="btnNavAdmin" hidden><span class="ikon-alat">🛡️</span><span class="lbl-pendek">Admin</span><span class="lbl-panjang">Admin</span></button>
       </nav>
       <div class="hud-user" id="hudUser" hidden><b id="hudNama">-</b><span id="hudMeta"></span></div>
-      <button type="button" class="btn-profil-header" id="btnProfilHeader" title="Profil saya" aria-label="Profil saya">👤</button>
+      <button type="button" class="btn-profil-header profile-box" id="btnProfilHeader" title="Profil saya" aria-label="Profil saya"><span class="ikon-profil">👤</span></button>
     </div>
   </header>
 
