@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#0f131b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Website Lemburan</title>
+<title>Biznet Tibubeneng · Lemburan</title>
 <meta name="application-name" content="Website Lemburan">
 <meta name="apple-mobile-web-app-title" content="Website Lemburan">
 <meta property="og:title" content="Website Lemburan">
@@ -2528,6 +2528,165 @@
     header.hud-top .hud-user b, header.hud-top .hud-user span { max-width: 280px; }
   }
 
+
+  /* ===== ADAPTIVE UX: HP / tablet / laptop + user / admin ===== */
+  html.ux-phone { --ux-tap: 48px; --ux-gap: 12px; }
+  html.ux-tablet { --ux-tap: 44px; --ux-gap: 14px; }
+  html.ux-desktop { --ux-tap: 40px; --ux-gap: 16px; }
+
+  /* Max content width by device */
+  @media (min-width: 900px) {
+    main#app, .gerbang .kartu-auth {
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .form-lembur, #bagianData, #bagianScan, #bagianAdmin {
+      padding-left: 22px;
+      padding-right: 22px;
+    }
+    /* Form 2 kolom di laptop */
+    #form .baris-ganda,
+    .form-lembur .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+    }
+    #form .kolom { margin-bottom: 10px; }
+    /* Kartu data lebih lega */
+    .daftar-data li {
+      padding: 14px 16px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    @media (hover: hover) {
+      .daftar-data li:hover {
+        border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+        background: color-mix(in srgb, var(--accent) 6%, transparent);
+      }
+    }
+    /* Tombol aksi tidak full-width di desktop */
+    .aksi-data .tombol, .aksi-data .mini, .aksi-data .simpan {
+      width: auto;
+      min-width: 120px;
+    }
+    header.hud-top {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    main#app { max-width: 1040px; }
+    /* Admin panel: dua kolom stabil */
+    #bagianAdmin .adm-kolom {
+      display: grid !important;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+  }
+
+  /* HP: navigasi alat mudah dijangkau, target sentuh besar */
+  @media (max-width: 639px) {
+    html.ux-phone .alat-cepat button,
+    .alat-cepat button {
+      min-height: var(--ux-tap, 48px);
+      font-size: 0.72rem;
+      padding: 8px 6px;
+    }
+    html.ux-phone input,
+    html.ux-phone select,
+    html.ux-phone textarea,
+    html.ux-phone button.simpan,
+    html.ux-phone button.tombol {
+      min-height: 46px;
+      font-size: 16px; /* cegah zoom iOS */
+    }
+    /* Bottom spacing untuk jari + safe area */
+    main#app {
+      padding-bottom: calc(28px + env(safe-area-inset-bottom));
+    }
+    /* Dialog full-ish di HP */
+    dialog {
+      width: min(100vw - 24px, 420px);
+      max-height: min(90vh, 640px);
+      margin: auto;
+      border-radius: 16px;
+    }
+    /* Sembunyikan label panjang di nav jika sempit */
+    .alat-cepat .lbl-panjang { display: none; }
+    .alat-cepat .lbl-pendek { display: inline; }
+    /* Satu kolom form */
+    #form .baris-ganda { display: block; }
+    /* Area ambil foto lebih lega di HP */
+    .zona-foto, .ambil-foto-area {
+      min-height: 200px;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .alat-cepat .lbl-pendek { display: none; }
+    .alat-cepat .lbl-panjang { display: inline; }
+  }
+
+  /* Peran: user vs admin */
+  html.is-user #btnNavAdmin { display: none !important; }
+  html.is-admin #btnNavAdmin { display: inline-flex !important; }
+
+  /* Badge peran di header */
+  .ux-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--bg-low);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  html.is-admin .ux-role-badge {
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  html.is-user .ux-role-badge {
+    border-color: color-mix(in srgb, #34d399 40%, var(--line));
+    color: #34d399;
+  }
+
+  /* Sembunyikan panel admin tools untuk non-admin (jaga-jaga) */
+  html.is-user #bagianAdmin { display: none !important; }
+
+  /* Desktop: hover pointer lebih jelas */
+  @media (hover: hover) and (min-width: 900px) {
+    button, .tombol, .mini, .alat-cepat button { cursor: pointer; }
+    .alat-cepat button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Landscape phone: hemat tinggi header */
+  @media (max-height: 480px) and (orientation: landscape) {
+    header.hud-top .brand-sub { display: none; }
+    header.hud-top .sekarang { display: none; }
+    .alat-cepat button { min-height: 40px; padding: 6px 4px; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+  }
+  /* ===== /ADAPTIVE UX ===== */
+
 </style>
 
 <link rel="manifest" id="pwaManifest">
@@ -2602,7 +2761,12 @@
       <div class="kolom"><label for="dJabatan">Jabatan</label>
         <select id="dJabatan"><option value="NOA/NOE">NOA/NOE</option><option value="NOD">NOD</option></select>
       </div>
-      <div class="kolom"><label for="dKantor">Tempat kerja</label><input type="text" id="dKantor" placeholder="Contoh: Branch Tibubeneng"></div>
+      <div class="kolom"><label for="dKantor">Cabang / Branch</label>
+        <select id="dKantor" required>
+          <option value="">— Pilih cabang —</option>
+        </select>
+        <p class="petunjuk" style="margin:6px 0 0;font-size:0.78rem">Pilih cabang tempat Anda bertugas. Akan tampil di header website.</p>
+      </div>
       <div class="kolom"><label for="dNik">NIK Biznet</label><input type="text" id="dNik" inputmode="numeric"></div>
       <div class="kolom"><label for="dOc">OC</label>
         <select id="dOc">
@@ -2628,7 +2792,8 @@
       <span class="logo-oc-header logo-box" id="logoOcHeader" hidden><img id="imgLogoOc" alt="Logo OC" loading="lazy" decoding="async"></span>
       <div class="brand-group" style="display:flex;flex-direction:column;gap:2px;min-width:0">
         <h1 class="brand-title">Website Lemburan</h1>
-        <div class="brand-sub">Biznet Field Operations</div>
+        <div class="brand-sub" id="brandSub">Biznet · Tibubeneng</div>
+        <span class="ux-role-badge" id="uxRoleBadge" hidden>USER</span>
       </div>
       <div class="hud-chips">
         <span class="hud-chip ok" id="hudOnline"><i class="beacon"></i><span>ONLINE</span></span>
@@ -2649,7 +2814,7 @@
     <h2 class="judul-halaman-alat">👤 Profil saya</h2>
     <div class="profil-baris"><span>Nama</span><strong id="pNama">-</strong></div>
     <div class="profil-baris"><span>Jabatan</span><strong id="pJabatan">-</strong></div>
-    <div class="profil-baris"><span>Tempat kerja</span><strong id="pKantor">-</strong></div>
+    <div class="profil-baris"><span>Cabang</span><strong id="pKantor">-</strong></div>
     <div class="profil-baris"><span>NIK Biznet</span><strong id="pNik">-</strong></div>
     <div class="profil-baris"><span>OC</span><strong id="pOc">-</strong></div>
     <div class="profil-baris"><span>WhatsApp</span><strong id="pWa">-</strong></div>
@@ -2770,7 +2935,47 @@
     <div class="hasil-form" id="hasilForm"></div>
   </section>
 
-  <h2 class="reveal">Scan dokumen</h2>
+  
+  <h2 class="reveal">Barter form</h2>
+  <section class="form-lembur reveal" id="bagianBarter">
+    <p class="petunjuk" style="margin:0 0 12px">
+      Bagikan <strong>data lembur</strong> (tanggal, jam, lokasi, foto) ke rekan.
+      Saat diterima, data masuk ke akun penerima — tetapi saat buat PDF,
+      <strong>nama, NIK, cabang, OC, logo, atasan, dan paraf mengikuti profil penerima</strong>, bukan pengirim.
+    </p>
+    <div class="kolom">
+      <label for="barterKe">Kirim ke username</label>
+      <input type="text" id="barterKe" autocomplete="off" autocapitalize="none" placeholder="username rekan">
+    </div>
+    <div class="kolom">
+      <label for="barterCari">Cari rekan (opsional)</label>
+      <div class="baris" style="gap:8px;flex-wrap:wrap">
+        <input type="text" id="barterCari" placeholder="nama / username / cabang" style="flex:1;min-width:140px">
+        <button type="button" class="mini" id="btnBarterCari">Cari</button>
+      </div>
+      <div id="hasilBarterCari" class="petunjuk" style="margin-top:8px"></div>
+    </div>
+    <div class="kolom">
+      <label for="barterPeriode">Periode form (bulan berakhir)</label>
+      <input type="month" id="barterPeriode">
+    </div>
+    <div class="kolom">
+      <label for="barterCatatan">Catatan (opsional)</label>
+      <input type="text" id="barterCatatan" maxlength="200" placeholder="Contoh: tolong pakai data ini ya">
+    </div>
+    <button type="button" class="simpan" id="btnBarterKirim">Kirim barter form</button>
+    <p class="status" id="statusBarter" role="status" style="margin-top:10px"></p>
+
+    <h3 style="margin:20px 0 8px;font-size:1rem">📥 Form masuk ke Anda</h3>
+    <button type="button" class="mini" id="btnMuatBarterMasuk">Muat daftar masuk</button>
+    <ul class="daftar-data" id="daftarBarterMasuk" style="margin-top:10px"></ul>
+
+    <h3 style="margin:20px 0 8px;font-size:1rem">📤 Yang Anda kirim</h3>
+    <button type="button" class="mini" id="btnMuatBarterKiriman">Muat kiriman</button>
+    <ul class="daftar-data" id="daftarBarterKiriman" style="margin-top:10px"></ul>
+  </section>
+
+<h2 class="reveal">Scan dokumen</h2>
   <section class="form-lembur reveal" id="bagianScan">
     <div class="scan-kiri">
     <div class="target-scan" id="targetScan" hidden>
@@ -2985,7 +3190,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbxUOMnqv1WQENPzpOEKyeBDS7fNj3EAIkEIJgld7jjJm9iR2_EOWM3HQ0_Uy5ck-FOH/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbwbZiVwbeIQD9oieeNre3eP51Gb7Kc4CEWL_O9f-Znf2-MuFNr_WZ0F2TE5lEeiTGWS/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3116,13 +3321,45 @@
   </div>
 </dialog>
 
+
+<dialog id="dialogLupaSandi" aria-labelledby="judulLupaSandi">
+  <h3 id="judulLupaSandi">Lupa kata sandi</h3>
+  <p class="petunjuk" style="margin:0 0 12px">
+    Reset hanya untuk <strong>akun Anda sendiri</strong>. Wajib username + email yang terdaftar di profil.
+    Kode dikirim ke email — orang lain tidak bisa ganti sandi tanpa akses email itu.
+  </p>
+  <div id="lupaLangkah1">
+    <div class="kolom"><label for="lupaUsername">Username</label><input type="text" id="lupaUsername" autocomplete="username" autocapitalize="none"></div>
+    <div class="kolom"><label for="lupaEmail">Email terdaftar</label><input type="email" id="lupaEmail" autocomplete="email" placeholder="harus sama dengan di profil"></div>
+    <p class="status" id="statusLupa1" role="status" style="margin-top:8px"></p>
+    <div class="aksi-data" style="margin-top:12px">
+      <button type="button" class="mini" id="batalLupaSandi">Batal</button>
+      <button type="button" class="simpan" id="kirimOtpLupa">Kirim kode ke email</button>
+    </div>
+  </div>
+  <div id="lupaLangkah2" hidden>
+    <p class="petunjuk" style="margin:0 0 10px">Masukkan kode 6 digit dari email, lalu sandi baru.</p>
+    <div class="kolom"><label for="lupaOtp">Kode verifikasi</label><input type="text" id="lupaOtp" inputmode="numeric" maxlength="6" placeholder="6 digit" autocomplete="one-time-code"></div>
+    <div class="kolom"><label for="lupaSandiBaru">Kata sandi baru</label><input type="password" id="lupaSandiBaru" minlength="4" autocomplete="new-password"></div>
+    <div class="kolom"><label for="lupaSandiBaru2">Ulangi sandi baru</label><input type="password" id="lupaSandiBaru2" minlength="4" autocomplete="new-password"></div>
+    <p class="status" id="statusLupa2" role="status" style="margin-top:8px"></p>
+    <div class="aksi-data" style="margin-top:12px">
+      <button type="button" class="mini" id="kembaliLupa1">Kembali</button>
+      <button type="button" class="simpan" id="simpanSandiLupa">Simpan sandi baru</button>
+    </div>
+  </div>
+</dialog>
+
 <dialog id="dialogProfil" aria-labelledby="judulProfil">
   <h3 id="judulProfil">Ubah profil</h3>
   <div class="kolom"><label for="pfNama">Nama lengkap</label><input type="text" id="pfNama" autocapitalize="characters"></div>
   <div class="kolom"><label for="pfJabatan">Jabatan</label>
     <select id="pfJabatan"><option value="NOA/NOE">NOA/NOE</option><option value="NOD">NOD</option></select>
   </div>
-  <div class="kolom"><label for="pfKantor">Tempat kerja</label><input type="text" id="pfKantor"></div>
+  <div class="kolom"><label for="pfKantor">Cabang / Branch</label>
+      <select id="pfKantor"></select>
+      <p class="petunjuk" style="margin:6px 0 0;font-size:0.78rem">Mengubah cabang juga mengubah tulisan di header (mis. Biznet · Tibubeneng).</p>
+    </div>
   <div class="kolom"><label for="pfNik">NIK Biznet</label><input type="text" id="pfNik" inputmode="numeric"></div>
   <div class="kolom"><label for="pfOc">OC</label>
     <select id="pfOc">
@@ -3145,7 +3382,14 @@
   <p class="status" id="statusProfil" role="status" aria-live="polite"></p>
   <div class="aksi-data">
     <button type="button" class="mini" id="batalProfil">Batal</button>
-    <button type="button" class="mini utama" id="simpanProfil">Simpan</button>
+    <div style="margin:14px 0 8px;padding-top:12px;border-top:1px solid var(--line)">
+      <h4 style="margin:0 0 8px;font-size:0.95rem">Ganti kata sandi</h4>
+      <p class="petunjuk" style="margin:0 0 8px;font-size:0.78rem">Opsional. Wajib isi sandi saat ini. Orang lain di HP ini tidak bisa ganti tanpa sandi Anda.</p>
+      <div class="kolom"><label for="pfSandiLama">Sandi saat ini</label><input type="password" id="pfSandiLama" autocomplete="current-password"></div>
+      <div class="kolom"><label for="pfSandiBaru">Sandi baru</label><input type="password" id="pfSandiBaru" minlength="4" autocomplete="new-password"></div>
+      <div class="kolom"><label for="pfSandiBaru2">Ulangi sandi baru</label><input type="password" id="pfSandiBaru2" minlength="4" autocomplete="new-password"></div>
+    </div>
+    <button type="button" class="mini utama" id="simpanProfil" data-x="1">Simpan</button>
   </div>
 </dialog>
 
@@ -3219,8 +3463,28 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxUOMnqv1WQENPzpOEKyeBDS7fNj3EAIkEIJgld7jjJm9iR2_EOWM3HQ0_Uy5ck-FOH/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwbZiVwbeIQD9oieeNre3eP51Gb7Kc4CEWL_O9f-Znf2-MuFNr_WZ0F2TE5lEeiTGWS/exec"
   };
+
+  /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
+  const DAFTAR_CABANG = [
+    "Tibubeneng",
+    "Canggu",
+    "Kerobokan",
+    "Seminyak",
+    "Kuta",
+    "Legian",
+    "Denpasar",
+    "Sanur",
+    "Ubud",
+    "Jimbaran",
+    "Nusa Dua",
+    "Tabanan",
+    "Gianyar",
+    "Singaraja",
+    "Lainnya"
+  ];
+  const CABANG_DEFAULT = "Tibubeneng";
 
   const $ = (id) => document.getElementById(id);
   const HARI_FMT = new Intl.DateTimeFormat("id-ID", { weekday: "long" });
@@ -3292,10 +3556,12 @@
     });
   }
 
-  const VERSI_SERVER = "2026.10.11.7";   // harus sama dengan VERSI_ di Code.gs
+  const VERSI_SERVER = "2026.10.11.13";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
+    { v: "2026.10.11.10", t: "Daftar cabang/branch + header dinamis" },
     { v: "2026.10.11.8", t: "URL server tetap di app — hapus input manual" },
+    { v: "2026.10.11.10", t: "Daftar cabang/branch + header dinamis" },
     { v: "2026.10.11.7", t: "Admin: hapus semua data Drive & Sheet diperjelas" },
     { v: "2026.10.11.6", t: "Foto lembur WebP + lazy loading (ukuran lebih kecil)" },
     { v: "2026.09.28.9", t: "Manajemen versi app (cek client/server, riwayat)" },
@@ -3383,6 +3649,87 @@
     wrap.hidden = false;
   }
 
+  function isiSelectCabang(el, nilai) {
+    if (!el) return;
+    const v = String(nilai || "").trim();
+    el.innerHTML = "";
+    const opt0 = document.createElement("option");
+    opt0.value = "";
+    opt0.textContent = "— Pilih cabang —";
+    el.appendChild(opt0);
+    let ketemu = false;
+    DAFTAR_CABANG.forEach(function (c) {
+      const o = document.createElement("option");
+      o.value = c;
+      o.textContent = c;
+      if (v && v.toLowerCase() === c.toLowerCase()) {
+        o.selected = true;
+        ketemu = true;
+      }
+      el.appendChild(o);
+    });
+    // jika nilai lama tidak ada di daftar, tetap tampilkan
+    if (v && !ketemu) {
+      const o = document.createElement("option");
+      o.value = v;
+      o.textContent = v + " (custom)";
+      o.selected = true;
+      el.appendChild(o);
+    }
+  }
+
+  function normalisasiCabang(nama) {
+    const s = String(nama || "").trim();
+    if (!s) return CABANG_DEFAULT;
+    const hit = DAFTAR_CABANG.find(function (c) {
+      return c.toLowerCase() === s.toLowerCase() ||
+        s.toLowerCase().indexOf(c.toLowerCase()) >= 0;
+    });
+    return hit || s;
+  }
+
+  /** Header + judul tab menampilkan cabang akun yang login. */
+  function perbaruiTampilanCabang(p) {
+    const cabang = normalisasiCabang((p && p.kantor) || CABANG_DEFAULT);
+    const sub = $("brandSub");
+    if (sub) sub.textContent = "Biznet · " + cabang;
+    try {
+      document.title = "Biznet " + cabang + " · Lemburan";
+    } catch (e) {}
+    const meta = $("hudMeta");
+    if (meta) {
+      const jab = (p && p.jabatan) ? p.jabatan : "";
+      meta.textContent = jab ? (jab + " · " + cabang) : cabang;
+    }
+  }
+
+  
+  function deteksiPerangkatUX() {
+    try {
+      const w = window.innerWidth || document.documentElement.clientWidth || 0;
+      const coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+      const html = document.documentElement;
+      html.classList.remove("ux-phone", "ux-tablet", "ux-desktop");
+      if (w < 640 || (coarse && w < 900)) html.classList.add("ux-phone");
+      else if (w < 1024) html.classList.add("ux-tablet");
+      else html.classList.add("ux-desktop");
+    } catch (e) {}
+  }
+
+  function terapkanPeranUX(isAdmin) {
+    try {
+      const html = document.documentElement;
+      html.classList.toggle("is-admin", !!isAdmin);
+      html.classList.toggle("is-user", !isAdmin);
+      const badge = $("uxRoleBadge");
+      if (badge) {
+        badge.hidden = false;
+        badge.textContent = isAdmin ? "ADMIN" : "USER";
+        badge.title = isAdmin ? "Mode administrator" : "Mode petugas lapangan";
+      }
+    } catch (e) {}
+  }
+
   function terapkanProfil(p) {
     profilAktif = p;
     simpanProfilCache(p);
@@ -3392,7 +3739,9 @@
     $("pNik").textContent = p.nik || "-";
     $("pOc").textContent = labelOc(p.oc);
     perbaruiLogoOcHeader(p.oc);
+    perbaruiTampilanCabang(p);
     const admin = !!(p && p.admin);
+    terapkanPeranUX(admin);
     const btnNavAdm = $("btnNavAdmin");
     if (btnNavAdm) btnNavAdm.hidden = !admin;
     const ba = $("bagianAdmin");
@@ -3982,6 +4331,10 @@
     } catch (e) { /* tetap keluar lokal */ }
     hapusSesi();
     try { localStorage.removeItem("profil"); } catch (e) { /* abaikan */ }
+    try {
+      document.documentElement.classList.remove("is-admin", "is-user");
+      const b = $("uxRoleBadge"); if (b) b.hidden = true;
+    } catch (e) {}
     location.reload();
   }
 
@@ -3989,7 +4342,7 @@
     if (!profilAktif) return;
     $("pfNama").value = profilAktif.nama || "";
     $("pfJabatan").value = profilAktif.jabatan || "NOA/NOE";
-    $("pfKantor").value = profilAktif.kantor || "";
+    isiSelectCabang($("pfKantor"), profilAktif.kantor || CABANG_DEFAULT);
     $("pfNik").value = profilAktif.nik || "";
     $("pfOc").value = profilAktif.oc || "S3";
     if ($("pfAtasan")) $("pfAtasan").value = profilAktif.atasan || "";
@@ -4006,11 +4359,24 @@
     tombol.disabled = true;
     status("Menyimpan...");
     try {
-      const h = await panggil({
+      const sandiBaru = $("pfSandiBaru") ? $("pfSandiBaru").value : "";
+      const sandiBaru2 = $("pfSandiBaru2") ? $("pfSandiBaru2").value : "";
+      const sandiLama = $("pfSandiLama") ? $("pfSandiLama").value : "";
+      if (sandiBaru || sandiBaru2 || sandiLama) {
+        if (!sandiLama) { status("Isi sandi saat ini untuk mengganti sandi.", "gagal"); return; }
+        if (sandiBaru.length < 4) { status("Sandi baru minimal 4 karakter.", "gagal"); return; }
+        if (sandiBaru !== sandiBaru2) { status("Ulangan sandi baru tidak sama.", "gagal"); return; }
+      }
+      const payload = {
         aksi: "perbaruiProfil", nama: $("pfNama").value.trim(),
         jabatan: $("pfJabatan").value, kantor: $("pfKantor").value.trim(),
         nik: $("pfNik").value.trim(), oc: $("pfOc").value, atasan: $("pfAtasan").value.trim(), kota: $("pfKota").value.trim(), wa: $("pfWa") ? $("pfWa").value.trim() : ""
-      });
+      };
+      if (sandiBaru) {
+        payload.sandiLama = sandiLama;
+        payload.sandiBaru = sandiBaru;
+      }
+      const h = await panggil(payload);
       terapkanProfil(h.profil);
       $("dialogProfil").close();
     } catch (err) {
@@ -7172,6 +7538,11 @@
   $("tabDaftar").addEventListener("click", () => gantiTabAuth(false));
   $("formMasuk").addEventListener("submit", prosesMasuk);
   $("formDaftar").addEventListener("submit", prosesDaftar);
+  try {
+    isiSelectCabang($("dKantor"), CABANG_DEFAULT);
+    isiSelectCabang($("pfKantor"), CABANG_DEFAULT);
+    perbaruiTampilanCabang({ kantor: CABANG_DEFAULT });
+  } catch (e) {}
   /* simpanUrlGerbang dihapus — URL tetap */
   $("keluarAkun").addEventListener("click", keluarAkun);
   $("ubahProfil").addEventListener("click", bukaDialogProfil);
@@ -7972,16 +8343,238 @@ async function buatPdfLembur(PDFLib, d, aset) {
     }
   }
 
-  async function mintaLupaSandi() {
-    const u = (($("mUsername") && $("mUsername").value.trim()) || prompt("Username akun:"));
-    if (!u) return;
-    setStatus("Mengirim…", "netral", "statusMasuk");
+  
+  function statusBarter(t, j) {
+    const el = $("statusBarter");
+    if (!el) return;
+    el.hidden = !t;
+    el.textContent = t || "";
+    el.className = "status" + (j ? " " + j : "");
+  }
+
+  async function barterCariUser() {
+    const q = ($("barterCari") && $("barterCari").value.trim()) || "";
+    const wadah = $("hasilBarterCari");
+    if (wadah) wadah.textContent = "Mencari…";
     try {
-      const h = await panggilPublik({ aksi: "lupaSandi", username: u });
-      setStatus(h.pesan || "Cek email.", h.ok === false ? "gagal" : "ok", "statusMasuk");
+      const h = await panggil({ aksi: "barterCariUser", q: q, _label: "Cari rekan…" });
+      const daftar = h.daftar || [];
+      if (!wadah) return;
+      wadah.textContent = "";
+      if (!daftar.length) {
+        wadah.textContent = "Tidak ada hasil.";
+        return;
+      }
+      daftar.forEach(function (u) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "mini";
+        b.style.margin = "4px 4px 0 0";
+        b.textContent = "@" + u.username + (u.nama ? " · " + u.nama : "") + (u.oc ? " · " + u.oc : "");
+        b.addEventListener("click", function () {
+          if ($("barterKe")) $("barterKe").value = u.username;
+          statusBarter("Penerima: @" + u.username + (u.kantor ? " (" + u.kantor + ")" : ""), "ok");
+        });
+        wadah.appendChild(b);
+      });
     } catch (e) {
-      setStatus(e.message || String(e), "gagal", "statusMasuk");
+      if (wadah) wadah.textContent = e.message || String(e);
     }
+  }
+
+  async function barterKirim() {
+    const ke = ($("barterKe") && $("barterKe").value.trim()) || "";
+    const periode = ($("barterPeriode") && $("barterPeriode").value) || ($("bulanForm") && $("bulanForm").value) || "";
+    const catatan = ($("barterCatatan") && $("barterCatatan").value.trim()) || "";
+    if (!ke) { statusBarter("Isi username penerima.", "gagal"); return; }
+    if (!periode) { statusBarter("Pilih periode.", "gagal"); return; }
+    if (!confirm("Kirim data lembur periode " + periode + " ke @" + ke + "?\n\nPenerima akan mendapat salinan data. Identitas PDF tetap milik penerima.")) return;
+    statusBarter("Mengirim…", "");
+    try {
+      const h = await panggil({
+        aksi: "barterKirim",
+        ke: ke,
+        periode: periode,
+        catatan: catatan,
+        _label: "Kirim barter…"
+      });
+      statusBarter(h.pesan || "Terkirim.", "ok");
+      try { await muatBarterKiriman(); } catch (e) {}
+    } catch (e) {
+      statusBarter(e.message || String(e), "gagal");
+    }
+  }
+
+  function kartuBarterMasuk(item) {
+    const li = document.createElement("li");
+    const status = item.status || "-";
+    li.innerHTML = "<div class=\"lok\"><strong>Dari @" + (item.dari || "?") + "</strong> · " + (item.periode || "") +
+      " · " + (item.jumlahEntri || 0) + " data · <span>" + status + "</span></div>";
+    if (item.catatan) {
+      const p = document.createElement("p");
+      p.className = "isi";
+      p.textContent = item.catatan;
+      li.appendChild(p);
+    }
+    if (status === "Menunggu") {
+      const aksi = document.createElement("div");
+      aksi.className = "aksi-data";
+      const t = document.createElement("button");
+      t.type = "button";
+      t.className = "mini utama";
+      t.textContent = "Terima & salin ke akun saya";
+      t.addEventListener("click", function () { barterTerima(item.id); });
+      const x = document.createElement("button");
+      x.type = "button";
+      x.className = "mini bahaya";
+      x.textContent = "Tolak";
+      x.addEventListener("click", function () { barterTolak(item.id); });
+      aksi.appendChild(t);
+      aksi.appendChild(x);
+      li.appendChild(aksi);
+    }
+    return li;
+  }
+
+  async function muatBarterMasuk() {
+    const ul = $("daftarBarterMasuk");
+    if (!ul) return;
+    ul.innerHTML = "<li class=\"kosong-riwayat\">Memuat…</li>";
+    try {
+      const h = await panggil({ aksi: "barterMasuk", _label: "Barter masuk…" });
+      const daftar = h.daftar || [];
+      ul.innerHTML = "";
+      if (!daftar.length) {
+        ul.innerHTML = "<li class=\"kosong-riwayat\">Belum ada form masuk.</li>";
+        return;
+      }
+      daftar.forEach(function (item) { ul.appendChild(kartuBarterMasuk(item)); });
+    } catch (e) {
+      ul.innerHTML = "<li class=\"kosong-riwayat\">" + (e.message || e) + "</li>";
+    }
+  }
+
+  async function muatBarterKiriman() {
+    const ul = $("daftarBarterKiriman");
+    if (!ul) return;
+    ul.innerHTML = "<li class=\"kosong-riwayat\">Memuat…</li>";
+    try {
+      const h = await panggil({ aksi: "barterKiriman", _label: "Kiriman barter…" });
+      const daftar = h.daftar || [];
+      ul.innerHTML = "";
+      if (!daftar.length) {
+        ul.innerHTML = "<li class=\"kosong-riwayat\">Belum ada kiriman.</li>";
+        return;
+      }
+      daftar.forEach(function (item) {
+        const li = document.createElement("li");
+        li.innerHTML = "<div class=\"lok\"><strong>Ke @" + (item.ke || "?") + "</strong> · " + (item.periode || "") +
+          " · " + (item.jumlahEntri || 0) + " data · " + (item.status || "") + "</div>";
+        ul.appendChild(li);
+      });
+    } catch (e) {
+      ul.innerHTML = "<li class=\"kosong-riwayat\">" + (e.message || e) + "</li>";
+    }
+  }
+
+  async function barterTerima(id) {
+    if (!confirm("Terima barter ini?\nData lembur akan disalin ke akun Anda.\nSaat buat PDF, identitas (nama, NIK, cabang, OC, atasan, paraf) memakai profil Anda.")) return;
+    statusBarter("Menerima…", "");
+    try {
+      const h = await panggil({ aksi: "barterTerima", id: id, _label: "Terima barter…" });
+      statusBarter(h.pesan || "Diterima.", "ok");
+      await muatBarterMasuk();
+      try { await muatDaftar(); } catch (e) {}
+    } catch (e) {
+      statusBarter(e.message || String(e), "gagal");
+    }
+  }
+
+  async function barterTolak(id) {
+    if (!confirm("Tolak barter ini?")) return;
+    try {
+      const h = await panggil({ aksi: "barterTolak", id: id, _label: "Tolak barter…" });
+      statusBarter(h.pesan || "Ditolak.", "ok");
+      await muatBarterMasuk();
+    } catch (e) {
+      statusBarter(e.message || String(e), "gagal");
+    }
+  }
+
+
+  function bukaDialogLupaSandi() {
+    const d = $("dialogLupaSandi");
+    if (!d) return;
+    if ($("lupaUsername")) $("lupaUsername").value = ($("mUsername") && $("mUsername").value.trim()) || "";
+    if ($("lupaEmail")) $("lupaEmail").value = "";
+    if ($("lupaOtp")) $("lupaOtp").value = "";
+    if ($("lupaSandiBaru")) $("lupaSandiBaru").value = "";
+    if ($("lupaSandiBaru2")) $("lupaSandiBaru2").value = "";
+    if ($("lupaLangkah1")) $("lupaLangkah1").hidden = false;
+    if ($("lupaLangkah2")) $("lupaLangkah2").hidden = true;
+    setStatus("", "", "statusLupa1");
+    setStatus("", "", "statusLupa2");
+    try { d.showModal(); } catch (e) { d.setAttribute("open", ""); }
+  }
+
+  async function kirimOtpLupaSandi() {
+    const u = ($("lupaUsername") && $("lupaUsername").value.trim()) || "";
+    const email = ($("lupaEmail") && $("lupaEmail").value.trim()) || "";
+    if (!u || !email) {
+      setStatus("Isi username dan email terdaftar.", "gagal", "statusLupa1");
+      return;
+    }
+    setStatus("Mengirim kode…", "", "statusLupa1");
+    try {
+      const h = await panggilPublik({ aksi: "lupaSandi", username: u, email: email });
+      setStatus(h.pesan || "Cek email untuk kode.", "ok", "statusLupa1");
+      if ($("lupaLangkah1")) $("lupaLangkah1").hidden = true;
+      if ($("lupaLangkah2")) $("lupaLangkah2").hidden = false;
+      setStatus("Masukkan kode dari email dan sandi baru.", "", "statusLupa2");
+    } catch (e) {
+      setStatus(e.message || String(e), "gagal", "statusLupa1");
+    }
+  }
+
+  async function simpanSandiViaOtp() {
+    const u = ($("lupaUsername") && $("lupaUsername").value.trim()) || "";
+    const email = ($("lupaEmail") && $("lupaEmail").value.trim()) || "";
+    const otp = ($("lupaOtp") && $("lupaOtp").value.trim()) || "";
+    const s1 = ($("lupaSandiBaru") && $("lupaSandiBaru").value) || "";
+    const s2 = ($("lupaSandiBaru2") && $("lupaSandiBaru2").value) || "";
+    if (!/^\d{6}$/.test(otp)) {
+      setStatus("Kode harus 6 digit.", "gagal", "statusLupa2");
+      return;
+    }
+    if (s1.length < 4) {
+      setStatus("Sandi baru minimal 4 karakter.", "gagal", "statusLupa2");
+      return;
+    }
+    if (s1 !== s2) {
+      setStatus("Ulangan sandi tidak sama.", "gagal", "statusLupa2");
+      return;
+    }
+    setStatus("Menyimpan…", "", "statusLupa2");
+    try {
+      const h = await panggilPublik({
+        aksi: "verifikasiLupaSandi",
+        username: u,
+        email: email,
+        otp: otp,
+        sandiBaru: s1
+      });
+      setStatus(h.pesan || "Sandi diganti. Silakan masuk.", "ok", "statusLupa2");
+      setStatus(h.pesan || "Sandi diganti. Silakan masuk.", "ok", "statusMasuk");
+      try { $("dialogLupaSandi").close(); } catch (e) {}
+      if ($("mUsername")) $("mUsername").value = u;
+      if ($("mSandi")) { $("mSandi").value = ""; $("mSandi").focus(); }
+    } catch (e) {
+      setStatus(e.message || String(e), "gagal", "statusLupa2");
+    }
+  }
+
+  function mintaLupaSandi() {
+    bukaDialogLupaSandi();
   }
 
   // panggil tanpa token (login/daftar/lupa)
@@ -8003,6 +8596,8 @@ async function buatPdfLembur(PDFLib, d, aset) {
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    try { deteksiPerangkatUX(); } catch (e) {}
+    try { window.addEventListener("resize", function () { clearTimeout(window.__uxResizeT); window.__uxResizeT = setTimeout(deteksiPerangkatUX, 120); }); } catch (e) {}
     try {
       const b = $("badgeVersi");
       if (b) b.textContent = "v" + VERSI_SERVER;
@@ -8015,6 +8610,23 @@ async function buatPdfLembur(PDFLib, d, aset) {
     if (el("muatAdminData")) el("muatAdminData").addEventListener("click", muatAdminDataSemua);
     try { siapkanPanelAlat(); } catch (e) { console.warn(e); }
     if (el("tautanLupaSandi")) el("tautanLupaSandi").addEventListener("click", mintaLupaSandi);
+    if (el("btnBarterKirim")) el("btnBarterKirim").addEventListener("click", barterKirim);
+    if (el("btnBarterCari")) el("btnBarterCari").addEventListener("click", barterCariUser);
+    if (el("btnMuatBarterMasuk")) el("btnMuatBarterMasuk").addEventListener("click", muatBarterMasuk);
+    if (el("btnMuatBarterKiriman")) el("btnMuatBarterKiriman").addEventListener("click", muatBarterKiriman);
+    try {
+      if ($("barterPeriode") && $("bulanForm") && $("bulanForm").value) $("barterPeriode").value = $("bulanForm").value;
+    } catch (e) {}
+
+    if (el("batalLupaSandi")) el("batalLupaSandi").addEventListener("click", function () {
+      try { $("dialogLupaSandi").close(); } catch (e) {}
+    });
+    if (el("kirimOtpLupa")) el("kirimOtpLupa").addEventListener("click", kirimOtpLupaSandi);
+    if (el("simpanSandiLupa")) el("simpanSandiLupa").addEventListener("click", simpanSandiViaOtp);
+    if (el("kembaliLupa1")) el("kembaliLupa1").addEventListener("click", function () {
+      if ($("lupaLangkah2")) $("lupaLangkah2").hidden = true;
+      if ($("lupaLangkah1")) $("lupaLangkah1").hidden = false;
+    });
     // onboarding setelah app tampil
     setTimeout(function(){ try { if (!$("app").hidden) mulaiTutorialJikaPerangkatBaru(); } catch(e){} }, 800);
     // Lazy OCR saat buka scan
