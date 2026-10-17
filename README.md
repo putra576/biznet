@@ -3295,7 +3295,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbyDw1bMwUDCcPWOvWRrKcMy1OUmIhZfprmtjzEGm8bVqJZq4XCmxZiEAnG_coMSAMO3/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbzH1vgrTw_YsSs-cDVaAv6eO7WC3QqGt6YMpEm7bwCDFqaC7KK02F39Cd9nfolglLjw/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3568,7 +3568,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyDw1bMwUDCcPWOvWRrKcMy1OUmIhZfprmtjzEGm8bVqJZq4XCmxZiEAnG_coMSAMO3/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzH1vgrTw_YsSs-cDVaAv6eO7WC3QqGt6YMpEm7bwCDFqaC7KK02F39Cd9nfolglLjw/exec"
   };
 
   /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
