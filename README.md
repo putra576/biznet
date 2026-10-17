@@ -3295,7 +3295,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbxrDSNKhXnKEqdLCZIO2Q9rWxj85jS5qn4H1lYTCgnC-ICNmG79gJ3SO4uIeWuGNXht/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbzO_mez6SUgpBbgLY3Al-z_8DEozkPwEXXghSwd9_RAatNC1Tck72455q3ZnkntrMbv/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3568,7 +3568,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxrDSNKhXnKEqdLCZIO2Q9rWxj85jS5qn4H1lYTCgnC-ICNmG79gJ3SO4uIeWuGNXht/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzO_mez6SUgpBbgLY3Al-z_8DEozkPwEXXghSwd9_RAatNC1Tck72455q3ZnkntrMbv/exec"
   };
 
   /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
@@ -3684,6 +3684,10 @@
 
   function ambil(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function simpan(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* abaikan */ } }
+  /** Selalu array: null/undefined/objek lain -> []. Dipakai untuk semua data dari server. */
+  function asArray(v) { return Array.isArray(v) ? v : []; }
+  window.asArray = asArray;
+
   function urlScript() { return (CONFIG.SCRIPT_URL || "").trim(); }
 
   // URL server resmi — tidak perlu diisi manual
@@ -5238,6 +5242,10 @@
         }
         throw new Error(h.error || "Server menolak permintaan.");
       }
+      if (h && typeof h === "object") {
+        h.entri = asArray(h.entri);
+        h.daftar = asArray(h.daftar);
+      }
       try { serapKehadiranDariRespon(h); } catch (e) {}
       try { cekUpgradeDariRespon(h); } catch (e) {}
       return h;
@@ -5275,7 +5283,7 @@
   // Satu baris form per tanggal. Bila ada beberapa kegiatan di tanggal yang sama: mulai paling awal, selesai paling akhir.
   function susunBaris(periode, entri) {
     const grup = {};
-    entri.forEach((e) => { (grup[e.tanggal] = grup[e.tanggal] || []).push(e); });
+    asArray(entri).forEach((e) => { if (e) (grup[e.tanggal] = grup[e.tanggal] || []).push(e); });
     const unik = (arr) => arr.filter((x, i) => x && arr.indexOf(x) === i);
     return periode.hari.map((h) => {
       const g = grup[`${h.y}-${pad(h.m)}-${pad(h.d)}`];
@@ -5466,15 +5474,17 @@
   }
 
   function ringkasData(data) {
+    const list = asArray(data);
     const per = {};
-    data.forEach((e) => {
+    list.forEach((e) => {
+      if (!e) return;
       const p = per[e.tanggal] = per[e.tanggal] || { a: 1e9, b: 0 };
       p.a = Math.min(p.a, menit(e.mulai));
       p.b = Math.max(p.b, menit(e.selesai));
     });
     const hari = Object.keys(per);
     const total = hari.reduce((t, k) => t + Math.max(0, per[k].b - per[k].a), 0);
-    return { jumlah: data.length, hari: hari.length, total: total };
+    return { jumlah: list.length, hari: hari.length, total: total };
   }
 
   function buatKartuData(e, i) {
@@ -5541,7 +5551,7 @@
     status("Memuat...");
     try {
       const h = await panggil({ aksi: "terakhir", jumlah: 10 });
-      daftarTerakhir = h.entri;
+      daftarTerakhir = asArray(h && h.entri);
       gambarTerakhir();
       status("");
     } catch (err) {
@@ -5558,7 +5568,7 @@
     status("Memuat data...");
     try {
       const h = await panggil({ aksi: "dataForm", periode: ym });
-      daftarData = h.entri.slice().sort((a, b) =>
+      daftarData = asArray(h && h.entri).slice().sort((a, b) =>
         a.tanggal < b.tanggal ? -1 : a.tanggal > b.tanggal ? 1 : menit(a.selesai) - menit(b.selesai));
       gambarDaftar();
     } catch (err) {
@@ -6589,7 +6599,7 @@
     status("Memuat dokumen...");
     try {
       const h = await panggil({ aksi: "daftarScan" });
-      daftarScan = h.entri;
+      daftarScan = asArray(h && h.entri);
       gambarDaftarScan();
     } catch (err) {
       $("daftarScan").textContent = "";
@@ -8134,7 +8144,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
   // Baris dibuat lebih tinggi bila keterangan panjang atau ada beberapa kegiatan di tanggal yang sama
   function tinggiUntuk(r) {
     if (!r) return RH;
-    const teks = r.keterangan.join(' / ');
+    const teks = asArray(r.keterangan).join(' / ');
     const lebar = X[9] - X[8] - 4;
     for (let h = RH; h <= RH * 3 + 0.01; h += RH / 4) {
       for (let sz = 6.5; sz >= 5.25 - 1e-6; sz -= 0.25) {
@@ -8143,7 +8153,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
     }
     return RH * 3;
   }
-  let tinggi = hari.map((h, i) => tinggiUntuk(d.baris[i]));
+  let tinggi = hari.map((h, i) => tinggiUntuk(asArray(d.baris)[i]));
   let tambahan = tinggi.reduce((a, h) => a + (h - RH), 0);
   if (tambahan > 60) { tinggi = hari.map(() => RH); tambahan = 0; }
 
@@ -8151,7 +8161,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
   hari.forEach((h, i) => {
     const y = yBaris, rh = tinggi[i];
     for (let c = 0; c < 9; c++) g.kotak(X[c], y, X[c + 1] - X[c], rh);
-    const r = d.baris[i];
+    const r = asArray(d.baris)[i];
     g.sel(X[0], y, X[1] - X[0], rh, String(i + 1), { size: 7, satu: true });
     g.sel(X[1], y, X[2] - X[1], rh, tglTeks(h), { size: 7, satu: true });
     if (r) {
@@ -8159,7 +8169,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
       g.sel(X[3], y, X[4] - X[3], rh, r.jadwal, { size: 7, satu: true });
       g.sel(X[4], y, X[5] - X[4], rh, r.mulai, { size: 7, satu: true });
       g.sel(X[5], y, X[6] - X[5], rh, r.selesai, { size: 7, satu: true });
-      g.sel(X[8], y, X[9] - X[8], rh, r.keterangan.join(' / '), { size: 6.5, min: 3.75, rata: 'l', pad: 0.75 });
+      g.sel(X[8], y, X[9] - X[8], rh, asArray(r.keterangan).join(' / '), { size: 6.5, min: 3.75, rata: 'l', pad: 0.75 });
     }
     yBaris += rh;
   });
@@ -8189,7 +8199,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
   const judulKata = (s) => String(s).toLowerCase().replace(/(^|\s)\S/g, (c) => c.toUpperCase());
 
   for (let i = 0; i < hari.length; i++) {
-    const r = d.baris[i];
+    const r = asArray(d.baris)[i];
     if (!r) continue;
     const s = halaman();
     // template resmi halaman SPL tidak memakai logo
@@ -8322,13 +8332,14 @@ async function buatPdfLembur(PDFLib, d, aset) {
       el.innerHTML = "";
       const p = document.createElement("p");
       p.innerHTML = "<strong>" + (h.periode || "") + "</strong><br>" +
-        "Jumlah hari: <strong>" + (h.jumlahHari || 0) + "</strong><br>" +
-        "Total jam: <strong>" + (h.totalJamTeks || "0 jam 0 menit") + "</strong>";
+        "Jumlah hari: <strong>" + (h.jumlahHari != null ? h.jumlahHari : ringkasData(h.entri).hari) + "</strong><br>" +
+        "Total jam: <strong>" + (h.totalJamTeks || (function () { const t = ringkasData(h.entri).total; return Math.floor(t / 60) + " jam " + (t % 60) + " menit"; })()) + "</strong>";
       el.appendChild(p);
-      if (h.entri && h.entri.length) {
+      if (asArray(h.entri).length) {
         const ul = document.createElement("ul");
         ul.style.margin = "8px 0"; ul.style.paddingLeft = "18px";
-        h.entri.forEach(function (e) {
+        asArray(h.entri).forEach(function (e) {
+          if (!e) return;
           const li = document.createElement("li");
           li.textContent = e.tanggal + " · " + (e.mulai || "") + "-" + (e.selesai || "") + " · " + (e.keterangan || "");
           ul.appendChild(li);
@@ -8343,9 +8354,10 @@ async function buatPdfLembur(PDFLib, d, aset) {
 
   function unduhRekapCsv() {
     const h = window.__rekapTerakhir;
-    if (!h || !h.entri) { setStatus("Hitung rekap dulu.", "gagal", "statusRekap"); return; }
+    if (!h || !asArray(h.entri).length) { setStatus("Hitung rekap dulu.", "gagal", "statusRekap"); return; }
     const baris = ["tanggal,lokasi,jadwal,mulai,selesai,keterangan"];
-    h.entri.forEach(function (e) {
+    asArray(h.entri).forEach(function (e) {
+      if (!e) return;
       baris.push([e.tanggal, e.lokasi, e.jadwal, e.mulai, e.selesai, '"' + String(e.keterangan || "").replace(/"/g, '""') + '"'].join(","));
     });
     unduhTeks("rekap-" + ($("bulanRekap").value || "periode") + ".csv", baris.join("\n"), "text/csv");
@@ -8390,7 +8402,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
           a.style.cssText = "display:inline-block;margin:8px 0;color:var(--accent)";
           det.appendChild(a);
         }
-        (u.entri || []).forEach(function (e) {
+        asArray(u.entri).forEach(function (e) {
           const baris = document.createElement("div");
           baris.style.cssText = "display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 0;border-top:1px dashed var(--line)";
           const t = document.createElement("span");
@@ -8441,7 +8453,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
       const judul = document.createElement("p");
       judul.innerHTML = "<strong>" + (h.periode || "") + "</strong>";
       el.appendChild(judul);
-      (h.daftar || []).forEach(function (d) {
+      asArray(h.daftar).forEach(function (d) {
         const p = document.createElement("p");
         p.style.margin = "4px 0";
         p.textContent = (d.nama || d.username) + " · " + (d.oc || "") + " · " + d.jumlahHari + " hari · " + d.totalJamTeks;
