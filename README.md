@@ -2618,18 +2618,14 @@
       <p class="status" id="statusDaftar" role="status" aria-live="polite"></p>
     </form>
 
-    <details class="pengaturan-gerbang" id="pengaturanGerbang">
-      <summary>Pengaturan alamat server (biasanya tidak perlu diubah)</summary>
-      <div class="kolom"><label for="urlScriptGerbang">Alamat Web App</label><input type="url" id="urlScriptGerbang" autocomplete="off"></div>
-      <button type="button" class="tautan" id="simpanUrlGerbang" style="margin-top:8px">Simpan alamat</button>
-    </details>
+    
   </div>
 </div>
 
 <main id="app" hidden>
   <header class="hud-top">
     <div class="judul-baris">
-      <span class="logo-oc-header logo-box" id="logoOcHeader" hidden><img id="imgLogoOc" alt="Logo OC"></span>
+      <span class="logo-oc-header logo-box" id="logoOcHeader" hidden><img id="imgLogoOc" alt="Logo OC" loading="lazy" decoding="async"></span>
       <div class="brand-group" style="display:flex;flex-direction:column;gap:2px;min-width:0">
         <h1 class="brand-title">Website Lemburan</h1>
         <div class="brand-sub">Biznet Field Operations</div>
@@ -2677,7 +2673,7 @@
   <div class="peringatan" id="peringatan" role="alert" hidden></div>
 
   <button type="button" class="foto" id="areaFoto" aria-label="Buka kamera">
-    <img id="pratinjau" alt="Pratinjau foto yang dipilih">
+    <img id="pratinjau" alt="Pratinjau foto yang dipilih" loading="lazy" decoding="async">
     <span class="kosong">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
@@ -2918,21 +2914,28 @@
       <div id="statusWa" class="status" hidden style="margin-top:8px"></div>
     </div>
 
-    <div style="margin:20px 0 8px;padding:14px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:rgb(192 57 43 / 0.06)">
-      <h3 style="margin:0 0 8px;font-size:1rem;color:var(--danger)">⚠️ Hapus file &amp; data (bukan akun)</h3>
+    <div id="panelHapusSemuaData" style="margin:20px 0 8px;padding:14px;border:2px solid var(--danger);border-radius:var(--radius-sm);background:rgb(192 57 43 / 0.08)">
+      <h3 style="margin:0 0 8px;font-size:1.05rem;color:var(--danger)">⚠️ Hapus SEMUA data Drive &amp; Sheet</h3>
       <p class="petunjuk" style="margin:0 0 10px">
-        Menghapus <strong>foto/file di Drive</strong> (masuk sampah) dan <strong>data di Sheet</strong> (tab Lembur / Log / Scan).
-        <strong>Akun login tidak dihapus</strong> — user tetap bisa masuk; data mulai kosong lagi.
-        File di sampah Drive masih bisa dipulihkan ±30 hari.
+        Fitur admin: mengosongkan <strong>seluruh foto/file di Google Drive</strong> (folder data user → sampah)
+        dan/atau <strong>seluruh baris data di Spreadsheet</strong> (tab Lembur, Log, Scan, dan terkait).
+        <br><strong>Akun login TIDAK dihapus</strong> — user tetap bisa masuk; data mulai dari nol.
+        File di sampah Drive masih bisa dipulihkan ±30 hari (lihat panel Sampah di bawah).
       </p>
-      <label class="cek"><input type="checkbox" id="hapusSemuaDrive" checked> Hapus file foto &amp; folder data user di Drive</label>
-      <label class="cek"><input type="checkbox" id="hapusSemuaSheet" checked> Hapus data di Sheet (tab Lembur / Log / Scan)</label>
+      <label class="cek"><input type="checkbox" id="hapusSemuaDrive" checked> Hapus <strong>semua</strong> file foto &amp; folder data user di Drive</label>
+      <label class="cek"><input type="checkbox" id="hapusSemuaSheet" checked> Hapus <strong>semua</strong> data di Sheet (Lembur / Log / Scan)</label>
+      <label class="cek"><input type="checkbox" id="hapusSemuaKosongSampah"> Setelah hapus Drive: coba kosongkan sampah terkait (permanen, opsional)</label>
       <div class="kolom" style="margin-top:10px">
-        <label for="konfirmasiHapusSemua">Ketik <strong>HAPUS SEMUA</strong> untuk konfirmasi</label>
+        <label for="konfirmasiHapusSemua">Ketik tepat <strong>HAPUS SEMUA</strong> untuk mengaktifkan tombol</label>
         <input type="text" id="konfirmasiHapusSemua" autocomplete="off" placeholder="HAPUS SEMUA" autocapitalize="characters">
       </div>
-      <button type="button" class="mini bahaya" id="btnHapusSemuaData" style="margin-top:10px">Hapus file &amp; data</button>
+      <div class="aksi-data" style="margin-top:10px">
+        <button type="button" class="mini bahaya" id="btnHapusSemuaData" disabled>Hapus semua data Drive &amp; Sheet</button>
+      </div>
       <div id="statusHapusSemua" class="status" hidden style="margin-top:8px"></div>
+      <p class="petunjuk" style="margin:10px 0 0;font-size:0.78rem">
+        Backend: aksi <code>adminHapusSemua</code>. Hanya akun <strong>admin</strong> yang diizinkan server.
+      </p>
     </div>
 
     <div style="margin:16px 0 8px;padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--accent-soft)">
@@ -2978,11 +2981,11 @@
   </section>
 
   <details class="pengaturan reveal" id="pengaturan">
-    <summary>Pengaturan koneksi</summary>
-    <p>Isi dengan alamat Web App dari Google Apps Script dan kunci yang sama dengan di Code.gs. Data ini disimpan hanya di perangkat ini.</p>
-    <div class="kolom">
+    <summary>Pengaturan lokal</summary>
+    <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
+    <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbxUOMnqv1WQENPzpOEKyeBDS7fNj3EAIkEIJgld7jjJm9iR2_EOWM3HQ0_Uy5ck-FOH/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3182,7 +3185,7 @@
     <button type="button" id="zoomReset" title="Reset" aria-label="Reset zoom">1:1</button>
   </div>
   <div class="zoom-view" id="zoomView" aria-label="Area zoom foto">
-    <img id="gambarFoto" alt="Foto">
+    <img id="gambarFoto" alt="Foto" loading="lazy" decoding="async">
   </div>
   <p class="petunjuk" style="margin:8px 0 0;font-size:0.8rem">Cubit atau gulir untuk zoom · seret untuk menggeser</p>
   <div class="aksi-data" style="margin-top:10px">
@@ -3208,7 +3211,7 @@
 </div>
 
 <script>
-  // Bisa diisi langsung di sini, atau lewat panel "Pengaturan koneksi" di halaman.
+  // URL Web App Google Apps Script — tetap di app (bukan input manual).
   const TEMPLATE_URL_OC = {
     S3: "https://drive.google.com/file/d/1h9N03fZ0UVc9Ad8S-Am698RACqotIRZR/view?usp=drivesdk",
     DGM: "https://drive.google.com/file/d/1VJnhfkjYL48nA8b6VRWmAAL1XI1LNcDM/view?usp=drivesdk",
@@ -3216,7 +3219,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwvx7hC6Y1bTc7SSVDxkl2kkGKQ2uWnSwhAOZwaoH7oUtUxrfUo57xyDAq2m4VHR9VJ/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxUOMnqv1WQENPzpOEKyeBDS7fNj3EAIkEIJgld7jjJm9iR2_EOWM3HQ0_Uy5ck-FOH/exec"
   };
 
   const $ = (id) => document.getElementById(id);
@@ -3230,9 +3233,71 @@
   let urlPratinjau = null;
   let sedangKirim = false;
 
-  const VERSI_SERVER = "2026.10.11.5";   // harus sama dengan VERSI_ di Code.gs
+  /** WebP lebih kecil dari JPEG (~25–35%); fallback JPEG bila browser tidak support. */
+  let _dukungWebP = null;
+  function dukungWebP() {
+    if (_dukungWebP !== null) return _dukungWebP;
+    try {
+      const c = document.createElement("canvas");
+      c.width = 1; c.height = 1;
+      _dukungWebP = c.toDataURL("image/webp").indexOf("data:image/webp") === 0;
+    } catch (e) { _dukungWebP = false; }
+    return _dukungWebP;
+  }
+  function mimeFoto() { return dukungWebP() ? "image/webp" : "image/jpeg"; }
+  function ekstensiFoto() { return dukungWebP() ? "webp" : "jpg"; }
+  function mutuFotoDefault() { return dukungWebP() ? 0.80 : 0.88; }
+  /** Data URL dari base64 server — deteksi WebP (UklG/RIFF) atau JPEG (/9j/). */
+  function dataUrlFoto(b64, mime) {
+    if (mime) return "data:" + mime + ";base64," + b64;
+    const s = String(b64 || "");
+    if (s.indexOf("UklG") === 0) return "data:image/webp;base64," + b64;
+    if (s.indexOf("/9j/") === 0) return "data:image/jpeg;base64," + b64;
+    return "data:" + mimeFoto() + ";base64," + b64;
+  }
+  /** Konversi blob/bytes/dataURL ke JPEG Uint8Array (untuk pdf-lib embedJpg). */
+  function keJpegUntukPdf(sumber, mutu) {
+    return new Promise(function (resolve, reject) {
+      const img = new Image();
+      let url = null;
+      const bersih = function () { if (url) try { URL.revokeObjectURL(url); } catch (e) {} };
+      img.onload = function () {
+        try {
+          const c = document.createElement("canvas");
+          c.width = img.naturalWidth || img.width;
+          c.height = img.naturalHeight || img.height;
+          c.getContext("2d").drawImage(img, 0, 0);
+          bersih();
+          c.toBlob(function (b) {
+            if (!b) { reject(new Error("Gagal encode JPEG")); return; }
+            b.arrayBuffer().then(function (ab) { resolve(new Uint8Array(ab)); }).catch(reject);
+          }, "image/jpeg", mutu == null ? 0.88 : mutu);
+        } catch (e) { bersih(); reject(e); }
+      };
+      img.onerror = function () { bersih(); reject(new Error("Gambar tidak bisa dibaca")); };
+      try {
+        if (sumber instanceof Blob) {
+          url = URL.createObjectURL(sumber);
+          img.src = url;
+        } else if (sumber instanceof Uint8Array || sumber instanceof ArrayBuffer) {
+          const bytes = sumber instanceof Uint8Array ? sumber : new Uint8Array(sumber);
+          url = URL.createObjectURL(new Blob([bytes]));
+          img.src = url;
+        } else if (typeof sumber === "string") {
+          img.src = sumber.indexOf("data:") === 0 ? sumber : ("data:image/jpeg;base64," + sumber);
+        } else {
+          reject(new Error("Sumber gambar tidak dikenal"));
+        }
+      } catch (e) { reject(e); }
+    });
+  }
+
+  const VERSI_SERVER = "2026.10.11.7";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
+    { v: "2026.10.11.8", t: "URL server tetap di app — hapus input manual" },
+    { v: "2026.10.11.7", t: "Admin: hapus semua data Drive & Sheet diperjelas" },
+    { v: "2026.10.11.6", t: "Foto lembur WebP + lazy loading (ukuran lebih kecil)" },
     { v: "2026.09.28.9", t: "Manajemen versi app (cek client/server, riwayat)" },
     { v: "2026.09.28.8", t: "Banner auto-upgrade saat versi tidak cocok" },
     { v: "2026.09.28.7", t: "Kehadiran real-time adaptif + piggyback API" },
@@ -3248,17 +3313,14 @@
 
   function ambil(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function simpan(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* abaikan */ } }
-  function urlScript() { return (ambil("urlScript") || CONFIG.SCRIPT_URL || "").trim(); }
+  function urlScript() { return (CONFIG.SCRIPT_URL || "").trim(); }
 
   // URL server resmi — tidak perlu diisi manual
   (function pastikanUrlServer() {
-    const resmi = CONFIG.SCRIPT_URL;
-    const kunci = "urlScriptResmi_202610113";
     try {
-      if (ambil(kunci) !== resmi) {
-        simpan("urlScript", resmi);
-        simpan(kunci, resmi);
-      }
+      localStorage.removeItem("urlScript");
+      localStorage.removeItem("urlScriptResmi_202610113");
+      localStorage.removeItem("urlScriptResmi_202610117");
     } catch (e) { /* abaikan */ }
   })();
 
@@ -3587,6 +3649,16 @@
   }
 
 
+  function sinkronTombolHapusSemua() {
+    const tombol = $("btnHapusSemuaData");
+    const input = $("konfirmasiHapusSemua");
+    if (!tombol || !input) return;
+    const ok = (input.value || "").trim() === "HAPUS SEMUA";
+    const drive = $("hapusSemuaDrive") ? $("hapusSemuaDrive").checked : false;
+    const sheet = $("hapusSemuaSheet") ? $("hapusSemuaSheet").checked : false;
+    tombol.disabled = !(ok && (drive || sheet));
+  }
+
   async function jalankanHapusSemuaData() {
     const status = function (t, j) {
       const el = $("statusHapusSemua");
@@ -3602,20 +3674,22 @@
     }
     const hapusDrive = $("hapusSemuaDrive") ? $("hapusSemuaDrive").checked : true;
     const hapusSheet = $("hapusSemuaSheet") ? $("hapusSemuaSheet").checked : true;
+    const kosongkanSampah = $("hapusSemuaKosongSampah") ? $("hapusSemuaKosongSampah").checked : false;
     if (!hapusDrive && !hapusSheet) {
       status("Pilih minimal: Drive atau Sheet.", "gagal");
       return;
     }
-    let msg = "Yakin hapus FILE & DATA?\n\n";
-    if (hapusDrive) msg += "• Foto/file user di Drive → sampah\n";
-    if (hapusSheet) msg += "• Data tab Lembur / Log / Scan di Sheet\n";
-    msg += "\nAkun login TIDAK dihapus.";
+    let msg = "Yakin HAPUS SEMUA data?\n\n";
+    if (hapusDrive) msg += "• SEMUA foto/file user di Drive → sampah\n";
+    if (hapusSheet) msg += "• SEMUA baris data di Sheet (Lembur / Log / Scan)\n";
+    if (kosongkanSampah) msg += "• Coba kosongkan sampah terkait (permanen)\n";
+    msg += "\nAkun login TIDAK dihapus.\nTindakan ini tidak bisa dibatalkan dari aplikasi.";
     if (!confirm(msg)) return;
-    if (!confirm("Konfirmasi kedua: hapus file & data saja (akun tetap)?")) return;
+    if (!confirm("Konfirmasi kedua: lanjut hapus semua data Drive/Sheet sekarang?")) return;
 
     const tombol = $("btnHapusSemuaData");
     if (tombol) tombol.disabled = true;
-    status("Menghapus file & data… tunggu hingga selesai.", "");
+    status("Menghapus semua data Drive & Sheet… tunggu hingga server selesai (bisa 1–3 menit).", "");
     try {
       const h = await panggil({
         aksi: "adminHapusSemua",
@@ -3623,15 +3697,25 @@
         hapusDrive: hapusDrive,
         hapusSheet: hapusSheet,
         hapusAkunUser: false,
-        _label: "Menghapus file & data…"
+        kosongkanSampah: kosongkanSampah,
+        _label: "Menghapus semua data Drive & Sheet…"
       });
-      status(h.pesan || "Selesai.", "ok");
+      let pesan = h.pesan || "Selesai menghapus data.";
+      if (typeof h.fileDihapus === "number" || typeof h.barisDihapus === "number") {
+        pesan += " (file: " + (h.fileDihapus || 0) + ", baris Sheet: " + (h.barisDihapus || 0) + ")";
+      }
+      status(pesan, h.ok === false ? "gagal" : "ok");
       if ($("konfirmasiHapusSemua")) $("konfirmasiHapusSemua").value = "";
+      sinkronTombolHapusSemua();
       try { await muatDaftarAkun(); } catch (e) {}
+      try {
+        const isi = $("isiAdminData");
+        if (isi) isi.textContent = "Data dihapus. Muat ulang untuk cek.";
+      } catch (e) {}
     } catch (err) {
       status(err.message || String(err), "gagal");
     } finally {
-      if (tombol) tombol.disabled = false;
+      sinkronTombolHapusSemua();
     }
   }
 
@@ -3820,9 +3904,7 @@
 
   function mulaiSplash() {
     try {
-      const urlEl = $("urlScriptGerbang");
-      if (urlEl) urlEl.value = urlScript();
-    } catch (e) {}
+} catch (e) {}
     // Fallback wajib: tampilkan form login paling lambat 2.5 detik
     setTimeout(function () {
       try {
@@ -4362,7 +4444,7 @@
     ctx.drawImage(v, sx, sy, sw, sh, 0, 0, w, h);
     gambarStempel(ctx, w, h, waktu, { pos, alamat, arah, kecepatan, indeks });
 
-    const blob = await new Promise((res) => c.toBlob(res, "image/jpeg", 0.88));
+    const blob = await new Promise((res) => c.toBlob(res, mimeFoto(), mutuFotoDefault()));
     const kilat = $("kilat");
     kilat.classList.remove("jalan");
     void kilat.offsetWidth;
@@ -4405,7 +4487,8 @@
 
   /* ---------- Simpan ---------- */
 
-  function kompres(file, sisiMaks = 1600, mutu = 0.82) {
+  function kompres(file, sisiMaks = 1600, mutu) {
+    if (mutu == null) mutu = dukungWebP() ? 0.78 : 0.82;
     return new Promise((resolve, reject) => {
       const url = URL.createObjectURL(file);
       const img = new Image();
@@ -4417,7 +4500,7 @@
         c.width = w; c.height = h;
         c.getContext("2d").drawImage(img, 0, 0, w, h);
         URL.revokeObjectURL(url);
-        c.toBlob((b) => b ? resolve(b) : reject(new Error("Foto gagal diproses.")), "image/jpeg", mutu);
+        c.toBlob((b) => b ? resolve(b) : reject(new Error("Foto gagal diproses.")), mimeFoto(), mutu);
       };
       img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Foto tidak bisa dibaca.")); };
       img.src = url;
@@ -4481,7 +4564,7 @@
 
     if (!urlScript()) {
       $("pengaturan").open = true;
-      setStatus("Isi alamat Web App di Pengaturan koneksi dulu.", "gagal");
+      setStatus("Server tidak terhubung. Coba lagi atau hubungi admin.", "gagal");
       return;
     }
     if (!fotoBlob) { setStatus("Ambil atau pilih foto dulu.", "gagal"); return; }
@@ -4503,9 +4586,11 @@
       const jadwal = $("jadwal").value.trim() || "Shift Pagi";
       const mulai = $("mulai").value.trim() || "18.00";
 
-      // Foto berstempel sudah berupa JPEG final, jangan dikompres ulang.
-      const jpg = fotoStempel ? fotoBlob : await kompres(fotoBlob);
-      const data = await keBase64(jpg);
+      // Foto berstempel sudah final (WebP/JPEG), jangan dikompres ulang.
+      const berkasFoto = fotoStempel ? fotoBlob : await kompres(fotoBlob);
+      const data = await keBase64(berkasFoto);
+      const mime = (berkasFoto && berkasFoto.type) || mimeFoto();
+      const ekst = (mime.indexOf("webp") >= 0) ? "webp" : "jpg";
 
       const payload = {
         pengguna: pengguna(), token: tokenAktif(),
@@ -4513,8 +4598,8 @@
         koordinat: fotoStempel ? fotoStempel.koordinat : "",
         alamat: fotoStempel ? fotoStempel.alamat : "",
         stempel: !!fotoStempel,
-        namaFile: `foto_${tanggal}_${jam.replace(":", "")}.jpg`,
-        mimeType: "image/jpeg",
+        namaFile: `foto_${tanggal}_${jam.replace(":", "")}.${ekst}`,
+        mimeType: mime,
         data
       };
 
@@ -4531,7 +4616,7 @@
       daftar.unshift({ hari, tanggalPanjang: TGL_FMT.format(d), jam: jam.replace(":", "."), deskripsi: keterangan, link: hasil.link });
       simpan("riwayat", JSON.stringify(daftar.slice(0, 15)));
       muatTerakhir();
-      try { cacheFoto.set(idDariLink(hasil.link), new Uint8Array(await jpg.arrayBuffer())); } catch (e) { /* abaikan */ }
+      try { cacheFoto.set(idDariLink(hasil.link), new Uint8Array(await berkasFoto.arrayBuffer())); } catch (e) { /* abaikan */ }
       mintaPdfOtomatis(tanggal);
 
       hapusFoto();
@@ -4555,9 +4640,9 @@
 
   async function tesKoneksi() {
     const hasil = $("hasilTes");
-    const url = ($("urlScript").value || urlScript()).trim();
+    const url = urlScript();
     const tulis = (t, j) => { hasil.textContent = t; hasil.className = "hasil-tes" + (j ? " " + j : ""); };
-    if (!url) { tulis("Isi alamat Web App dulu.", "gagal"); return; }
+    if (!url) { tulis("URL server belum dikonfigurasi di aplikasi.", "gagal"); return; }
     tulis("Menguji koneksi...");
     try {
       const r = await fetch(url, { method: "GET" });
@@ -4757,7 +4842,7 @@
     const otomatis = !!opsi.otomatis;
     const status = (t, j) => setStatus(t, j, otomatis ? "statusOtomatis" : "statusForm");
     const wadah = $(otomatis ? "hasilOtomatis" : "hasilForm");
-    if (!urlScript()) { $("pengaturan").open = true; status("Isi alamat Web App di Pengaturan koneksi dulu.", "gagal"); return; }
+    if (!urlScript()) { $("pengaturan").open = true; status("Server tidak terhubung. Coba lagi atau hubungi admin.", "gagal"); return; }
     if (sedangForm) { status("PDF sedang dibuat, tunggu sebentar.", "gagal"); return; }
     const ym = opsi.ym || $("bulanForm").value;
     if (!/^\d{4}-\d{2}$/.test(ym)) { status("Pilih bulan periode dulu.", "gagal"); return; }
@@ -4991,7 +5076,7 @@
 
   async function muatDaftar() {
     const status = (t, j) => setStatus(t, j, "statusDaftar");
-    if (!urlScript()) { status("Isi alamat Web App di Pengaturan koneksi untuk melihat data.", "gagal"); return; }
+    if (!urlScript()) { status("Tidak dapat memuat data. Periksa koneksi internet.", "gagal"); return; }
     const ym = $("bulanForm").value;
     if (!/^\d{4}-\d{2}$/.test(ym)) return;
     status("Memuat data...");
@@ -5138,7 +5223,7 @@
     bukaZoomDialog(TGL_FMT.format(d) + ": memuat foto…", "");
     try {
       const f = await panggil({ aksi: "foto", id: e.fotoId, _label: "Memuat foto…" });
-      bukaZoomDialog(TGL_FMT.format(d) + (e.lokasi ? ", " + e.lokasi : ""), "data:image/jpeg;base64," + f.data);
+      bukaZoomDialog(TGL_FMT.format(d) + (e.lokasi ? ", " + e.lokasi : ""), dataUrlFoto(f.data, f.mimeType || f.mime));
     } catch (err) {
       $("ketFoto").textContent = "Foto tidak bisa dimuat: " + (err.message || err);
     }
@@ -5148,7 +5233,9 @@
   function cekHalamanScan(p, indeks) {
     try {
       const c = prosesHalaman(p.orig, p.rot, $("filterScan").value, 2000, p.kotak);
-      const src = c.toDataURL("image/jpeg", 0.92);
+      const src = dukungWebP()
+        ? c.toDataURL("image/webp", 0.88)
+        : c.toDataURL("image/jpeg", 0.92);
       bukaZoomDialog("Scan halaman " + (indeks + 1) + (p.kotak ? " · terpotong" : ""), src);
     } catch (err) {
       setStatus("Gagal menampilkan: " + (err.message || err), "gagal", "statusScan");
@@ -5379,7 +5466,7 @@
 
   async function muatKapasitas(segar) {
     const tombol = $("muatKapasitas");
-    if (!urlScript()) { $("isiKapasitas").textContent = "Isi alamat Web App di Pengaturan koneksi untuk melihat penyimpanan."; return; }
+    if (!urlScript()) { $("isiKapasitas").textContent = "Tidak dapat memuat penyimpanan. Periksa koneksi internet."; return; }
     tombol.disabled = true;
     tombol.textContent = "Memuat...";
     try {
@@ -5503,7 +5590,10 @@
   const tunda = () => new Promise((r) => setTimeout(r, 0));
 
   function perbaruiThumb(p) {
-    p.thumb = prosesHalaman(p.orig, p.rot, $("filterScan").value, 300, p.kotak).toDataURL("image/jpeg", 0.75);
+    const c = prosesHalaman(p.orig, p.rot, $("filterScan").value, 300, p.kotak);
+    p.thumb = dukungWebP()
+      ? c.toDataURL("image/webp", 0.72)
+      : c.toDataURL("image/jpeg", 0.75);
   }
 
   async function perbaruiSemuaThumb() {
@@ -5537,6 +5627,8 @@
       if (ls) li.classList.add("ls");
       const img = document.createElement("img");
       img.src = p.thumb; img.alt = "Halaman " + (i + 1);
+      img.loading = "lazy";
+      img.decoding = "async";
       const no = document.createElement("div");
       no.className = "no";
       no.textContent = (i + 1) + (p.kotak ? " · potong" : "");
@@ -5891,7 +5983,7 @@
   async function simpanTumpukan() {
     const status = (t, j) => setStatus(t, j, "statusScan");
     if (!scan.halaman.length || scan.sibuk) return;
-    if (!urlScript()) { $("pengaturan").open = true; status("Isi alamat Web App di Pengaturan koneksi dulu.", "gagal"); return; }
+    if (!urlScript()) { $("pengaturan").open = true; status("Server tidak terhubung. Coba lagi atau hubungi admin.", "gagal"); return; }
     if (typeof PDFLib === "undefined") { status("Pustaka PDF belum termuat. Periksa internet, lalu muat ulang halaman.", "gagal"); return; }
 
     scan.sibuk = true;
@@ -7034,6 +7126,10 @@
   });
   $("muatAkun").addEventListener("click", muatDaftarAkun);
   if ($("btnHapusSemuaData")) $("btnHapusSemuaData").addEventListener("click", jalankanHapusSemuaData);
+  if ($("konfirmasiHapusSemua")) $("konfirmasiHapusSemua").addEventListener("input", sinkronTombolHapusSemua);
+  if ($("hapusSemuaDrive")) $("hapusSemuaDrive").addEventListener("change", sinkronTombolHapusSemua);
+  if ($("hapusSemuaSheet")) $("hapusSemuaSheet").addEventListener("change", sinkronTombolHapusSemua);
+  try { sinkronTombolHapusSemua(); } catch (e) {}
   if ($("btnCekHapusLama")) $("btnCekHapusLama").addEventListener("click", cekPengaturanHapusLama);
   if ($("btnJalankanHapusLama")) $("btnJalankanHapusLama").addEventListener("click", jalankanHapusLamaManual);
   if ($("btnMuatSampahDrive")) $("btnMuatSampahDrive").addEventListener("click", muatSampahDrive);
@@ -7054,7 +7150,7 @@
   $("tutupFoto").addEventListener("click", () => $("dialogFoto").close());
   $("bulanForm").addEventListener("input", perbaruiPeriode);
   $("simpanPengaturan").addEventListener("click", () => {
-    simpan("urlScript", $("urlScript").value.trim());
+    /* server URL tetap di CONFIG */
     const nomor = parseInt($("indeks").value, 10);
     if (!isNaN(nomor) && nomor >= 1) simpan("indeksFoto", String(nomor));
     const ep = ($("emailPrinter") && $("emailPrinter").value || "").trim();
@@ -7062,7 +7158,7 @@
     $("pengaturan").open = false;
     setStatus("Pengaturan tersimpan." + (ep ? " Email printer: " + ep : ""), "ok");
   });
-  $("urlScript").value = ambil("urlScript") || CONFIG.SCRIPT_URL;
+  if ($("urlScript")) $("urlScript").value = CONFIG.SCRIPT_URL;
   $("indeks").value = String(ambilIndeks());
   if ($("emailPrinter")) $("emailPrinter").value = ambil("emailPrinter") || "";
   perbaruiHari();
@@ -7076,11 +7172,7 @@
   $("tabDaftar").addEventListener("click", () => gantiTabAuth(false));
   $("formMasuk").addEventListener("submit", prosesMasuk);
   $("formDaftar").addEventListener("submit", prosesDaftar);
-  $("simpanUrlGerbang").addEventListener("click", () => {
-    simpan("urlScript", $("urlScriptGerbang").value.trim());
-    $("urlScript").value = $("urlScriptGerbang").value.trim();
-    $("pengaturanGerbang").open = false;
-  });
+  /* simpanUrlGerbang dihapus — URL tetap */
   $("keluarAkun").addEventListener("click", keluarAkun);
   $("ubahProfil").addEventListener("click", bukaDialogProfil);
   $("batalProfil").addEventListener("click", () => $("dialogProfil").close());
@@ -7687,11 +7779,17 @@ async function buatPdfLembur(PDFLib, d, aset) {
     s.teks('1. ' + d.catatanSpl, VX, by1 + 13, 6, F, 'l');
 
     // Foto bukti: lebar x tinggi sesuai pengaturan, tanpa gepeng
+    // WebP dari upload dikonversi ke JPEG dulu (pdf-lib hanya embedJpg/Png)
     let fx = 31.8, fy = by1 + 30;
     for (let k = 0; k < r.fotos.length; k++) {
       if (k > 0 && k % 3 === 0) { fx = 31.8; fy += fotoH + 10; }
-      let img;
-      try { img = await pdf.embedJpg(r.fotos[k]); } catch (e) { img = null; }
+      let img = null;
+      try { img = await pdf.embedJpg(r.fotos[k]); } catch (e1) {
+        try {
+          const jpegBytes = await keJpegUntukPdf(r.fotos[k], 0.88);
+          img = await pdf.embedJpg(jpegBytes);
+        } catch (e2) { img = null; }
+      }
       if (img) {
         const sk = Math.min(fotoW / img.width, fotoH / img.height);
         const w = img.width * sk, h = img.height * sk;
