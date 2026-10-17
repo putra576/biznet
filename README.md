@@ -3295,7 +3295,7 @@
     <p>Server sudah terpasang di aplikasi (bukan diisi manual). Pengaturan di bawah hanya untuk perangkat ini.</p>
     <div class="kolom" hidden>
       <label for="urlScript">Alamat Web App</label>
-      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbzO_mez6SUgpBbgLY3Al-z_8DEozkPwEXXghSwd9_RAatNC1Tck72455q3ZnkntrMbv/exec" readonly autocomplete="off">
+      <input type="url" id="urlScript" value="https://script.google.com/macros/s/AKfycbwLr2fBm0sGYUbZgNLqNdiiyVHf4-KnE5EKtVU9xg7LvSI4vKf9vwT2WuHz2GNnUobq/exec" readonly autocomplete="off">
     </div>
     <div class="kolom">
       <label for="indeks">Nomor indeks foto berikutnya</label>
@@ -3568,7 +3568,7 @@
     MK: "https://docs.google.com/document/d/1SG0V1rd97c0QwZexpWxWov9PxydThePy/edit?usp=sharing"
   };
   const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzO_mez6SUgpBbgLY3Al-z_8DEozkPwEXXghSwd9_RAatNC1Tck72455q3ZnkntrMbv/exec"
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwLr2fBm0sGYUbZgNLqNdiiyVHf4-KnE5EKtVU9xg7LvSI4vKf9vwT2WuHz2GNnUobq/exec"
   };
 
   /** Daftar cabang/branch Biznet. Akun memilih saat daftar/profil → tampil di header & judul. */
@@ -3661,7 +3661,7 @@
     });
   }
 
-  const VERSI_SERVER = "2026.10.17.1";   // harus sama dengan VERSI_ di Code.gs
+  const VERSI_SERVER = "2026.10.17.3";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
     { v: "2026.10.11.10", t: "Daftar cabang/branch + header dinamis" },
@@ -5378,7 +5378,10 @@
       });
       const bytes = await buatPdfLembur(PDFLib, {
         profil: profilGabung, periode: periode, bulan: BULAN_PANJANG, baris: baris,
-        catatan: h.catatan, catatanSpl: h.catatanSpl, fotoLebarCm: h.fotoLebarCm, fotoTinggiCm: h.fotoTinggiCm
+        catatan: asArray(h.catatan).map(String),
+        catatanSpl: h.catatanSpl == null ? "" : String(h.catatanSpl),
+        fotoLebarCm: Number(h.fotoLebarCm) > 0 ? Number(h.fotoLebarCm) : 8,
+        fotoTinggiCm: Number(h.fotoTinggiCm) > 0 ? Number(h.fotoTinggiCm) : 6
       }, {
         biznet: dariBase64(ASET_LOGO.biznet),
         s3: dariBase64(ASET_LOGO.s3),
@@ -8177,7 +8180,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
   // Catatan
   const T = tambahan;
   g.teks('Keterangan :', 75.0, 629.6 + T, 7, FB, 'l');
-  d.catatan.forEach((t, i) => g.teks((i + 1) + '. ' + t, 75.0, 638.4 + T + i * 8.7, 7, F, 'l'));
+  asArray(d.catatan).forEach((t, i) => g.teks((i + 1) + '. ' + t, 75.0, 638.4 + T + i * 8.7, 7, F, 'l'));
 
   // Tanda tangan. Bagian atasan sengaja dikosongkan untuk ditandatangani sendiri.
   const akhir = 'Tanggal: ' + tglTeks(d.periode.akhir);
@@ -8195,7 +8198,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
 
   /* ================= Halaman berikutnya: Surat Perintah Lembur ================= */
   const CM = 28.3465;
-  const fotoW = d.fotoLebarCm * CM, fotoH = d.fotoTinggiCm * CM;
+  const fotoW = (Number(d.fotoLebarCm) > 0 ? Number(d.fotoLebarCm) : 8) * CM, fotoH = (Number(d.fotoTinggiCm) > 0 ? Number(d.fotoTinggiCm) : 6) * CM;
   const judulKata = (s) => String(s).toLowerCase().replace(/(^|\s)\S/g, (c) => c.toUpperCase());
 
   for (let i = 0; i < hari.length; i++) {
@@ -8267,7 +8270,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
     // Keterangan di bawah kotak
     s.teks('Keterangan', 31.8, by1 + 13, 6, F, 'l');
     s.teks(':', KX, by1 + 13, 6, F, 'l');
-    s.teks('1. ' + d.catatanSpl, VX, by1 + 13, 6, F, 'l');
+    if (d.catatanSpl) s.teks('1. ' + d.catatanSpl, VX, by1 + 13, 6, F, 'l');
 
     // Foto bukti: lebar x tinggi sesuai pengaturan, tanpa gepeng
     // WebP dari upload dikonversi ke JPEG dulu (pdf-lib hanya embedJpg/Png)
