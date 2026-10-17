@@ -2687,6 +2687,101 @@
   }
   /* ===== /ADAPTIVE UX ===== */
 
+
+  /* ===== FIX overlap Barter / Form PDF / section ===== */
+  main#app {
+    display: block;
+    position: relative;
+  }
+  main#app > h2.reveal,
+  main#app > section.form-lembur,
+  main#app > form,
+  main#app > ul,
+  main#app > p {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+  }
+  section.form-lembur {
+    position: relative !important;
+    z-index: 1;
+    display: grid !important;
+    gap: 12px;
+    margin: 12px 0 20px !important;
+    overflow: hidden; /* clip corner decor, cegah tembus */
+    transform: none !important; /* hindari stacking aneh setelah animasi */
+    background: var(--surface, #0c131d) !important;
+  }
+  section.form-lembur.reveal {
+    /* setelah reveal, tetap di alur normal */
+    opacity: 1;
+  }
+  #bagianBarter {
+    z-index: 2 !important;
+    margin-top: 28px !important;
+    margin-bottom: 28px !important;
+    clear: both;
+    border: 1px solid var(--line, rgba(56,189,248,0.25)) !important;
+    background: rgba(8, 14, 22, 0.96) !important;
+  }
+  #bagianBarter .kolom,
+  #bagianBarter input,
+  #bagianBarter button,
+  #bagianBarter .baris {
+    position: relative;
+    z-index: 2;
+  }
+  /* Form PDF: tombol tidak saling tabrak */
+  #tombolForm, #tautanTemplateOc {
+    position: relative;
+    z-index: 2;
+    width: auto !important;
+    max-width: 100%;
+  }
+  .aksi-form-pdf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  /* daftar-data float animation sering bikin overlap di mobile */
+  #bagianBarter .daftar-data,
+  #bagianData .daftar-data,
+  #daftarBarterMasuk,
+  #daftarBarterKiriman {
+    animation: none !important;
+    position: relative;
+    z-index: 1;
+  }
+  h2.reveal {
+    position: relative;
+    z-index: 2;
+    margin: 28px 0 10px !important;
+    clear: both;
+  }
+  @media (max-width: 639px) {
+    section.form-lembur {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    #bagianBarter input,
+    #bagianBarter select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .aksi-form-pdf {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .aksi-form-pdf .simpan,
+    .aksi-form-pdf .mini {
+      width: 100% !important;
+    }
+  }
+  /* ===== /FIX overlap ===== */
+
 </style>
 
 <link rel="manifest" id="pwaManifest">
@@ -2929,15 +3024,17 @@
   <h2 class="reveal">Form lembur</h2>
   <section class="form-lembur reveal">
     <p class="petunjuk">Membuat PDF Form Tunjangan Kerja sesuai template dari data periode di atas, disusul satu Surat Perintah Lembur per hari lembur lengkap dengan fotonya. PDF juga disimpan ke folder "Form Lembur" di Drive.</p>
-    <button type="button" class="simpan" id="tombolForm">Buat PDF form lembur</button>
-        <button type="button" class="mini" id="tautanTemplateOc" title="Buka template resmi OC di Drive">📄 Template resmi OC</button>
+    <div class="aksi-form-pdf">
+      <button type="button" class="simpan" id="tombolForm">Buat PDF form lembur</button>
+      <button type="button" class="mini" id="tautanTemplateOc" title="Buka template resmi OC di Drive">📄 Template resmi OC</button>
+    </div>
     <p class="status" id="statusForm" role="status" aria-live="polite"></p>
     <div class="hasil-form" id="hasilForm"></div>
   </section>
 
   
   <h2 class="reveal">Barter form</h2>
-  <section class="form-lembur reveal" id="bagianBarter">
+  <section class="form-lembur reveal panel-barter" id="bagianBarter" style="position:relative;z-index:2;clear:both">
     <p class="petunjuk" style="margin:0 0 12px">
       Bagikan <strong>data lembur</strong> (tanggal, jam, lokasi, foto) ke rekan.
       Saat diterima, data masuk ke akun penerima — tetapi saat buat PDF,
@@ -3556,7 +3653,7 @@
     });
   }
 
-  const VERSI_SERVER = "2026.10.11.14";   // harus sama dengan VERSI_ di Code.gs
+  const VERSI_SERVER = "2026.10.11.15";   // harus sama dengan VERSI_ di Code.gs
   /** Catatan rilis (tampil di Profil → Koneksi → Manajemen versi) */
   const RIWAYAT_VERSI = [
     { v: "2026.10.11.10", t: "Daftar cabang/branch + header dinamis" },
