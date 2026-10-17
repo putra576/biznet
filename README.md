@@ -8217,7 +8217,7 @@ async function buatPdfLembur(PDFLib, d, aset) {
       const ar = (logoMkR.width && logoMkR.height) ? (logoMkR.width / logoMkR.height) : (85.5 / 25.5);
       let dw = 85.5, dh = 25.5;
       if (ar > dw / dh) { dh = dw / ar; } else { dw = dh * ar; }
-      s.gambar(logoMkR, 522.8 - dw, by0 + 4 + (25.5 - dh) / 2, dw, dh);
+      s.gambar(logoMkR, bx1 - dw, 48.2 + (25.5 - dh) / 2, dw, dh); // di atas kotak SPL, rata kanan dengan tepi kanan kotak
     }
 
     const LX = 33.8, KX = 131.5, VX = 136.4, VR = bx1 - 1.5;
